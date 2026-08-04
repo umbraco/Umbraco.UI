@@ -523,6 +523,14 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         min-width: 0;
       }
 
+      slot[name='prepend']::slotted(div) {
+        margin-left: var(--uui-size-2, 6px);
+      }
+
+      slot[name='append']::slotted(div) {
+        margin-right: var(--uui-size-2, 6px);
+      }
+
       uui-input,
       uui-input-lock,
       ::slotted(uui-input),
