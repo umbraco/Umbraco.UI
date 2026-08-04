@@ -24,7 +24,7 @@ describe('UUIProgressBarElement', () => {
     expect(element.progress).toBe(0);
   });
 
-  it('clamps the progress values greater then 100 to 100', async () => {
+  it('clamps the progress values greater than 100 to 100', async () => {
     element.progress = 200;
     expect(element.progress).toBe(100);
   });
@@ -61,5 +61,62 @@ describe('UUIProgressBarElement', () => {
     await element.updateComplete;
     const bar = element.shadowRoot?.getElementById('bar');
     expect(bar?.getAttribute('aria-valuemax')).toBe('40');
+  });
+
+  it('updates aria-valuenow when progress is clamped after lowering max', async () => {
+    element.progress = 80;
+    element.max = 40;
+    await element.updateComplete;
+
+    expect(element.progress).toBe(40);
+    expect(
+      element.shadowRoot?.getElementById('bar')?.getAttribute('aria-valuenow'),
+    ).toBe('40');
+  });
+
+  it('sets aria-valuemin and aria-valuenow from current values', async () => {
+    element.max = 40;
+    element.progress = 10;
+    await element.updateComplete;
+
+    expect(
+      element.shadowRoot?.getElementById('bar')?.getAttribute('aria-valuemin'),
+    ).toBe('0');
+    expect(
+      element.shadowRoot?.getElementById('bar')?.getAttribute('aria-valuemax'),
+    ).toBe('40');
+    expect(
+      element.shadowRoot?.getElementById('bar')?.getAttribute('aria-valuenow'),
+    ).toBe('10');
+  });
+
+  it('uses label property for aria-label when aria-label attribute is not set', async () => {
+    element.label = 'Upload progress';
+    await element.updateComplete;
+
+    expect(
+      element.shadowRoot?.getElementById('bar')?.getAttribute('aria-label'),
+    ).toBe('Upload progress');
+  });
+
+  it('prefers aria-label attribute over label property', async () => {
+    element.label = 'Property label';
+    element.setAttribute('aria-label', 'Attribute label');
+    await element.updateComplete;
+
+    expect(
+      element.shadowRoot?.getElementById('bar')?.getAttribute('aria-label'),
+    ).toBe('Attribute label');
+  });
+
+  it('forwards aria-labelledby attribute to the inner progressbar element', async () => {
+    element.setAttribute('aria-labelledby', 'progress-heading');
+    await element.updateComplete;
+
+    expect(
+      element.shadowRoot
+        ?.getElementById('bar')
+        ?.getAttribute('aria-labelledby'),
+    ).toBe('progress-heading');
   });
 });
