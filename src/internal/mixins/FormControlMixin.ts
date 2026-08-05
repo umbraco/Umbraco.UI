@@ -154,6 +154,11 @@ export const UUIFormControlBaseMixin = <
     public set pristine(value: boolean) {
       if (this._pristine !== value) {
         this._pristine = value;
+        if (value) {
+          // Back to pristine mode: forget the last dispatched validation state, so re-entering validation mode dispatches anew. [JOV]
+          this.#lastDispatchedValidityFlag = undefined;
+          this.#lastDispatchedValidationMessage = undefined;
+        }
       }
     }
     public get pristine(): boolean {
@@ -170,6 +175,9 @@ export const UUIFormControlBaseMixin = <
     #form: HTMLFormElement | null = null;
     readonly #validators: UUIFormControlValidatorConfig[] = [];
     readonly #formCtrlElements: NativeFormControlElement[] = [];
+    // The validation outcome of the last dispatched VALID/INVALID event. An undefined flag means nothing has been dispatched yet. [JOV]
+    #lastDispatchedValidityFlag: string | undefined = undefined;
+    #lastDispatchedValidationMessage: string | undefined = undefined;
 
     constructor(...args: any[]) {
       super(...args);
@@ -395,24 +403,38 @@ export const UUIFormControlBaseMixin = <
         });
       }
 
-      const hasError = Object.values(this.#validity).includes(true);
+      // Determine the failing flag (if any) for dispatch comparison. [JOV]
+      const failingFlag = Object.keys(this.#validity).find(
+        key => this.#validity[key] === true,
+      );
+      const currentFlag = failingFlag ?? '';
+      const hasError = currentFlag !== '';
 
       // https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#valid
       this.#validity.valid = !hasError;
 
-      // Transfer the new validityState to the ElementInternals. [NL]
+      // Always transfer the new validityState to the ElementInternals, to keep both the full set of flags and the anchor element in sync. [NL]
       this._internals.setValidity(
         this.#validity,
         message,
         innerFormControlEl ?? this.getFormElement() ?? undefined,
       );
 
-      this.#dispatchValidationState();
+      this.#dispatchValidationState(currentFlag, message);
     }
 
-    #dispatchValidationState() {
+    #dispatchValidationState(currentFlag: string, message: string | undefined) {
       // Do not fire validation events unless we are not pristine/'untouched'/not-in-validation-mode. [NL]
       if (this._pristine === true) return;
+      // Skip the dispatch if the outcome is unchanged since the last dispatched event — each VALID/INVALID event cascades to parent form controls, which re-run their own validators. [JOV]
+      if (
+        currentFlag === this.#lastDispatchedValidityFlag &&
+        message === this.#lastDispatchedValidationMessage
+      ) {
+        return;
+      }
+      this.#lastDispatchedValidityFlag = currentFlag;
+      this.#lastDispatchedValidationMessage = message;
       if (this.#validity.valid) {
         this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
       } else {
