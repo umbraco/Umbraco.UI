@@ -59,3 +59,41 @@ export const Percentage: Story = {
     `;
   },
 };
+
+export const Indeterminate: Story = {
+  args: {
+    label: 'Loading content',
+    status: 'in-progress',
+  },
+  render: args => html`<uui-progress-bar ${spread(args)}></uui-progress-bar>`,
+};
+
+export const Status: Story = {
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <span>In Progress</span>
+        <uui-progress-bar
+          label="In progress"
+          status="in-progress"
+          progress="45"></uui-progress-bar>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <span>Finished</span>
+        <uui-progress-bar
+          label="Finished"
+          status="finished"
+          progress="100"></uui-progress-bar>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <span>Error</span>
+        <uui-progress-bar
+          label="Error"
+          status="error"
+          progress="45"></uui-progress-bar>
+      </div>
+    </div>
+  `,
+};
