@@ -2,25 +2,15 @@ import { LitElement, html, css } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-
-const clamp = (num: number, min: number, max: number) =>
-  Math.min(Math.max(num, min), max);
+import { LabelMixin } from '../../internal/mixins/index.js';
+import { clamp } from './math.js';
 
 /**
  * @element uui-progress-bar
  */
-export class UUIProgressBarElement extends LitElement {
+export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   private _progress = 0;
   private _max = 100;
-
-  /**
-   * Accessible label for the progress bar.
-   * @type {string}
-   * @attr label
-   * @default undefined
-   */
-  @property({ type: String })
-  label?: string;
 
   /**
    * Maximum value of the progress bar.
