@@ -49,6 +49,7 @@ describe('UUIProgressBarElement', () => {
 
     const bar = element.shadowRoot?.getElementById('bar');
     expect(bar?.getAttribute('aria-busy')).toBe('true');
+    expect(bar?.getAttribute('aria-invalid')).toBe('false');
     expect(bar?.hasAttribute('aria-valuemin')).toBe(false);
     expect(bar?.hasAttribute('aria-valuemax')).toBe(false);
     expect(bar?.hasAttribute('aria-valuenow')).toBe(false);
@@ -59,7 +60,8 @@ describe('UUIProgressBarElement', () => {
     await element.updateComplete;
 
     const bar = element.shadowRoot?.getElementById('bar');
-    expect(bar?.hasAttribute('aria-busy')).toBe(false);
+    expect(bar?.getAttribute('aria-busy')).toBe('true');
+    expect(bar?.getAttribute('aria-invalid')).toBe('false');
     expect(bar?.getAttribute('aria-valuemin')).toBe('0');
     expect(bar?.getAttribute('aria-valuemax')).toBe('100');
     expect(bar?.getAttribute('aria-valuenow')).toBe('10');
@@ -71,10 +73,20 @@ describe('UUIProgressBarElement', () => {
     await element.updateComplete;
 
     const bar = element.shadowRoot?.getElementById('bar');
-    expect(bar?.hasAttribute('aria-busy')).toBe(false);
+    expect(bar?.getAttribute('aria-busy')).toBe('false');
+    expect(bar?.getAttribute('aria-invalid')).toBe('false');
     expect(bar?.getAttribute('aria-valuemin')).toBe('0');
     expect(bar?.getAttribute('aria-valuemax')).toBe('100');
     expect(bar?.getAttribute('aria-valuenow')).toBe('0');
+  });
+
+  it('sets aria-invalid when status is error', async () => {
+    element.status = 'error';
+    await element.updateComplete;
+
+    const bar = element.shadowRoot?.getElementById('bar');
+    expect(bar?.getAttribute('aria-busy')).toBe('true');
+    expect(bar?.getAttribute('aria-invalid')).toBe('true');
   });
 
   it('clamps existing progress when max is lowered', async () => {

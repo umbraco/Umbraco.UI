@@ -9,6 +9,9 @@ export type UUIProgressBarStatus = 'in-progress' | 'finished' | 'error';
 
 /**
  * @element uui-progress-bar
+ * @cssprop --uui-progress-bar-color-in-progress - Bar color when status is `in-progress`.
+ * @cssprop --uui-progress-bar-color-finished - Bar color when status is `finished`.
+ * @cssprop --uui-progress-bar-color-error - Bar color when status is `error`.
  */
 export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   private _progress = 0;
@@ -88,7 +91,8 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
         aria-labelledby=${ifDefined(
           this.getAttribute('aria-labelledby') || undefined,
         )}
-        aria-busy=${ifDefined(indeterminate ? 'true' : undefined)}
+        aria-busy=${!isFinished}
+        aria-invalid=${isError}
         aria-valuemin=${ifDefined(indeterminate ? undefined : '0')}
         aria-valuemax=${ifDefined(indeterminate ? undefined : `${this._max}`)}
         aria-valuenow=${ifDefined(
@@ -112,10 +116,24 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
 
       #bar {
         transition: width 250ms ease;
-        background: var(--uui-color-positive);
+        background: var(
+          --uui-progress-bar-color-in-progress,
+          var(--uui-color-positive)
+        );
         height: 100%;
         border-radius: 2px;
         width: 0%;
+      }
+
+      :host([status='finished']) #bar {
+        background: var(
+          --uui-progress-bar-color-finished,
+          var(--uui-color-positive)
+        );
+      }
+
+      :host([status='error']) #bar {
+        background: var(--uui-progress-bar-color-error, var(--uui-color-danger));
       }
     `,
   ];
