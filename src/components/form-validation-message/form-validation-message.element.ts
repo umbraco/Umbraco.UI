@@ -71,6 +71,45 @@ export class UUIFormValidationMessageElement extends LitElement {
     string
   >();
 
+  // Controls only dispatch validation events while they are not pristine, so a control going
+  // back to pristine (e.g. on form reset) would leave its message behind. The `pristine`
+  // property is reflected, so we observe the attribute on controls we currently show
+  // messages for and remove them when they become pristine again.
+  private readonly _pristineObserver = new MutationObserver(entries => {
+    let changed = false;
+    for (const entry of entries) {
+      const ctrl = entry.target as UUIFormControlBaseMixinInterface<unknown>;
+      if (ctrl.pristine && this._messages.has(ctrl)) {
+        this._messages.delete(ctrl);
+        changed = true;
+      }
+    }
+    if (changed) {
+      this._observeMessageControls();
+      this.requestUpdate('_messages');
+    }
+  });
+
+  private _observeMessageControls() {
+    this._pristineObserver.disconnect();
+    for (const ctrl of this._messages.keys()) {
+      this._pristineObserver.observe(ctrl, {
+        attributes: true,
+        attributeFilter: ['pristine'],
+      });
+    }
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._pristineObserver.disconnect();
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this._observeMessageControls();
+  }
+
   private readonly _onControlInvalid = (e: UUIFormControlEvent) => {
     const ctrl = (e as any).composedPath()[0];
     if (ctrl.pristine === false) {
@@ -79,12 +118,14 @@ export class UUIFormValidationMessageElement extends LitElement {
     } else {
       this._messages.delete(ctrl);
     }
+    this._observeMessageControls();
     this.requestUpdate('_messages');
   };
 
   private readonly _onControlValid = (e: UUIFormControlEvent) => {
     const ctrl = (e as any).composedPath()[0];
     this._messages.delete(ctrl);
+    this._observeMessageControls();
     this.requestUpdate('_messages');
   };
 
