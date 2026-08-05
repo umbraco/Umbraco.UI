@@ -35,6 +35,48 @@ describe('UUIProgressBarElement', () => {
     expect(element.progress).toBe(25);
   });
 
+  it('defaults progress to 0 when set to undefined', async () => {
+    element.progress = undefined as unknown as number;
+    await element.updateComplete;
+
+    expect(element.progress).toBe(0);
+    expect(element.shadowRoot?.getElementById('bar')?.style.width).toBe('0%');
+  });
+
+  it('sets aria-busy when progress is indeterminate', async () => {
+    element.progress = undefined as unknown as number;
+    await element.updateComplete;
+
+    const bar = element.shadowRoot?.getElementById('bar');
+    expect(bar?.getAttribute('aria-busy')).toBe('true');
+    expect(bar?.hasAttribute('aria-valuemin')).toBe(false);
+    expect(bar?.hasAttribute('aria-valuemax')).toBe(false);
+    expect(bar?.hasAttribute('aria-valuenow')).toBe(false);
+  });
+
+  it('sets aria value attributes when progress is determinate', async () => {
+    element.progress = 10;
+    await element.updateComplete;
+
+    const bar = element.shadowRoot?.getElementById('bar');
+    expect(bar?.hasAttribute('aria-busy')).toBe(false);
+    expect(bar?.getAttribute('aria-valuemin')).toBe('0');
+    expect(bar?.getAttribute('aria-valuemax')).toBe('100');
+    expect(bar?.getAttribute('aria-valuenow')).toBe('10');
+  });
+
+  it('sets aria value attributes when status is finished and progress is omitted', async () => {
+    element.status = 'finished';
+    element.progress = undefined as unknown as number;
+    await element.updateComplete;
+
+    const bar = element.shadowRoot?.getElementById('bar');
+    expect(bar?.hasAttribute('aria-busy')).toBe(false);
+    expect(bar?.getAttribute('aria-valuemin')).toBe('0');
+    expect(bar?.getAttribute('aria-valuemax')).toBe('100');
+    expect(bar?.getAttribute('aria-valuenow')).toBe('0');
+  });
+
   it('clamps existing progress when max is lowered', async () => {
     element.progress = 80;
     element.max = 40;
