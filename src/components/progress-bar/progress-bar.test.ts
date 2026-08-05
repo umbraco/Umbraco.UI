@@ -55,6 +55,22 @@ describe('UUIProgressBarElement', () => {
     expect(bar?.hasAttribute('aria-valuenow')).toBe(false);
   });
 
+  it('applies indeterminate animation class when progress is omitted', async () => {
+    element.progress = undefined as unknown as number;
+    await element.updateComplete;
+
+    const bar = element.shadowRoot?.getElementById('bar');
+    expect(bar?.classList.contains('indeterminate')).toBe(true);
+  });
+
+  it('removes indeterminate animation class when progress is determinate', async () => {
+    element.progress = 10;
+    await element.updateComplete;
+
+    const bar = element.shadowRoot?.getElementById('bar');
+    expect(bar?.classList.contains('indeterminate')).toBe(false);
+  });
+
   it('sets aria value attributes when progress is determinate', async () => {
     element.progress = 10;
     await element.updateComplete;

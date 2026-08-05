@@ -69,8 +69,10 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
     this.requestUpdate('progress', oldVal);
   }
 
-  private _getProgressStyle() {
-    return { width: `${(this._progress / this._max) * 100}%` };
+  private _getProgressStyle(indeterminate: boolean) {
+    return {
+      width: indeterminate ? '100%' : `${(this._progress / this._max) * 100}%`,
+    };
   }
 
   render() {
@@ -81,6 +83,7 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
     return html`
       <div
         id="bar"
+        class=${indeterminate ? 'indeterminate' : ''}
         role="progressbar"
         aria-label=${ifDefined(
           this.getAttribute('aria-label') || this.label || undefined,
@@ -95,7 +98,7 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
         aria-valuenow=${ifDefined(
           indeterminate ? undefined : `${this._progress}`,
         )}
-        style=${styleMap(this._getProgressStyle())}></div>
+        style=${styleMap(this._getProgressStyle(indeterminate))}></div>
     `;
   }
 
@@ -112,11 +115,32 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
       }
 
       #bar {
+        position: relative;
         transition: width 250ms ease;
         background: var(--uui-color-default);
         height: 100%;
         border-radius: 2px;
         width: 0%;
+      }
+
+      #bar.indeterminate {
+        width: 100%;
+        background: transparent;
+      }
+
+      #bar.indeterminate::before {
+        content: '';
+        position: absolute;
+        display: block;
+        inset: 0;
+        background: linear-gradient(
+          -90deg,
+          var(--uui-color-default) 0%,
+          var(--uui-color-default) 25%,
+          transparent 100%
+        );
+        transform: scaleX(0.4);
+        animation: progress-bar-loading 1s infinite linear;
       }
 
       :host([status='finished']) #bar {
@@ -125,6 +149,15 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
 
       :host([status='error']) #bar {
         background: var(--uui-color-invalid);
+      }
+
+      @keyframes progress-bar-loading {
+        0% {
+          transform-origin: -175% 0%;
+        }
+        100% {
+          transform-origin: 175% 0%;
+        }
       }
     `,
   ];
