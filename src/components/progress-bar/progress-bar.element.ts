@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { LabelMixin } from '../../internal/mixins/index.js';
-import { clamp } from './math.js';
+import { clamp } from '../../internal/utils/index.js';
 
 /**
  * @element uui-progress-bar
