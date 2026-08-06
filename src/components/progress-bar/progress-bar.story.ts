@@ -72,28 +72,28 @@ export const Indeterminate: Story = {
 export const Status: Story = {
   render: () => html`
     <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <span>In Progress</span>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <uui-progress-bar
           label="In progress"
           status="in-progress"
           progress="45"></uui-progress-bar>
+        <span>In Progress</span>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <span>Finished</span>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <uui-progress-bar
           label="Finished"
           status="finished"
           progress="100"></uui-progress-bar>
+        <span>Finished</span>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 4px;">
-        <span>Error</span>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <uui-progress-bar
           label="Error"
           status="error"
-          progress="45"></uui-progress-bar>
+          progress="75"></uui-progress-bar>
+        <span>Error</span>
       </div>
     </div>
   `,
