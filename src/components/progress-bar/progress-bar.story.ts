@@ -63,7 +63,8 @@ export const Percentage: Story = {
 export const Indeterminate: Story = {
   args: {
     label: 'Loading content',
-    status: 'in-progress',
+    status: 'error',
+    indeterminate: true,
   },
   render: args => html`<uui-progress-bar ${spread(args)}></uui-progress-bar>`,
 };

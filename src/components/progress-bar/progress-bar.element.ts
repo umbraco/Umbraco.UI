@@ -16,6 +16,15 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   private _max = 100;
 
   /**
+   * Puts the progress bar into indeterminate mode.
+   * @type {boolean}
+   * @attr
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  indeterminate = false;
+
+  /**
    * Status of the tracked operation.
    * @type {UUIProgressBarStatus}
    * @attr
@@ -47,7 +56,7 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
 
   /**
    * Set this to a number between 0 and `max` to reflect the progress of some operation.
-   * Invalid or omitted values are treated as indeterminate progress.
+   * Invalid or omitted values are treated as `0`.
    * @type {number}
    * @attr
    * @default 0
@@ -78,12 +87,11 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   render() {
     const isFinished = this.status === 'finished';
     const isError = this.status === 'error';
-    const indeterminate = !isFinished && !isError && !this._hasProgressValue;
+    const indeterminate = this.indeterminate;
 
     return html`
       <div
         id="bar"
-        class=${indeterminate ? 'indeterminate' : ''}
         role="progressbar"
         aria-label=${ifDefined(
           this.getAttribute('aria-label') || this.label || undefined,
@@ -123,12 +131,12 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
         width: 0%;
       }
 
-      #bar.indeterminate {
+      :host([indeterminate]) #bar {
         width: 100%;
         background: transparent;
       }
 
-      #bar.indeterminate::before {
+      :host([indeterminate]) #bar::before {
         content: '';
         position: absolute;
         display: block;

@@ -44,7 +44,7 @@ describe('UUIProgressBarElement', () => {
   });
 
   it('sets aria-busy when progress is indeterminate', async () => {
-    element.progress = undefined as unknown as number;
+    element.indeterminate = true;
     await element.updateComplete;
 
     const bar = element.shadowRoot?.getElementById('bar');
@@ -55,20 +55,19 @@ describe('UUIProgressBarElement', () => {
     expect(bar?.hasAttribute('aria-valuenow')).toBe(false);
   });
 
-  it('applies indeterminate animation class when progress is omitted', async () => {
-    element.progress = undefined as unknown as number;
+  it('reflects indeterminate attribute when enabled', async () => {
+    element.indeterminate = true;
     await element.updateComplete;
 
-    const bar = element.shadowRoot?.getElementById('bar');
-    expect(bar?.classList.contains('indeterminate')).toBe(true);
+    expect(element.hasAttribute('indeterminate')).toBe(true);
   });
 
-  it('removes indeterminate animation class when progress is determinate', async () => {
+  it('removes reflected indeterminate attribute when disabled', async () => {
     element.progress = 10;
+    element.indeterminate = false;
     await element.updateComplete;
 
-    const bar = element.shadowRoot?.getElementById('bar');
-    expect(bar?.classList.contains('indeterminate')).toBe(false);
+    expect(element.hasAttribute('indeterminate')).toBe(false);
   });
 
   it('sets aria value attributes when progress is determinate', async () => {
