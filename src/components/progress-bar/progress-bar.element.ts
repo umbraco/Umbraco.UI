@@ -151,11 +151,11 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
         animation: progress-bar-loading 1s infinite linear;
       }
 
-      :host([status='finished']) #bar {
+      :host([status='finished']:not([indeterminate])) #bar {
         background: var(--uui-color-positive);
       }
 
-      :host([status='error']) #bar {
+      :host([status='error']:not([indeterminate])) #bar {
         background: var(--uui-color-invalid);
       }
 
