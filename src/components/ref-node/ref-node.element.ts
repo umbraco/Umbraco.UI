@@ -156,8 +156,9 @@ export class UUIRefNodeElement extends UUIRefElement {
       <!-- Select border must be right after #open-part -->
       <div id="select-border"></div>
 
+      <slot></slot>
       <slot name="tag" id="tag-container"></slot>
-      <slot id="content-container"></slot>
+      <slot id="stretcher"></slot>
       <slot name="actions" id="actions-container"></slot>
     `;
   }
@@ -182,7 +183,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         --uui-focus-outline-color: var(--uui-color-focus);
       }
 
-      #content-container {
+      #stretcher {
         display: flex;
         flex-grow: 1;
         min-width: 0;
