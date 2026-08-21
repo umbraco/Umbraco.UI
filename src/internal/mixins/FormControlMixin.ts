@@ -49,7 +49,7 @@ interface UUIFormControlValidatorConfig {
 
 export interface UUIFormControlBaseMixinInterface<
   ValueType,
-> extends HTMLElement {
+> extends LitElement {
   addValidator: (
     flagKey: FlagTypes,
     getMessageMethod: () => string,
@@ -104,7 +104,7 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
  * @param {object} defaultValue - Default value for the form control.
  * @returns {Function} - The mixin class.
  */
-export function UUIFormControlMixin<
+export function UUIFormControlBaseMixin<
   ValueType = FormData | FormDataEntryValue,
   T extends HTMLElementConstructor<LitElement> =
     HTMLElementConstructor<LitElement>,
