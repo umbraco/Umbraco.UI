@@ -1,18 +1,21 @@
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-
 import { UUIFormControlEvent } from '../events/index.js';
 
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 
-type NativeFormControlElement = HTMLInputElement; // Eventually use a specific interface or list multiple options like appending these types: ... | HTMLTextAreaElement | HTMLSelectElement
+type NativeFormControlElement = Pick<
+  HTMLInputElement,
+  'validity' | 'checkValidity' | 'validationMessage' | 'setCustomValidity'
+> &
+  HTMLElement; // Eventually use a specific interface or list multiple options like appending these types: ... | HTMLTextAreaElement | HTMLSelectElement
 
 /* FlagTypes type options originate from:
  * https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
  * */
 type FlagTypes =
-  | 'badInput'
   | 'customError'
+  | 'badInput'
   | 'patternMismatch'
   | 'rangeOverflow'
   | 'rangeUnderflow'
@@ -36,7 +39,7 @@ const WeightedErrorFlagTypes = [
   'tooShort',
 ];
 
-// Acceptable as an internal interface/type, BUT if exposed externally this should be turned into a public class in a separate file.
+// Acceptable as an internal interface/type, BUT if exposed externally this should be turned into a public interface in a separate file.
 interface UUIFormControlValidatorConfig {
   flagKey: FlagTypes;
   getMessageMethod: () => string;
@@ -46,19 +49,18 @@ interface UUIFormControlValidatorConfig {
 
 export interface UUIFormControlBaseMixinInterface<
   ValueType,
-> extends LitElement {
+> extends HTMLElement {
   addValidator: (
     flagKey: FlagTypes,
     getMessageMethod: () => string,
     checkMethod: () => boolean,
-  ) => void;
+  ) => UUIFormControlValidatorConfig;
   removeValidator: (obj: UUIFormControlValidatorConfig) => void;
   //static formAssociated: boolean;
   //protected getFormElement(): HTMLElement | undefined | null; // allows for null as it makes it simpler to just implement a querySelector as that might return null. [NL]
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
-  hasValue(): boolean;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
@@ -77,38 +79,37 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
     flagKey: FlagTypes,
     getMessageMethod: () => string,
     checkMethod: () => boolean,
-  ) => void;
+  ) => UUIFormControlValidatorConfig;
   removeValidator: (obj: UUIFormControlValidatorConfig) => void;
   protected addFormControlElement(element: NativeFormControlElement): void;
+  protected removeFormControlElement(element: NativeFormControlElement): void;
 
   //static formAssociated: boolean;
-  protected abstract getFormElement(): HTMLElement | undefined | null; // allows for null as it makes it simpler to just implement a querySelector as that might return null. [NL]
+  protected getFormElement(): HTMLElement | undefined | null;
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
-  hasValue(): boolean;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
-  public setCustomValidity(error: string): void;
+  setCustomValidity(error?: string): void;
   pristine: boolean;
 }
 
 /**
- * The mixin allows a custom element to participate in HTML forms.
- *
- * @param {Object} superClass - superclass to be extended.
  * @mixin
+ * The mixin allows a custom element to participate in HTML forms.
+ * @param {object} superClass - superclass to be extended.
+ * @param {object} defaultValue - Default value for the form control.
+ * @returns {Function} - The mixin class.
  */
-export const UUIFormControlBaseMixin = <
-  ValueType = FormDataEntryValue | FormData,
-  T extends HTMLElementConstructor<LitElement> = typeof LitElement,
+export function UUIFormControlMixin<
+  ValueType = FormData | FormDataEntryValue,
+  T extends HTMLElementConstructor<LitElement> =
+    HTMLElementConstructor<LitElement>,
   DefaultValueType = undefined,
->(
-  superClass: T,
-  defaultValue?: DefaultValueType,
-) => {
+>(superClass: T, defaultValue?: DefaultValueType) {
   abstract class UUIFormControlBaseMixinClass extends superClass {
     /**
      * This is a static class field indicating that the element is can be used inside a native form and participate in its events.
@@ -120,24 +121,16 @@ export const UUIFormControlBaseMixin = <
 
     /**
      * Value of this form control.
-     * If you dont want the setFormValue to be called on the ElementInternals, then prevent calling this method, by not calling super.value = newValue in your implementation of the value setter method.
      * @type {string}
      * @attr value
-     * @default ''
+     * @default
      */
-    @property() // Do not 'reflect' as the attribute is used as fallback.
+    @property({ reflect: false }) // Do not 'reflect' as the attribute value is used as fallback. [NL]
     set value(newValue: ValueType | DefaultValueType) {
-      const oldValue = this.#value;
       this.#value = newValue;
-      if (
-        'ElementInternals' in window &&
-        'setFormValue' in window.ElementInternals.prototype
-      ) {
-        this._internals.setFormValue((this.#value as any) ?? null);
-      }
-      this.requestUpdate('value', oldValue);
     }
     get value(): ValueType | DefaultValueType {
+      // For some reason we need to keep this as setters and getters for inherited classes for work properly when they override these methods. [NL]
       return this.#value;
     }
 
@@ -154,6 +147,18 @@ export const UUIFormControlBaseMixin = <
     public set pristine(value: boolean) {
       if (this._pristine !== value) {
         this._pristine = value;
+        if (value === false) {
+          // Loop over all connected form control elements and set their pristine state to the same value. [NL]
+          this.#formCtrlElements.forEach((el: any) => {
+            if (
+              'pristine' in el &&
+              typeof el.pristine === 'boolean' &&
+              el.pristine !== value
+            ) {
+              el.pristine = value;
+            }
+          });
+        }
       }
     }
     public get pristine(): boolean {
@@ -166,10 +171,11 @@ export const UUIFormControlBaseMixin = <
     #valueOnFocus: ValueType | DefaultValueType | undefined = undefined;
     // A state to capture late edits to the value after focus has been lost, so we can trigger validation for late value changes. [NL]
     #hadFocus = false;
+
     protected _internals: ElementInternals;
     #form: HTMLFormElement | null = null;
-    readonly #validators: UUIFormControlValidatorConfig[] = [];
-    readonly #formCtrlElements: NativeFormControlElement[] = [];
+    #validators: UUIFormControlValidatorConfig[] = [];
+    #formCtrlElements: NativeFormControlElement[] = [];
 
     constructor(...args: any[]) {
       super(...args);
@@ -210,8 +216,8 @@ export const UUIFormControlBaseMixin = <
 
     /**
      * Focus first element that is invalid.
-     * @method focusFirstInvalidElement
-     * @returns {HTMLElement | undefined}
+     * @function focusFirstInvalidElement
+     * @returns {HTMLElement | undefined} - Returns the first invalid element or undefined if no invalid elements are found.
      */
     focusFirstInvalidElement() {
       const firstInvalid = this.#formCtrlElements.find(
@@ -228,7 +234,7 @@ export const UUIFormControlBaseMixin = <
       }
     }
 
-    disconnectedCallback(): void {
+    override disconnectedCallback(): void {
       super.disconnectedCallback();
       this.#removeFormListeners();
     }
@@ -249,8 +255,8 @@ export const UUIFormControlBaseMixin = <
      * );
      * @function addValidator
      * @param {FlagTypes} flagKey the type of validation.
-     * @param {method} getMessageMethod method to retrieve relevant message. Is executed every time the validator is re-executed.
-     * @param {method} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
+     * @param {() => string} getMessageMethod method to retrieve relevant message. Is executed every time the validator is re-executed.
+     * @param {() => boolean} checkMethod method to determine if this validator should invalidate this form control. Return true if this should prevent submission.
      * @returns {UUIFormControlValidatorConfig} - The added validator configuration.
      */
     addValidator(
@@ -266,23 +272,31 @@ export const UUIFormControlBaseMixin = <
       } satisfies UUIFormControlValidatorConfig;
       this.#validators.push(validator);
       // Sort validators based on the WeightedErrorFlagTypes order. [NL]
-      this.#validators.sort((a, b) => a.weight - b.weight);
+      this.#validators.sort((a, b) =>
+        a.weight > b.weight ? 1 : b.weight > a.weight ? -1 : 0,
+      );
       return validator;
     }
 
-    protected removeValidator(validator: UUIFormControlValidatorConfig) {
+    /**
+     * Remove validation from this form control.
+     * @function removeValidator
+     * @param {UUIFormControlValidatorConfig} validator - The specific validation configuration to remove.
+     */
+    removeValidator(validator: UUIFormControlValidatorConfig) {
       const index = this.#validators.indexOf(validator);
       if (index !== -1) {
         this.#validators.splice(index, 1);
       }
     }
 
-    readonly #runValidatorsCallback = () => this._runValidators();
+    #runValidatorsCallback = () => this._runValidators();
 
     /**
-     * @method addFormControlElement
+     * @function addFormControlElement
      * @description Important notice if adding a native form control then ensure that its value and thereby validity is updated when value is changed from the outside.
-     * @param element {NativeFormControlElement} - element to validate and include as part of this form association.
+     * @param {NativeFormControlElement} element - element to validate and include as part of this form control association.
+     * @returns {void}
      */
     protected addFormControlElement(element: NativeFormControlElement) {
       if (!element) {
@@ -335,9 +349,9 @@ export const UUIFormControlBaseMixin = <
     private _customValidityObject?: UUIFormControlValidatorConfig;
 
     /**
-     * @method setCustomValidity
+     * @function setCustomValidity
      * @description Set custom validity state, set to empty string to remove the custom message.
-     * @param message {string} - The message to be shown
+     * @param {string} message - The message to be shown
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLObjectElement/setCustomValidity|HTMLObjectElement:setCustomValidity}
      */
     protected setCustomValidity(message: string | null) {
@@ -357,7 +371,6 @@ export const UUIFormControlBaseMixin = <
     }
 
     /**
-     * @protected
      * @function _runValidators
      * @description Run all validators and set the validityState of this form control.
      * Run this method when you want to re-run all validators.
@@ -410,12 +423,19 @@ export const UUIFormControlBaseMixin = <
       this.#dispatchValidationState();
     }
 
+    #lastEventType: string | undefined = undefined;
     #dispatchValidationState() {
-      // Do not fire validation events unless we are not pristine/'untouched'/not-in-validation-mode. [NL]
-      if (this._pristine === true) return;
-      if (this.#validity.valid) {
+      // While pristine/'untouched'/not-in-validation-mode, no invalid-feedback should be visible yet, so this
+      // reports Valid regardless of the actual validity — that isn't just suppressing the Invalid event:
+      // listeners (e.g. `umb-form-validation-message`) need the Valid event to clear a message they showed
+      // earlier, from before this control (or the dataPath it now validates) went pristine again — for
+      // instance when a property control is reused across a variant switch. [NL]
+      if (this._pristine === true || this.#validity.valid) {
+        if (this.#lastEventType === UUIFormControlEvent.VALID) return;
+        this.#lastEventType = UUIFormControlEvent.VALID;
         this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
       } else {
+        this.#lastEventType = UUIFormControlEvent.INVALID;
         this.dispatchEvent(
           new UUIFormControlEvent(UUIFormControlEvent.INVALID),
         );
@@ -426,16 +446,16 @@ export const UUIFormControlBaseMixin = <
       changedProperties: Map<string | number | symbol, unknown>,
     ) {
       super.updated(changedProperties);
-      // If still pristine and the control has been blurred while pristine, a later value change should trigger validation (e.g. value changed after blur). [NL]
+      // If still pristine and the input had focus and the value has changed, then we need to check validity, as the value might have been changed after focus was left. [NL]
       if (this.pristine && this.#hadFocus && changedProperties.has('value')) {
-        // checkValidity will set pristine to false for itself and all connected form controls and then run validators, so we skip _runValidators() below. [NL]
+        // checkValidity will set pristine to false for it self and all connected form controls and then run validators, hence not running _runValidators() below. [NL]
         this.checkValidity();
       } else {
         this._runValidators();
       }
     }
 
-    readonly #onFormSubmit = () => {
+    #onFormSubmit = () => {
       this.pristine = false;
     };
 
@@ -443,7 +463,7 @@ export const UUIFormControlBaseMixin = <
       this.#removeFormListeners();
       this.#form = this._internals.form;
       if (this.#form) {
-        // This relies on the form begin a 'uui-form':
+        // This relies on the form begin a 'uui-form': [NL]
         if (this.#form.hasAttribute('submit-invalid')) {
           this.pristine = false;
         }
@@ -490,4 +510,4 @@ export const UUIFormControlBaseMixin = <
     UUIFormControlBaseMixinElement<ValueType | DefaultValueType>
   > &
     T;
-};
+}
