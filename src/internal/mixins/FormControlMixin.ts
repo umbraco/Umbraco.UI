@@ -90,6 +90,7 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
+  hasValue(): boolean;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
