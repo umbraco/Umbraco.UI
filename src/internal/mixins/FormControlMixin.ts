@@ -61,6 +61,7 @@ export interface UUIFormControlBaseMixinInterface<
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
+  hasValue(): boolean;
   formResetCallback(): void;
   checkValidity(): boolean;
   get validationMessage(): string;
@@ -85,7 +86,7 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
   protected removeFormControlElement(element: NativeFormControlElement): void;
 
   //static formAssociated: boolean;
-  protected getFormElement(): HTMLElement | undefined | null;
+  protected abstract getFormElement(): HTMLElement | undefined | null;
   focusFirstInvalidElement(): void;
   get value(): ValueType;
   set value(newValue: ValueType);
@@ -127,10 +128,17 @@ export function UUIFormControlBaseMixin<
      */
     @property({ reflect: false }) // Do not 'reflect' as the attribute value is used as fallback. [NL]
     set value(newValue: ValueType | DefaultValueType) {
+      const oldValue = this.#value;
       this.#value = newValue;
+      if (
+        'ElementInternals' in window &&
+        'setFormValue' in window.ElementInternals.prototype
+      ) {
+        this._internals.setFormValue((this.#value as any) ?? null);
+      }
+      this.requestUpdate('value', oldValue);
     }
     get value(): ValueType | DefaultValueType {
-      // For some reason we need to keep this as setters and getters for inherited classes for work properly when they override these methods. [NL]
       return this.#value;
     }
 
