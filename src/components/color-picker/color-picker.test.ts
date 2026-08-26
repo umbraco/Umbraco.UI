@@ -80,6 +80,16 @@ describe('UUIColorPickerElement', () => {
   });
 
   describe('value setter', () => {
+    it.each(['#d0e0e5', '#efefef', '#1a455d', '#f6f6f6'])(
+      'preserves exact hex value for %s',
+      async color => {
+        element.value = color;
+        await element.updateComplete;
+
+        expect(element.value).toBe(color);
+      },
+    );
+
     it('updates value when a valid color is set', async () => {
       element.value = '#ff0000';
       await element.updateComplete;
