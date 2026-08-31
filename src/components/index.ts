@@ -5,6 +5,7 @@ export * from './icon-registry/icon-registry.js';
 export * from './icon-registry-essential/icon-registry-essential.js';
 export * from './input/input.js';
 export * from './input-password/input-password.js';
+export * from './input-otp/input-otp.js';
 export * from './dialog/dialog.js';
 export * from './dialog-layout/dialog-layout.js';
 export * from './table/table.js';

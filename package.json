@@ -103,6 +103,7 @@
     "@types/react-dom": "18.3.1",
     "@vitest/browser": "^4.1.10",
     "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/coverage-v8": "^4.1.10",
     "axe-core": "^4.12.1",
     "chromatic": "^18.1.0",
     "eslint": "^10.6.0",
