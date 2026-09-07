@@ -226,7 +226,6 @@ export function UUIFormControlBaseMixin<
     /**
      * Focus first element that is invalid.
      * @function focusFirstInvalidElement
-     * @returns {HTMLElement | undefined} - Returns the first invalid element or undefined if no invalid elements are found.
      */
     focusFirstInvalidElement() {
       const firstInvalid = this.#formCtrlElements.find(
