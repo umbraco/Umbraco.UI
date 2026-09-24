@@ -158,6 +158,7 @@ export class UUIRefNodeElement extends UUIRefElement {
 
       <slot></slot>
       <slot name="tag" id="tag-container"></slot>
+      <slot id="stretcher"></slot>
       <slot name="actions" id="actions-container"></slot>
     `;
   }
@@ -182,6 +183,12 @@ export class UUIRefNodeElement extends UUIRefElement {
         --uui-focus-outline-color: var(--uui-color-focus);
       }
 
+      #stretcher {
+        display: flex;
+        flex-grow: 1;
+        min-width: 0;
+      }
+
       #content {
         display: flex;
         flex-grow: 1;
@@ -196,7 +203,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         text-decoration: none;
         cursor: pointer;
         display: flex;
-        flex-grow: 1;
         min-width: 0;
         margin: 0 0 1px 0;
       }

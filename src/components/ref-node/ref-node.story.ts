@@ -17,7 +17,7 @@ const meta: Meta = {
   render: args =>
     html`<uui-ref-node ${spread(args)}>${renderSlots(args)}</uui-ref-node>`,
   decorators: [
-    (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
+    (Story: any) => html`<div style="max-width: 1280px;">${Story()}</div>`,
   ],
   parameters: { readme: { markdown: readme } },
 };
@@ -59,6 +59,19 @@ export const LongLink: Story = {
     'actions slot': html`<uui-action-bar slot="actions"
       ><uui-button label="remove">Remove</uui-button></uui-action-bar
     >`,
+  },
+};
+
+export const Tag: Story = {
+  args: {
+    name: 'Example with short title and a tag',
+    detail: 'https://www.example.com/',
+    'actions slot': html`<uui-action-bar slot="actions"
+      ><uui-button label="remove">Remove</uui-button></uui-action-bar
+    >`,
+    'tag slot': html`
+      <uui-tag size="s" slot="tag" color="positive">Published</uui-tag>
+    `,
   },
 };
 
