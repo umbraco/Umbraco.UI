@@ -21,6 +21,7 @@ function slotHasContent(target: EventTarget | null): boolean {
  *  @cssprop --uui-box-default-padding - overwrite the box padding
  *  @cssprop --uui-box-border-radius - overwrite the box border-radius, default is var(--uui-border-radius-3)
  *  @cssprop --uui-box-border-color - overwrites the box border colorm default is var(--uui-color-divider-standalone)
+ *  @cssprop --uui-box-header-font-weight - overwrites the box header h1,h2,h3,h4,h5 weight. Default is inherit
  */
 export class UUIBoxElement extends LitElement {
   /**
@@ -137,6 +138,10 @@ export class UUIBoxElement extends LitElement {
           --uui-box-header-padding,
           var(--uui-size-space-4) var(--uui-size-space-5)
         );
+      }
+
+      #headline.uui-h5 {
+        font-weight: var(--uui-box-header-font-weight, inherit);
       }
 
       slot:not([name]) {
