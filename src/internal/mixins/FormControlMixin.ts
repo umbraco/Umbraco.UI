@@ -140,6 +140,7 @@ export function UUIFormControlBaseMixin<
       this.requestUpdate('value', oldValue);
     }
     get value(): ValueType | DefaultValueType {
+      // For some reason we need to keep this as setters and getters for inherited classes for work properly when they override these methods. [NL]
       return this.#value;
     }
 
@@ -196,8 +197,8 @@ export function UUIFormControlBaseMixin<
       });
       this.addEventListener('blur', () => {
         if (this.pristine) {
-          this.#hadFocus = true;
           if (this.#valueOnFocus !== this.value) {
+            this.#hadFocus = true;
             this.checkValidity();
           }
         }
@@ -449,6 +450,7 @@ export function UUIFormControlBaseMixin<
         // Only fire invalid events when the form control is not pristine, as we do not want to show validation messages for untouched form controls. [NL]
         // Always fire an Invalid event when the validity is invalid, even if the last event was also Invalid, as the message might have changed. [NL]
         this.#lastEventType = UUIFormControlEvent.INVALID;
+        this.#lastMessage = this.validationMessage;
         this.dispatchEvent(
           new UUIFormControlEvent(UUIFormControlEvent.INVALID),
         );
