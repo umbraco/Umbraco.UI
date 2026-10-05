@@ -108,8 +108,7 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
  */
 export function UUIFormControlBaseMixin<
   ValueType = FormData | FormDataEntryValue,
-  T extends HTMLElementConstructor<LitElement> =
-    HTMLElementConstructor<LitElement>,
+  T extends HTMLElementConstructor<LitElement> = typeof LitElement,
   DefaultValueType = undefined,
 >(superClass: T, defaultValue?: DefaultValueType) {
   abstract class UUIFormControlBaseMixinClass extends superClass {
