@@ -76,6 +76,7 @@
     "new-component": "plop",
     "test:codemod": "node --test scripts/codemods/test.js",
     "lerna:version": "lerna version --conventional-commits --sync-workspace-lock",
+    "postversion": "node scripts/dedupe-changelog.js",
     "lerna:version:rc": "npm run lerna:version -- --conventional-prerelease"
   },
   "engines": {
