@@ -12,3 +12,38 @@ updates:
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 3
+    # Packages that only work at matching versions are bumped together.
+    # A dependency matches the first group of the right kind, so the same
+    # patterns are repeated for security updates.
+    groups:
+      vitest:
+        patterns: ['vitest', '@vitest/*']
+      lerna-lite:
+        patterns: ['@lerna-lite/*']
+      storybook:
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+          - 'eslint-plugin-storybook'
+          - '@chromatic-com/storybook'
+      vitest-security:
+        applies-to: security-updates
+        patterns: ['vitest', '@vitest/*']
+      lerna-lite-security:
+        applies-to: security-updates
+        patterns: ['@lerna-lite/*']
+      storybook-security:
+        applies-to: security-updates
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+          - 'eslint-plugin-storybook'
+          - '@chromatic-com/storybook'
+    # Storybook majors need `npx storybook@latest upgrade` for its automigrations.
+    ignore:
+      - dependency-name: 'storybook'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@storybook/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'eslint-plugin-storybook'
+        update-types: ['version-update:semver-major']
