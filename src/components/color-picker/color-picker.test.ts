@@ -77,19 +77,19 @@ describe('UUIColorPickerElement', () => {
       const formatted = element.getFormattedValue('hsl');
       expect(formatted).not.toMatch(/\d+\.\d+%/);
     });
-  });
 
-  describe('value setter', () => {
     it.each(['#d0e0e5', '#efefef', '#1a455d', '#f6f6f6'])(
-      'preserves exact hex value for %s',
+      'keeps the exact hex value of %s when set as a color',
       async color => {
-        element.value = color;
+        element.setColor(color);
         await element.updateComplete;
 
         expect(element.value).toBe(color);
       },
     );
+  });
 
+  describe('value setter', () => {
     it('updates value when a valid color is set', async () => {
       element.value = '#ff0000';
       await element.updateComplete;
