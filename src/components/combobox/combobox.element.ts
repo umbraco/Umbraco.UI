@@ -515,6 +515,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
       }
       #expand-symbol-wrapper {
         height: 100%;
+        margin-right: 0;
         padding-right: var(--uui-size-space-3);
         display: flex;
         justify-content: center;
