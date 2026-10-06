@@ -72,7 +72,7 @@ export default defineConfig({
     },
     deps: {
       optimizer: {
-        web: {
+        client: {
           include: [
             'vitest-browser-lit',
             'axe-core',

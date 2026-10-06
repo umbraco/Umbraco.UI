@@ -210,6 +210,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       ${ref(this._labelButtonChanged)}
       @click=${this.#onLabelClicked}
       ?disabled=${this.disabled}
+      aria-pressed=${ifDefined(
+        this.selectable ? String(this.selected) : undefined,
+      )}
       aria-label="${this.label}">
       ${this._renderLabelInside()}
     </button>`;
@@ -217,7 +220,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
   render() {
     return html`
-      <div id="menu-item" aria-label="menuitem" role="menuitem">
+      <div id="menu-item" role="menuitem">
         <div id="label-button-background"></div>
         ${this.hasChildren
           ? html`<button
