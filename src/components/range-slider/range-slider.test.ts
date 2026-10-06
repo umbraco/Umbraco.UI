@@ -1,5 +1,6 @@
 import './range-slider.js';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { render } from 'vitest-browser-lit';
 
 import { axeRun } from '../../internal/test/a11y.js';
@@ -126,6 +127,48 @@ describe('UUIRangeSliderElement', () => {
         expect(element.value).toBe(`${inputLow.value},${HighEnd}`);
       });
     });
+  });
+});
+
+describe('UUIRangeSlider min-gap', () => {
+  type RangeSliderHandles = {
+    setValueLow(low: number): void;
+    setValueHigh(high: number): void;
+  };
+
+  async function renderSlider(minGap?: number) {
+    const element = render(
+      html`<uui-range-slider
+        label="Range"
+        min="0"
+        max="10"
+        step="1"
+        min-gap=${ifDefined(minGap)}
+        value="3,8"></uui-range-slider>`,
+    ).container.querySelector('uui-range-slider')!;
+    await element.updateComplete;
+    return element;
+  }
+
+  it('lets the low handle reach the high value when min-gap is 0', async () => {
+    const element = await renderSlider(0);
+    (element as unknown as RangeSliderHandles).setValueLow(8);
+    await element.updateComplete;
+    expect(element.value).toBe('8,8');
+  });
+
+  it('lets the high handle reach the low value when min-gap is 0', async () => {
+    const element = await renderSlider(0);
+    (element as unknown as RangeSliderHandles).setValueHigh(3);
+    await element.updateComplete;
+    expect(element.value).toBe('3,3');
+  });
+
+  it('keeps a one-step gap when min-gap is not set', async () => {
+    const element = await renderSlider();
+    (element as unknown as RangeSliderHandles).setValueLow(8);
+    await element.updateComplete;
+    expect(element.value).toBe('7,8');
   });
 });
 

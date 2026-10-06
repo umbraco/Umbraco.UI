@@ -212,11 +212,15 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         return this.setLetterCase(`rgb(${r} ${g} ${b} / ${a})`);
       case 'hsl':
       case 'hsla':
-        return this.setLetterCase(`hsl(${h} ${s}% ${l}% / ${a})`);
+        return this.setLetterCase(
+          `hsl(${Math.round(h)} ${Math.round(s)}% ${Math.round(l)}% / ${a})`,
+        );
       case 'hsv':
-        return this.setLetterCase(`hsv(${h}, ${sv}%, ${v}%)`);
+        return this.setLetterCase(`hsv(${Math.round(h)}, ${sv}%, ${v}%)`);
       case 'hsva':
-        return this.setLetterCase(`hsva(${h}, ${sv}%, ${v}%, ${a})`);
+        return this.setLetterCase(
+          `hsva(${Math.round(h)}, ${sv}%, ${v}%, ${a})`,
+        );
       default:
         return '';
     }
@@ -363,9 +367,9 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     }
 
     this._color = {
-      h: this.hue,
-      s: this.saturation,
-      l: this.lightness,
+      h,
+      s,
+      l,
       a: this.opacity ? a : 1,
     };
 
