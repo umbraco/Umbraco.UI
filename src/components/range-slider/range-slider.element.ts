@@ -119,7 +119,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
   _step = 1;
 
   /**
-   * Minimum value gap between the the two picked values. Cannot be lower than the step value and cannot be higher than the maximum gap
+   * Minimum value gap between the the two picked values. Cannot be lower than the step value and cannot be higher than the maximum gap. Set to 0 if the minimum and maximum values can be the same
    * @type {number}
    * @attr min-gap
    * @default undefined
@@ -195,18 +195,20 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
     const clampMin = this.maxGap
       ? Math.max(this._highInputValue - this.maxGap, this.min)
       : this.min;
-    const clampMax = this.minGap
-      ? this._highInputValue - this.minGap
-      : this._highInputValue - this.step;
+    const clampMax =
+      this.minGap !== undefined
+        ? this._highInputValue - this.minGap
+        : this._highInputValue - this.step;
     low = clamp(low, clampMin, clampMax);
     this.setValue(low, this._highInputValue);
   }
 
   protected setValueHigh(high: number) {
     // Clamp value to ensure it fits within its restrictions
-    const clampMin = this.minGap
-      ? this._lowInputValue + this.minGap
-      : this._lowInputValue + this.step;
+    const clampMin =
+      this.minGap !== undefined
+        ? this._lowInputValue + this.minGap
+        : this._lowInputValue + this.step;
     const clampMax = this.maxGap
       ? Math.min(this.maxGap + this._lowInputValue, this.max)
       : this.max;
@@ -247,11 +249,11 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
     this._lowInputValue = clamp(
       low,
       this._min,
-      this._minGap ? high - this._minGap : high - this._step,
+      this._minGap !== undefined ? high - this._minGap : high - this._step,
     );
     this._highInputValue = clamp(
       high,
-      this._minGap
+      this._minGap !== undefined
         ? this._lowInputValue + this._minGap
         : this._lowInputValue + this._step,
       Math.min(this._maxGap ? low + this._maxGap : this._max, this._max),
@@ -328,9 +330,9 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
     if (!regex.test(this.value as string))
       console.error(`Range slider (Value error occurred): Bad input`);
 
-    if (this._highInputValue === this._lowInputValue) {
+    if (this._highInputValue === this._lowInputValue && this._minGap !== 0) {
       console.error(
-        `Range slider (Value error occurred): Low-end and high-end value should never be equal. Use <uui-slider></uui-slider> instead.`,
+        `Range slider (Value error occurred): Low-end and high-end value should never be equal when min gap is undefined or greater than zero. Use <uui-slider></uui-slider> instead.`,
       );
     }
 
