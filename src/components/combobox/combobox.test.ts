@@ -86,6 +86,12 @@ describe('UUIComboboxElement', () => {
       )!;
       expect(slot).not.toBe(null);
     });
+    it('keeps the expand symbol free of the input append margin', () => {
+      const wrapper = element.shadowRoot!.querySelector(
+        '#expand-symbol-wrapper',
+      )!;
+      expect(getComputedStyle(wrapper).marginRight).toBe('0px');
+    });
   });
 
   describe('events', () => {
