@@ -5,7 +5,7 @@
   "preid": "rc",
   "preDistTag": "prerelease",
   "exact": true,
-  "noPush": true,
+  "push": false,
   "npmClient": "npm",
   "includeMergedTags": true,
   "conventionalCommits": true,
