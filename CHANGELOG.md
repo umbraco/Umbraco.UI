@@ -7,24 +7,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-- **color-picker:** keep full HSL precision so entered colours don't drift ([#1482](https://github.com/umbraco/Umbraco.UI/issues/1482)) ([f02598b](https://github.com/umbraco/Umbraco.UI/commit/f02598b86ea82d3a417a9c002935c0a6e2188d49)), closes [#d0e0e5](https://github.com/umbraco/Umbraco.UI/issues/d0e0e5) [#d1e1e6](https://github.com/umbraco/Umbraco.UI/issues/d1e1e6)
+- **color-picker:** keep full HSL precision so entered colours don't drift ([#1482](https://github.com/umbraco/Umbraco.UI/issues/1482)) ([f02598b](https://github.com/umbraco/Umbraco.UI/commit/f02598b86ea82d3a417a9c002935c0a6e2188d49))
 - **combobox:** keep the input append margin off the expand symbol ([2fea80d](https://github.com/umbraco/Umbraco.UI/commit/2fea80d538e4f3283cc282996fde12ea85eeadad))
 - **icon:** remove non-standard :host-context() for cross-browser icon alignment ([e61fdfb](https://github.com/umbraco/Umbraco.UI/commit/e61fdfbefbbce1ed8a4e6212fbc8b3e7253afe13))
 - **menu-item:** expose aria-pressed on selectable items ([#1478](https://github.com/umbraco/Umbraco.UI/issues/1478)) ([e0c9783](https://github.com/umbraco/Umbraco.UI/commit/e0c97836f83f7748485f1c249e4db9a168b67528))
 - **range-slider:** support a minimum gap of zero ([#1488](https://github.com/umbraco/Umbraco.UI/issues/1488)) ([b7a4714](https://github.com/umbraco/Umbraco.UI/commit/b7a47148fefec07498d80ed916468a8f725c816f))
-
-### Features
-
-- **form-control:** align the form control mixin with the Backoffice version ([#1479](https://github.com/umbraco/Umbraco.UI/issues/1479)) ([13f6d92](https://github.com/umbraco/Umbraco.UI/commit/13f6d92753e20473d73c110b08725e942c49eab7))
-
-# [2.1.0](https://github.com/umbraco/Umbraco.UI/compare/v2.0.2...v2.1.0) (2026-10-06)
-
-### Bug Fixes
-
-- **color-picker:** keep full HSL precision so entered colours don't drift ([#1482](https://github.com/umbraco/Umbraco.UI/issues/1482)) ([f02598b](https://github.com/umbraco/Umbraco.UI/commit/f02598b86ea82d3a417a9c002935c0a6e2188d49)), closes [#d0e0e5](https://github.com/umbraco/Umbraco.UI/issues/d0e0e5) [#d1e1e6](https://github.com/umbraco/Umbraco.UI/issues/d1e1e6)
-- **combobox:** keep the input append margin off the expand symbol ([2fea80d](https://github.com/umbraco/Umbraco.UI/commit/2fea80d538e4f3283cc282996fde12ea85eeadad))
-- **icon:** remove non-standard :host-context() for cross-browser icon alignment ([e61fdfb](https://github.com/umbraco/Umbraco.UI/commit/e61fdfbefbbce1ed8a4e6212fbc8b3e7253afe13))
-- **menu-item:** expose aria-pressed on selectable items ([#1478](https://github.com/umbraco/Umbraco.UI/issues/1478)) ([e0c9783](https://github.com/umbraco/Umbraco.UI/commit/e0c97836f83f7748485f1c249e4db9a168b67528))
 
 ### Features
 
