@@ -6,6 +6,9 @@ import { readFileSync, writeFileSync } from 'node:fs';
 // the root changelog. This runs as the `postversion` script (after Lerna-Lite
 // has committed and tagged, and before anything is pushed), removes the
 // second copy, and folds the fix into the release commit and tag.
+// The copies are not always identical: the package changelog only lists
+// commits that touch files, so it misses empty commits that the root
+// changelog (the first section) includes. Same heading means same release.
 
 const changelogPath = 'CHANGELOG.md';
 const changelog = readFileSync(changelogPath, 'utf8');
@@ -17,10 +20,10 @@ const sectionStarts = [...changelog.matchAll(/^#{1,2} \[.+$/gm)].map(
 if (sectionStarts.length < 2) process.exit(0);
 
 const [first, second, third = changelog.length] = sectionStarts;
-const firstSection = changelog.slice(first, second);
-const secondSection = changelog.slice(second, third);
+const headingOf = start =>
+  changelog.slice(start, changelog.indexOf('\n', start));
 
-if (firstSection.trim() !== secondSection.trim()) process.exit(0);
+if (headingOf(first) !== headingOf(second)) process.exit(0);
 
 writeFileSync(
   changelogPath,
