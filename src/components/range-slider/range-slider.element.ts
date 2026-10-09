@@ -200,7 +200,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
 
   #valueLabelWidths = [0, 0];
 
-  private _resizeObserver = new ResizeObserver(() => {
+  private readonly _resizeObserver = new ResizeObserver(() => {
     this._trackWidth = this._outerTrack.offsetWidth;
     this.#valueLabelWidths = Array.from(
       this.renderRoot.querySelectorAll('.thumb-values > span > span'),

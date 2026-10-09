@@ -165,7 +165,9 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
   @query('#track')
   private readonly _track!: HTMLElement;
 
-  private _resizeObserver = new ResizeObserver(() => this.onWindowResize());
+  private readonly _resizeObserver = new ResizeObserver(() =>
+    this.onWindowResize(),
+  );
 
   constructor() {
     super();
