@@ -66,6 +66,7 @@ export interface UUIFormControlBaseMixinInterface<
   set value(newValue: ValueType);
   hasValue(): boolean;
   formResetCallback(): void;
+  formDisabledCallback(disabled: boolean): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
@@ -96,6 +97,7 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
   set value(newValue: ValueType);
   hasValue(): boolean;
   formResetCallback(): void;
+  formDisabledCallback(disabled: boolean): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
@@ -502,6 +504,10 @@ export function UUIFormControlBaseMixin<
       this.#lastEventType = undefined;
       this.#lastMessage = undefined;
     }
+    /**
+     * Called by the browser when the control is disabled or enabled, including through an ancestor fieldset. Revalidates, as a disabled control reports no validation errors.
+     * Overrides must call `super.formDisabledCallback(disabled)`.
+     */
     public formDisabledCallback() {
       // Being disabled by an ancestor fieldset does not trigger an update, but it changes whether this control is validated.
       this._runValidators();
