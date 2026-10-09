@@ -66,9 +66,11 @@ export interface UUIFormControlBaseMixinInterface<
   set value(newValue: ValueType);
   hasValue(): boolean;
   formResetCallback(): void;
+  formDisabledCallback(disabled: boolean): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
+  get willValidate(): boolean;
   setCustomValidity(error?: string): void;
   pristine: boolean;
 }
@@ -95,9 +97,11 @@ export declare abstract class UUIFormControlBaseMixinElement<ValueType>
   set value(newValue: ValueType);
   hasValue(): boolean;
   formResetCallback(): void;
+  formDisabledCallback(disabled: boolean): void;
   checkValidity(): boolean;
   get validationMessage(): string;
   get validity(): ValidityState;
+  get willValidate(): boolean;
   setCustomValidity(error?: string): void;
   pristine: boolean;
 }
@@ -392,10 +396,12 @@ export function UUIFormControlBaseMixin<
       this.#validity = {};
       let message: string | undefined = undefined;
       let innerFormControlEl: NativeFormControlElement | undefined = undefined;
+      // Like a native input, a control barred from constraint validation (e.g. readonly or disabled) reports no errors.
+      const willValidate = this._internals.willValidate;
 
       // Loop through custom validators, currently its intentional to have them overwritten native validity. but might need to be reconsidered (This current way enables to overwrite with custom messages) [NL]
       this.#validators.some(validator => {
-        if (validator.checkMethod()) {
+        if (willValidate && validator.checkMethod()) {
           this.#validity[validator.flagKey] = true;
           message = validator.getMessageMethod();
           return true;
@@ -403,7 +409,7 @@ export function UUIFormControlBaseMixin<
         return false;
       });
 
-      if (!message) {
+      if (willValidate && !message) {
         // Loop through inner native form controls to adapt their validityState. [NL]
         this.#formCtrlElements.some(formCtrlEl => {
           // A control barred from constraint validation (e.g. readonly or disabled) can still report validity flags, but it has no validation message and never makes a form invalid.
@@ -498,6 +504,14 @@ export function UUIFormControlBaseMixin<
       this.#lastEventType = undefined;
       this.#lastMessage = undefined;
     }
+    /**
+     * Called by the browser when the control is disabled or enabled, including through an ancestor fieldset. Revalidates, as a disabled control reports no validation errors.
+     * Overrides must call `super.formDisabledCallback(disabled)`.
+     */
+    public formDisabledCallback() {
+      // Being disabled by an ancestor fieldset does not trigger an update, but it changes whether this control is validated.
+      this._runValidators();
+    }
 
     protected getDefaultValue(): DefaultValueType {
       return defaultValue as DefaultValueType;
@@ -526,6 +540,15 @@ export function UUIFormControlBaseMixin<
 
     get validationMessage() {
       return this._internals?.validationMessage;
+    }
+
+    /**
+     * Whether this form control is a candidate for constraint validation. False while it is readonly or disabled, in which case it reports no validation errors.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/willValidate|ElementInternals:willValidate}
+     * @returns {boolean}
+     */
+    get willValidate(): boolean {
+      return this._internals.willValidate;
     }
   }
   return UUIFormControlBaseMixinClass as unknown as HTMLElementConstructor<

@@ -1,7 +1,8 @@
 import './input-lock.js';
-import { html } from 'lit';
+import { html, LitElement } from 'lit';
 import { render } from 'vitest-browser-lit';
 
+import { UUIFormControlMixin } from '../../internal/mixins/index.js';
 import { axeRun } from '../../internal/test/a11y.js';
 import { oneEvent } from '../../internal/test/index.js';
 import { UUIInputElement } from '../input/input.js';
@@ -69,5 +70,58 @@ describe('UUIInputLockElement', () => {
     expect(event.bubbles).toBe(true);
     expect(event.composed).toBe(false);
     expect(event!.target).toBe(element);
+  });
+});
+
+const compositeTagName = 'test-input-lock-composite';
+customElements.define(
+  compositeTagName,
+  class extends UUIFormControlMixin(LitElement, '') {
+    protected getFormElement() {
+      return this.shadowRoot?.querySelector('uui-input-lock');
+    }
+
+    protected firstUpdated() {
+      this.addFormControlElement(
+        this.shadowRoot!.querySelector('uui-input-lock')!,
+      );
+    }
+
+    render() {
+      return html`<uui-input-lock label="Alias" required></uui-input-lock>`;
+    }
+  },
+);
+
+describe('UUIInputLockElement inside another form control', () => {
+  let form: HTMLFormElement;
+  let composite: any;
+  let inputLock: UUIInputLockElement;
+
+  beforeEach(async () => {
+    form = render(
+      html`<form>
+        <test-input-lock-composite></test-input-lock-composite>
+      </form>`,
+    ).container.querySelector('form')!;
+    composite = form.querySelector(compositeTagName);
+    await composite.updateComplete;
+    inputLock = composite.shadowRoot.querySelector('uui-input-lock');
+    await inputLock.updateComplete;
+  });
+
+  it('does not invalidate the outer control while locked and empty', () => {
+    expect(inputLock.willValidate).toBe(false);
+    expect(composite.checkValidity()).toBe(true);
+    expect(composite.validity.valid).toBe(true);
+    expect(form.checkValidity()).toBe(true);
+  });
+
+  it('invalidates the outer control once unlocked and empty', async () => {
+    inputLock.locked = false;
+    await inputLock.updateComplete;
+    expect(composite.checkValidity()).toBe(false);
+    expect(composite.validity.valueMissing).toBe(true);
+    expect(form.checkValidity()).toBe(false);
   });
 });

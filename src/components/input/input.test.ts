@@ -270,6 +270,16 @@ describe('UuiInput in Form', () => {
         await element.updateComplete;
         expect(formElement.checkValidity()).toBe(true);
       });
+
+      for (const attribute of ['readonly', 'disabled'] as const) {
+        it(`sets element to valid when ${attribute}, as required does not apply`, async () => {
+          element[attribute] = true;
+          await element.updateComplete;
+          expect(element.checkValidity()).toBe(true);
+          expect(element.validity.valueMissing).toBeFalsy();
+          expect(element.validationMessage).toBe('');
+        });
+      }
     });
 
     describe('maxlength with a message function returning an empty string', () => {
