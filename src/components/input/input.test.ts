@@ -272,6 +272,21 @@ describe('UuiInput in Form', () => {
       });
     });
 
+    describe('maxlength with a message function returning an empty string', () => {
+      beforeEach(async () => {
+        element.maxlength = 3;
+        element.maxlengthMessage = () => '';
+        element.value = 'too long';
+        await element.updateComplete;
+      });
+
+      it('sets element and form to invalid without throwing', () => {
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validity.tooLong).toBe(true);
+        expect(formElement.checkValidity()).toBe(false);
+      });
+    });
+
     describe('custom error though attributes', () => {
       beforeEach(async () => {
         element.setAttribute('error', 'true');
@@ -372,6 +387,34 @@ describe('UuiInput in Form', () => {
         element.value = 'http://umbraco.com';
         await element.updateComplete;
         expect(element.checkValidity()).toBe(true);
+      });
+    });
+
+    describe('pattern', () => {
+      beforeEach(async () => {
+        element.pattern = '^[a-z0-9\\-]+$';
+        element.value = 'notMatching';
+        await element.updateComplete;
+      });
+
+      it('sets element to invalid when the value does not match', () => {
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validity.patternMismatch).toBe(true);
+      });
+
+      it('is valid when readonly, as the input is barred from constraint validation', async () => {
+        element.readonly = true;
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
+        expect(element.validity.patternMismatch).toBeFalsy();
+        expect(formElement.checkValidity()).toBe(true);
+      });
+
+      it('is valid when disabled, as the input is barred from constraint validation', async () => {
+        element.disabled = true;
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
   });
