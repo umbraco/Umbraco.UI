@@ -35,3 +35,10 @@ import '@umbraco-ui/uui';
 ```html
 <uui-slider label="Slider" step="10">This slider has 10 steps</uui-slider>
 ```
+
+The selected value is visible by default. Set `hide-value-label` to hide it.
+
+When step values are not hidden, only the minimum and maximum are shown if
+steps are too closely spaced or there are more than 20 intervals.
+With `hide-step-values`, minimum and maximum labels appear only on hover or
+keyboard focus; intermediate step labels stay hidden.

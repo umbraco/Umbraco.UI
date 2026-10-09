@@ -1,6 +1,6 @@
 import { UUIHorizontalPulseKeyframes } from '../../internal/animations/index.js';
 import { UUIFormControlWithBasicsMixin } from '../../internal/mixins/index.js';
-import { css, html, LitElement, nothing, svg } from 'lit';
+import { css, html, LitElement, svg } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -38,7 +38,9 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
   #stepDecimalPlaces = 0;
 
   /**
-   * Hides the numbers representing the value of each steps. Dots will still be visible
+   * Hides intermediate step values. Dots will still be visible.
+   * Minimum and maximum values are only shown on hover or focus.
+   * When false, dense steps show only the minimum and maximum values.
    * @type {boolean}
    * @attr 'hide-step-values'
    * @default false
@@ -163,6 +165,10 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
   @query('#track')
   private readonly _track!: HTMLElement;
 
+  private readonly _resizeObserver = new ResizeObserver(() =>
+    this.onWindowResize(),
+  );
+
   constructor() {
     super();
     this.addEventListener('keydown', this.#onKeyDown);
@@ -193,15 +199,16 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
 
   connectedCallback() {
     super.connectedCallback();
-    //TODO: change to observer.
-    window.addEventListener('resize', this.onWindowResize);
+    void this.updateComplete.then(() => {
+      if (this.isConnected) this._resizeObserver.observe(this._track);
+    });
     if (!this.label) {
       console.warn(this.tagName + ' needs a `label`', this);
     }
   }
 
   disconnectedCallback() {
-    window.removeEventListener('resize', this.onWindowResize);
+    this._resizeObserver.disconnect();
     super.disconnectedCallback();
   }
 
@@ -210,15 +217,28 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
     this._updateSteps();
   }
 
+  override willUpdate(
+    changedProperties: Map<string | number | symbol, unknown>,
+  ) {
+    super.willUpdate(changedProperties);
+    if (
+      this.hasUpdated &&
+      (changedProperties.has('max') ||
+        changedProperties.has('min') ||
+        changedProperties.has('step'))
+    ) {
+      this._updateSteps();
+    }
+  }
+
   updated(changedProperties: Map<string | number | symbol, unknown>) {
     super.updated(changedProperties);
     if (
-      changedProperties.get('max') ||
-      changedProperties.get('min') ||
-      changedProperties.get('step')
+      changedProperties.has('max') ||
+      changedProperties.has('min') ||
+      changedProperties.has('step')
     ) {
       this.value = this.value as string;
-      this._updateSteps();
     }
   }
 
@@ -287,17 +307,21 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
   }
 
   renderStepValues() {
-    if (this.hideStepValues) return nothing;
+    const values =
+      !this.hideStepValues &&
+      this._steps.length <= 21 &&
+      this._stepWidth >= STEP_MIN_WIDTH
+        ? this._steps
+        : [this.min, this.max];
 
-    return html`<div id="step-values">
-      ${this._steps.map(
+    return html`<div
+      id="step-values"
+      class=${this.hideStepValues ? 'hidden-values' : ''}
+      aria-hidden="true">
+      ${values.map(
         el =>
           html` <span
-            ><span>
-              ${this._steps.length <= 20 && this._stepWidth >= STEP_MIN_WIDTH
-                ? el.toFixed(CountDecimalPlaces(this.step))
-                : nothing}
-            </span></span
+            ><span> ${el.toFixed(CountDecimalPlaces(this.step))} </span></span
           >`,
       )}
     </div>`;
@@ -429,17 +453,7 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
         width: 40px;
         margin-left: -20px;
         text-align: center;
-        opacity: 0;
-        transition: 120ms opacity;
         color: var(--uui-color-selected);
-      }
-
-      input:focus ~ #track #thumb-label,
-      :host(:not([disabled]):not([readonly]))
-        input:hover
-        ~ #track
-        #thumb-label {
-        opacity: 1;
       }
 
       #step-values {
@@ -453,12 +467,20 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
       #step-values > span {
         flex-basis: 0;
         flex-grow: 1;
-        color: var(--uui-color-disabled-contrast);
+        color: var(--uui-color-text);
       }
 
-      :host(:not([disabled]):not([readonly]):hover) #step-values > span,
-      :host(:not([disabled]):not([readonly]):active) #step-values > span {
-        color: var(--uui-color-border-emphasis);
+      #step-values.hidden-values {
+        visibility: hidden;
+      }
+
+      :host(:hover) #step-values.hidden-values,
+      :host(:focus-within) #step-values.hidden-values {
+        visibility: visible;
+      }
+
+      :host([disabled]) #step-values > span {
+        color: var(--uui-color-disabled-contrast);
       }
 
       #step-values > span > span {
@@ -481,10 +503,6 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
       :host([readonly]) #thumb {
         background-color: var(--uui-color-disabled);
         border-color: var(--uui-color-disabled-standalone);
-      }
-
-      :host([readonly]) #thumb-label {
-        opacity: 1;
       }
     `,
   ];
