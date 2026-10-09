@@ -83,6 +83,19 @@ describe('UUIFormControlMixin', () => {
       expect(element.validationMessage).toBe('This field is invalid');
     });
 
+    for (const emptyMessage of ['', undefined]) {
+      it(`stays invalid with a fallback message when a validator's message is ${JSON.stringify(emptyMessage) ?? 'undefined'}`, async () => {
+        element.required = true;
+        element.requiredMessage = emptyMessage;
+        await element.updateComplete;
+
+        expect(() => element.checkValidity()).not.toThrow();
+        expect(element.validity.valueMissing).toBe(true);
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validationMessage).not.toBe('');
+      });
+    }
+
     it('does not re-dispatch invalid for an unchanged message, but does when it changes', async () => {
       element.error = true;
       await element.updateComplete;
@@ -265,6 +278,23 @@ describe('UUIFormControlBaseMixin validation events', () => {
     await setPristine(false);
 
     expect(child.pristine).toBe(false);
+  });
+
+  it('ignores the validity of a native form control that is barred from constraint validation', async () => {
+    const input = document.createElement('input');
+    input.pattern = '^[a-z]+$';
+    input.value = 'notMatching';
+    element.appendChild(input);
+    element.addChildControl(input);
+    await setPristine(false);
+    expect(element.validity.patternMismatch).toBe(true);
+
+    input.readOnly = true;
+    expect(input.willValidate).toBe(false);
+    expect(input.validity.patternMismatch).toBe(true);
+
+    expect(() => element.checkValidity()).not.toThrow();
+    expect(element.validity.valid).toBe(true);
   });
 
   it('does not cascade pristine=true onto nested form control elements', async () => {

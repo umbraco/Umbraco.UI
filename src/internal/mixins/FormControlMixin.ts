@@ -4,10 +4,13 @@ import { UUIFormControlEvent } from '../events/index.js';
 
 type HTMLElementConstructor<T = HTMLElement> = new (...args: any[]) => T;
 
+const FALLBACK_VALIDATION_MESSAGE = 'This field is invalid';
+
 type NativeFormControlElement = Pick<
   HTMLInputElement,
   'validity' | 'checkValidity' | 'validationMessage' | 'setCustomValidity'
 > &
+  Partial<Pick<HTMLInputElement, 'willValidate'>> &
   HTMLElement; // Eventually use a specific interface or list multiple options like appending these types: ... | HTMLTextAreaElement | HTMLSelectElement
 
 /* FlagTypes type options originate from:
@@ -403,6 +406,8 @@ export function UUIFormControlBaseMixin<
       if (!message) {
         // Loop through inner native form controls to adapt their validityState. [NL]
         this.#formCtrlElements.some(formCtrlEl => {
+          // A control barred from constraint validation (e.g. readonly or disabled) can still report validity flags, but it has no validation message and never makes a form invalid.
+          if (formCtrlEl.willValidate === false) return false;
           let key: keyof ValidityState;
           for (key in formCtrlEl.validity) {
             if (key !== 'valid' && formCtrlEl.validity[key]) {
@@ -422,9 +427,10 @@ export function UUIFormControlBaseMixin<
       this.#validity.valid = !hasError;
 
       // Transfer the new validityState to the ElementInternals. [NL]
+      // setValidity throws when a flag is set without a message, so an empty message from a validator falls back to a generic one.
       this._internals.setValidity(
         this.#validity,
-        message,
+        hasError ? message || FALLBACK_VALIDATION_MESSAGE : message,
         innerFormControlEl ?? this.getFormElement() ?? undefined,
       );
 
