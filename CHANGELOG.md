@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/umbraco/Umbraco.UI/compare/v2.1.0...v2.1.1) (2026-10-09)
+
+### Bug Fixes
+
+- **form-control:** don't throw from setValidity for readonly inputs or empty messages ([#1520](https://github.com/umbraco/Umbraco.UI/issues/1520)) ([7e4bc6e](https://github.com/umbraco/Umbraco.UI/commit/7e4bc6eb34aece42768797d388ba4598293bcfb3)), closes [#1519](https://github.com/umbraco/Umbraco.UI/issues/1519)
+- **form-control:** report no validation errors while readonly or disabled ([#1521](https://github.com/umbraco/Umbraco.UI/issues/1521)) ([87b499a](https://github.com/umbraco/Umbraco.UI/commit/87b499aa524fa66039eac975f82a7485c7c865bf))
+- **slider:** show selected values and range limits without hovering ([#1515](https://github.com/umbraco/Umbraco.UI/issues/1515)) ([6e593e3](https://github.com/umbraco/Umbraco.UI/commit/6e593e3c76936aea4675ea282030a4035a424e1a)), closes [#1343](https://github.com/umbraco/Umbraco.UI/issues/1343)
+
 # [2.1.0](https://github.com/umbraco/Umbraco.UI/compare/v2.0.2...v2.1.0) (2026-10-06)
 
 ### Bug Fixes

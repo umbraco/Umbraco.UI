@@ -94,13 +94,24 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
   _max = 0;
 
   /**
-   * Hides the numbers representing the value of each steps. Dots will still be visible
+   * Hides intermediate step values. Dots will still be visible.
+   * Minimum and maximum values are only shown on hover or focus.
+   * When false, dense steps show only the minimum and maximum values.
    * @type {boolean}
    * @attr 'hide-step-values'
    * @default false
    */
   @property({ type: Boolean, attribute: 'hide-step-values' })
   hideStepValues = false;
+
+  /**
+   * Hides the labels showing the selected values.
+   * @type {boolean}
+   * @attr 'hide-value-label'
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'hide-value-label' })
+  hideValueLabel = false;
 
   /**
    * This reflects the behavior of a native input step attribute.
@@ -184,6 +195,19 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
 
   @state()
   private _trackWidth = 0;
+
+  private _valueLabelsOverlap = false;
+
+  #valueLabelWidths = [0, 0];
+
+  private readonly _resizeObserver = new ResizeObserver(() => {
+    this._trackWidth = this._outerTrack.offsetWidth;
+    this.#valueLabelWidths = Array.from(
+      this.renderRoot.querySelectorAll('.thumb-values > span > span'),
+      label => label.getBoundingClientRect().width,
+    );
+    this.requestUpdate();
+  });
 
   @state()
   _lowValuePercentStart = 0;
@@ -303,10 +327,6 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
     this.addEventListener('mousedown', this._onMouseDown);
     // Touch
     this.addEventListener('touchstart', this._onTouchStart);
-
-    window.addEventListener('resize', () => {
-      this._trackWidth = this._outerTrack?.offsetWidth;
-    });
   }
 
   connectedCallback(): void {
@@ -315,10 +335,39 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
       // Lack value. Defaulting to the min and max attributes
       this.value = `${this._min},${this._max}`;
     }
+    void this.updateComplete.then(() => {
+      if (!this.isConnected) return;
+      this._resizeObserver.observe(this._outerTrack);
+      this.renderRoot
+        .querySelectorAll('.thumb-values > span > span')
+        .forEach(label => this._resizeObserver.observe(label));
+    });
   }
 
-  firstUpdated(changedProperties: Map<string | number | symbol, unknown>) {
-    super.updated(changedProperties);
+  disconnectedCallback(): void {
+    this._resizeObserver.disconnect();
+    super.disconnectedCallback();
+  }
+
+  override willUpdate(
+    changedProperties: Map<string | number | symbol, unknown>,
+  ) {
+    super.willUpdate(changedProperties);
+    this._valueLabelsOverlap = this.#valueLabelsOverlap();
+  }
+
+  // Derived from the thumb positions and the label widths measured by the resize observer, so moving a thumb doesn't need a layout read.
+  #valueLabelsOverlap() {
+    const [lowLabelWidth = 0, highLabelWidth = 0] = this.#valueLabelWidths;
+    const innerTrackWidth = this._trackWidth - TRACK_PADDING * 2;
+    const thumbDistance =
+      (innerTrackWidth *
+        (100 - this._lowValuePercentStart - this._highValuePercentEnd)) /
+      100;
+    return thumbDistance < (lowLabelWidth + highLabelWidth) / 2 + 8;
+  }
+
+  firstUpdated() {
     this._trackWidth = this._outerTrack.offsetWidth;
     this._runPropertiesChecks();
   }
@@ -607,7 +656,9 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
 
   render() {
     return html`
-      <div id="range-slider">
+      <div
+        id="range-slider"
+        class=${this.hideStepValues ? 'hidden-values' : ''}>
         ${this._renderNativeInputs()}
         <div id="inner-track">
           <div
@@ -625,7 +676,9 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
   }
 
   private _renderThumbValues() {
-    return html`<div class="thumb-values">
+    return html`<div
+      class="thumb-values ${this._valueLabelsOverlap ? 'overlapping' : ''}"
+      aria-hidden="true">
       <span
         ><span
           >${this._lowInputValue.toFixed(CountDecimalPlaces(this._step))}</span
@@ -636,6 +689,10 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
           >${this._highInputValue.toFixed(CountDecimalPlaces(this._step))}</span
         ></span
       >
+      <div class="combined-value">
+        ${this._lowInputValue.toFixed(CountDecimalPlaces(this._step))} -
+        ${this._highInputValue.toFixed(CountDecimalPlaces(this._step))}
+      </div>
     </div>`;
   }
 
@@ -643,35 +700,40 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
     const stepAmount = (this._max - this._min) / this._step;
     const stepWidth = (this._trackWidth - TRACK_PADDING * 2) / stepAmount;
 
-    if (stepWidth < STEP_MIN_WIDTH) return;
-    if (stepAmount % 1 !== 0) return;
+    const showSteps = stepWidth >= STEP_MIN_WIDTH && stepAmount % 1 === 0;
 
     let index = 0;
-    const stepPositions = new Array(stepAmount + 1)
-      .fill(stepWidth)
-      .map(stepWidth => stepWidth * index++);
+    const stepPositions = showSteps
+      ? new Array(stepAmount + 1)
+          .fill(stepWidth)
+          .map(stepWidth => stepWidth * index++)
+      : [];
 
     return html`<div class="step-wrapper">
       <svg height="100%" width="100%">
         <rect x="9" y="9" height="${TRACK_HEIGHT}" rx="2" />
         ${this._renderStepCircles(stepPositions)}
       </svg>
-      ${this._renderStepValues(stepAmount)}
+      ${this._renderStepValues(stepAmount, showSteps)}
     </div>`;
   }
 
-  private _renderStepValues(stepAmount: number) {
-    if (this.hideStepValues || stepAmount > 20) return;
-
+  private _renderStepValues(stepAmount: number, showSteps: boolean) {
     let index = 0;
-    const stepValues = new Array(stepAmount + 1)
-      .fill(this._step)
-      .map(step =>
-        (this._min + step * index++).toFixed(CountDecimalPlaces(this._step)),
-      );
+    const stepValues =
+      !this.hideStepValues && showSteps && stepAmount <= 20
+        ? new Array(stepAmount + 1)
+            .fill(this._step)
+            .map(step => this._min + step * index++)
+        : [this._min, this._max];
 
-    return html`<div class="step-values">
-      ${stepValues.map(value => html`<span><span>${value}</span></span>`)}
+    return html`<div class="step-values" aria-hidden="true">
+      ${stepValues.map(
+        value =>
+          html`<span
+            ><span>${value.toFixed(CountDecimalPlaces(this._step))}</span></span
+          >`,
+      )}
     </div>`;
   }
 
@@ -830,7 +892,11 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
         position: absolute;
         left: 0;
         right: 0;
-        top: -9px;
+        top: ${TRACK_HEIGHT / 2 - TRACK_HEIGHT * 2}px;
+      }
+
+      .step-wrapper svg {
+        display: block;
       }
 
       /** Step circles */
@@ -883,6 +949,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
       .step-values {
         box-sizing: border-box;
         margin: 0 ${TRACK_PADDING}px; /* Match TRACK_MARGIN */
+        margin-top: 6px;
         display: flex;
         justify-content: space-between;
         font-size: var(--uui-type-small-size);
@@ -890,12 +957,20 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
 
       .step-values > span {
         position: relative;
-        color: var(--uui-color-disabled-contrast);
+        color: var(--uui-color-text);
       }
 
-      :host(:not([disabled]):not([readonly]):hover) .step-values > span,
-      :host(:not([disabled]):not([readonly]):active) .step-values > span {
-        color: var(--uui-color-border-emphasis);
+      #range-slider.hidden-values .step-values {
+        visibility: hidden;
+      }
+
+      :host(:hover) #range-slider.hidden-values .step-values,
+      :host(:focus-within) #range-slider.hidden-values .step-values {
+        visibility: visible;
+      }
+
+      :host([disabled]) .step-values > span {
+        color: var(--uui-color-disabled-contrast);
       }
 
       .step-values > span > span {
@@ -936,8 +1011,10 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
         justify-content: space-between;
         color: var(--color-interactive);
         font-weight: bold;
-        transition: 120ms opacity;
-        opacity: 0;
+      }
+
+      :host([hide-value-label]) .thumb-values {
+        display: none;
       }
 
       .thumb-values > span {
@@ -950,18 +1027,25 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
         transform: translateX(-50%);
       }
 
+      .combined-value {
+        display: none;
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        width: max-content;
+        transform: translateX(-50%);
+      }
+
+      .thumb-values.overlapping > span {
+        visibility: hidden;
+      }
+
+      .thumb-values.overlapping .combined-value {
+        display: block;
+      }
+
       :host([disabled]) .thumb-values {
         color: var(--uui-palette-mine-grey);
-      }
-
-      :host([readonly]) .thumb-values {
-        opacity: 1;
-      }
-
-      :host(:not([disabled]):not([readonly]))
-        #range-slider:hover
-        .thumb-values {
-        opacity: 1;
       }
 
       /** Native thumbs */
