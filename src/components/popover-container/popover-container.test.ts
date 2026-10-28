@@ -167,6 +167,52 @@ describe('UUIPopoverContainerElement', () => {
     });
   });
 
+  describe('positioning', () => {
+    afterEach(() => {
+      document.documentElement.removeAttribute('dir');
+    });
+
+    for (const dir of ['ltr', 'rtl']) {
+      it(`anchors the popover to its target in a ${dir} document`, async () => {
+        // The popover is positioned against the viewport, which takes its direction from the root element.
+        document.documentElement.dir = dir;
+        const container = render(html`
+          <main>
+            <uui-button
+              id="trigger-button"
+              popovertarget="test-popover"
+              label="Open"
+              style="position:fixed; top:50px; left:200px;"></uui-button>
+            <uui-popover-container
+              id="test-popover"
+              popover
+              placement="bottom-start">
+              <div style="width:100px; height:50px;">Content</div>
+            </uui-popover-container>
+          </main>
+        `).container.querySelector('main')!;
+
+        const popover = container.querySelector(
+          '#test-popover',
+        ) as UUIPopoverContainerElement;
+        const button = container.querySelector(
+          '#trigger-button',
+        ) as HTMLElement;
+
+        button.click();
+        await expect
+          .poll(() => popover.style.opacity, { timeout: 5000 })
+          .toBe('1');
+
+        const target = button.getBoundingClientRect();
+        const rect = popover.getBoundingClientRect();
+        expect(rect.top).toBeCloseTo(target.bottom, 0);
+        expect(rect.left).toBeLessThanOrEqual(target.right);
+        expect(rect.right).toBeGreaterThanOrEqual(target.left);
+      });
+    }
+  });
+
   describe('available height CSS custom property', () => {
     // Headless WebKit on Linux CI can take close to 2 s to position a popover, past the default 1 s poll.
     const positioned = { timeout: 5000 };
