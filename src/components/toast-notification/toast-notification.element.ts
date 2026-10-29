@@ -294,8 +294,8 @@ export class UUIToastNotificationElement extends LitElement {
         box-shadow: var(--uui-shadow-depth-3);
         background-color: var(--uui-color-surface);
         padding: var(--uui-size-layout-1);
-        padding-right: var(--uui-size-layout-1);
-        padding-left: var(--uui-size-layout-3);
+        padding-inline-end: var(--uui-size-layout-1);
+        padding-inline-start: var(--uui-size-layout-3);
         border-radius: var(--uui-border-radius-3);
 
         opacity: 0;
@@ -307,9 +307,9 @@ export class UUIToastNotificationElement extends LitElement {
       }
 
       #close {
-        float: right;
+        float: inline-end;
         margin-top: -6px;
-        margin-left: var(--uui-size-space-1);
+        margin-inline-start: var(--uui-size-space-1);
         margin-bottom: -4px;
       }
 
