@@ -4,7 +4,7 @@
 1. Review the new release PR [on GitHub](https://github.com/umbraco/Umbraco.UI/compare/).
 1. Run `npm run lerna:version` and Lerna will suggest a version bump for the `@umbraco-ui/uui` package.
 1. Review the new version number and accept with `y` and Lerna will now bump the package version and update the local CHANGELOG.md file using descriptions from the conventional commits, Lerna will also reinstall NPM and generate a new lockfile.
-1. Push all the changes to your release branch.
+1. Push the release commit and its tag to your release branch with `git push --follow-tags`. Lerna only commits and tags locally (`"push": false` in `lerna.json`), so nothing leaves your machine until you push.
 1. Make a PR from the new branch to the `production` branch.
 1. Add the `ignore-for-release`-label to the PR.
 1. Wait for GitHub checks to pass.

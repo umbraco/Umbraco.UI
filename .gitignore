@@ -45,3 +45,4 @@ out-css
 
 *storybook.log
 __screenshots__/
+.vitest/
