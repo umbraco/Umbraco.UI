@@ -79,6 +79,7 @@ export class UUIModalSidebarElement extends UUIModalElement {
           var(--uui-color-surface)
         );
         overflow: visible;
+        outline: none;
       }
       :host([index='0']) dialog {
         box-shadow: var(--uui-shadow-depth-5);
