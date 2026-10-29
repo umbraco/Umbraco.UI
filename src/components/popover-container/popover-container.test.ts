@@ -168,6 +168,9 @@ describe('UUIPopoverContainerElement', () => {
   });
 
   describe('available height CSS custom property', () => {
+    // Headless WebKit on Linux CI can take close to 2 s to position a popover, past the default 1 s poll.
+    const positioned = { timeout: 5000 };
+
     it('should set --_available-height when opened', async () => {
       const testContainer = render(html`
         <main>
@@ -195,7 +198,10 @@ describe('UUIPopoverContainerElement', () => {
 
       button?.click();
       await expect
-        .poll(() => popover.style.getPropertyValue('--_available-height'))
+        .poll(
+          () => popover.style.getPropertyValue('--_available-height'),
+          positioned,
+        )
         .toMatch(/^\d+(\.\d+)?px$/);
 
       const numericValue = parseFloat(
@@ -241,7 +247,10 @@ describe('UUIPopoverContainerElement', () => {
 
       (container.querySelector('#btn1') as HTMLElement).click();
       await expect
-        .poll(() => p1.style.getPropertyValue('--_available-height'))
+        .poll(
+          () => p1.style.getPropertyValue('--_available-height'),
+          positioned,
+        )
         .toMatch(/px$/);
       const withoutMargin = parseFloat(
         p1.style.getPropertyValue('--_available-height'),
@@ -249,7 +258,10 @@ describe('UUIPopoverContainerElement', () => {
 
       (container.querySelector('#btn2') as HTMLElement).click();
       await expect
-        .poll(() => p2.style.getPropertyValue('--_available-height'))
+        .poll(
+          () => p2.style.getPropertyValue('--_available-height'),
+          positioned,
+        )
         .toMatch(/px$/);
       const withMargin = parseFloat(
         p2.style.getPropertyValue('--_available-height'),
@@ -288,7 +300,7 @@ describe('UUIPopoverContainerElement', () => {
           return scrollContainer
             ? getComputedStyle(scrollContainer).maxHeight
             : '';
-        })
+        }, positioned)
         .toMatch(/px$/);
     });
   });

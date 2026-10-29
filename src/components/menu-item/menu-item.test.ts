@@ -311,6 +311,37 @@ describe('UUIMenuItemElement', () => {
         expect(element.selected).toBe(false);
       });
 
+      it('exposes aria-pressed as false when selectable and unselected', async () => {
+        await element.updateComplete;
+        expect(labelElement?.getAttribute('aria-pressed')).toBe('false');
+      });
+
+      it('sets aria-pressed to true once selected', async () => {
+        await element.updateComplete;
+        await mouse.leftClick(element);
+        await element.updateComplete;
+        expect(labelElement?.getAttribute('aria-pressed')).toBe('true');
+      });
+
+      it('sets aria-pressed back to false once deselected', async () => {
+        element.selected = true;
+        await element.updateComplete;
+        await mouse.leftClick(element);
+        await element.updateComplete;
+        expect(labelElement?.getAttribute('aria-pressed')).toBe('false');
+      });
+
+      it('does not expose aria-pressed when not selectable', async () => {
+        element.selectable = false;
+        await element.updateComplete;
+        expect(labelElement?.hasAttribute('aria-pressed')).toBe(false);
+      });
+
+      it('passes the a11y audit when selectable', async () => {
+        await element.updateComplete;
+        expect(await axeRun(element)).toHaveNoViolations();
+      });
+
       it('can expand', async () => {
         element.setAttribute('has-children', 'true');
         await element.updateComplete;
