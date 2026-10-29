@@ -381,7 +381,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         display: inline-flex;
         align-items: stretch;
         height: var(--uui-input-height, var(--uui-size-11));
-        text-align: left;
+        text-align: start;
         color: var(--uui-color-text);
         color-scheme: var(--uui-color-scheme, normal);
         box-sizing: border-box;
@@ -524,11 +524,11 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
       }
 
       slot[name='prepend']::slotted(div) {
-        margin-left: var(--uui-size-2, 6px);
+        margin-inline-start: var(--uui-size-2, 6px);
       }
 
       slot[name='append']::slotted(div) {
-        margin-right: var(--uui-size-2, 6px);
+        margin-inline-end: var(--uui-size-2, 6px);
       }
 
       uui-input,
