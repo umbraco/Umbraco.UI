@@ -270,7 +270,9 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #menu-item {
         position: relative;
-        padding-left: calc(var(--uui-menu-item-indent, 0) * var(--uui-size-4));
+        padding-inline-start: calc(
+          var(--uui-menu-item-indent, 0) * var(--uui-size-4)
+        );
         display: grid;
         grid-template-columns:
           calc(var(--flat-structure-reversed) * var(--uui-size-8))
@@ -447,14 +449,15 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
       :host([select-mode='highlight'][selectable][selected]:not([disabled]))
         #menu-item
         #caret-button:hover::after {
-        border-top-left-radius: var(--uui-border-radius);
-        border-bottom-left-radius: var(--uui-border-radius);
+        border-start-start-radius: var(--uui-border-radius);
+        border-end-start-radius: var(--uui-border-radius);
         position: absolute;
         content: '';
-        inset: 1px 0 1px 1px;
+        inset-block: 1px;
+        inset-inline: 1px 0;
         border: 2px solid
           var(--uui-menu-item-border-color-highlight, var(--uui-color-selected));
-        border-right: none;
+        border-inline-end: none;
       }
 
       :host([select-mode='highlight'][selected]:not([disabled]))
@@ -489,7 +492,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         font-size: inherit;
 
         padding: 0;
-        text-align: left;
+        text-align: start;
         border: none;
         color: inherit;
         background-color: transparent;
@@ -503,8 +506,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         grid-column-start: 2;
         white-space: nowrap;
         overflow: hidden;
-        padding-right: var(--uui-size-space-3);
-        padding-left: calc(
+        padding-inline-end: var(--uui-size-space-3);
+        padding-inline-start: calc(
           var(--uui-menu-item-flat-structure) * var(--uui-size-space-3)
         );
         display: inline-flex;
@@ -568,7 +571,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
 
       #icon {
         display: inline-flex;
-        margin-right: var(--uui-size-2);
+        margin-inline-end: var(--uui-size-2);
       }
       :host([selected]:not([select-mode='highlight'], [disabled])) #icon {
         --uui-icon-color-overwrite: currentColor;
@@ -579,7 +582,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         --uui-badge-position: relative;
         --uui-badge-position: auto;
         display: block;
-        margin-left: 6px;
+        margin-inline-start: 6px;
       }
 
       /** Focus styling */
@@ -593,7 +596,8 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         content: '';
         border-radius: calc(var(--uui-border-radius) - 1px);
         position: absolute;
-        inset: 3px 3px 3px -5px;
+        inset-block: 3px;
+        inset-inline: -5px 3px;
         outline: calc(2px * var(--uui-show-focus-outline, 1)) solid
           var(--uui-color-focus);
       }
@@ -627,7 +631,7 @@ export class UUIMenuItemElement extends SelectOnlyMixin(
         display: flex;
         align-items: center;
         --uui-button-height: calc(var(--uui-size-base-unit) * 4);
-        margin-right: var(--uui-size-base-unit);
+        margin-inline-end: var(--uui-size-base-unit);
       }
 
       @keyframes fadeIn {

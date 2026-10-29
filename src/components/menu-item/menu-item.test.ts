@@ -10,6 +10,7 @@ import { UUIMenuItemElement } from './menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUISelectableEvent } from '../../internal/events';
 import { UUITestMouse } from '../../internal/test/index';
+import '../../styles/custom-properties/sizes.css';
 
 describe('UUIMenuItemElement', () => {
   describe('element', () => {
@@ -549,5 +550,61 @@ describe('UUIMenuItemElement', () => {
         expect(element.hasAttribute('show-children')).toBe(true);
       });
     });
+  });
+
+  describe('text direction', () => {
+    for (const dir of ['ltr', 'rtl']) {
+      it(`keeps a gap between the icon and the label in ${dir}`, async () => {
+        const element = render(html`
+          <div dir=${dir}>
+            <uui-menu-item label="Item">
+              <span
+                slot="icon"
+                style="display: inline-block; width: 16px; height: 16px;"></span>
+            </uui-menu-item>
+          </div>
+        `).container.querySelector('uui-menu-item')!;
+        await element.updateComplete;
+        const icon = element.shadowRoot!.querySelector('#icon') as HTMLElement;
+        await expect
+          .poll(() => getComputedStyle(icon).display)
+          .not.toBe('none');
+
+        const iconRect = icon.getBoundingClientRect();
+        const labelRect = element
+          .shadowRoot!.querySelector('span.label')!
+          .getBoundingClientRect();
+        const gap =
+          dir === 'rtl'
+            ? iconRect.left - labelRect.right
+            : labelRect.left - iconRect.right;
+        expect(gap).toBeGreaterThan(0);
+      });
+
+      it(`indents nested items from the inline start in ${dir}`, async () => {
+        const parent = render(html`
+          <div dir=${dir}>
+            <uui-menu-item label="Parent" has-children show-children>
+              <uui-menu-item label="Child"></uui-menu-item>
+            </uui-menu-item>
+          </div>
+        `).container.querySelector('uui-menu-item')!;
+        const child = parent.querySelector('uui-menu-item')!;
+        await parent.updateComplete;
+        await child.updateComplete;
+
+        const parentRect = parent
+          .shadowRoot!.querySelector('#label-button')!
+          .getBoundingClientRect();
+        const childRect = child
+          .shadowRoot!.querySelector('#label-button')!
+          .getBoundingClientRect();
+        const indent =
+          dir === 'rtl'
+            ? parentRect.right - childRect.right
+            : childRect.left - parentRect.left;
+        expect(indent).toBeGreaterThan(0);
+      });
+    }
   });
 });
