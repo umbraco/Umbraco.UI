@@ -27,8 +27,7 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
 /**
  *  @element uui-button
  *  @fires {UUIButtonEvent} click - fires when the element is clicked
- *  @slot - for default content
- *  @slot label - for label content
+ *  @slot - for label content, shown instead of the `label` text
  *  @slot extra - for extra
  *  @property {string} label - text of the button, shown unless content is slotted. Also used as the button's aria-label unless an aria-label attribute is set.
  *  @description - All-around button

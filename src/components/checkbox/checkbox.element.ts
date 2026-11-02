@@ -15,6 +15,7 @@ import {
  *  @property {string} label - text shown next to the checkbox, unless content is slotted. Also used as the native input's aria-label unless an aria-label attribute is set.
  *  @fires UUIBooleanInputEvent#change - fires when the element is begin checked by a user action
  *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
+ *  @slot - for label content, shown instead of the `label` text
  *  @extends UUIBooleanInputElement
  */
 export class UUICheckboxElement extends UUIBooleanInputElement {

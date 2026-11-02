@@ -22,6 +22,7 @@ import { css, html } from 'lit';
  *  @cssprop --uui-toggle-background-color-hover - Set the toggle background color when hovered
  *  @cssprop --uui-toggle-border-color-focus - Set the toggle background color when focused
  *  @cssprop --uui-toggle-background-color-focus - Set the toggle background color when focused
+ *  @slot - for label content, shown instead of the `label` text
  *  @extends UUIBooleanInputElement
  */
 export class UUIToggleElement extends UUIBooleanInputElement {
