@@ -8,6 +8,7 @@ import '../icon/icon.js';
 /**
  * @summary A button to trigger text content to be copied to the clipboard
  * @element uui-button-copy-text
+ * @property {string} label - accessible name of the button, used as its aria-label unless an aria-label attribute is set. Not rendered visually; the button shows a copy icon or the slotted content.
  * @dependency uui-button
  * @dependency uui-icon
  * @fires {UUICopyTextEvent} copying - Fires before the content is about to copied to the clipboard and can be used to transform or modify the data before its added to the clipboard
