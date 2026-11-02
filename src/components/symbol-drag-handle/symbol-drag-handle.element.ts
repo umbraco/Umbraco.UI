@@ -5,7 +5,7 @@ import '../icon/icon.js';
 
 /**
  * @element uui-symbol-drag-handle
- * @property {string} label - accessible name of the drag handle, used as the icon's aria-label. Not rendered visually.
+ * @property {string} label - intended as the accessible name of the drag handle. Not rendered visually. Currently has no effect: it is passed as aria-label to the inner icon, which removes it and is hidden from assistive technology.
  */
 export class UUISymbolDragHandleElement extends LabelMixin('', LitElement) {
   render() {
