@@ -9,6 +9,8 @@ export type UUIProgressBarStatus = 'in-progress' | 'finished' | 'error';
 
 /**
  * @element uui-progress-bar
+ * @property {string} label - accessible name of the progress bar, used as its aria-label. Not rendered visually.
+ * @attribute label - accessible name of the progress bar, used as its aria-label. Not rendered visually.
  */
 export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   private _progress = 0;
