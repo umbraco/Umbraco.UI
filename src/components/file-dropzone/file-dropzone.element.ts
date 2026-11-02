@@ -13,6 +13,8 @@ export interface UUIFileFolder {
 
 /**
  * @element uui-file-dropzone
+ * @property {string} label - text shown inside the dropzone, unless content is slotted. Also used as the native file input's aria-label.
+ * @attribute label - text shown inside the dropzone, unless content is slotted. Also used as the native file input's aria-label.
  *  @fires {UUIFileDropzoneEvent} change - fires when a file has been selected.
  *  @fires {UUIFileDropzoneEvent} reject - fires when files are rejected due to not matching the accept attribute.
  *  @slot - For the content of the dropzone

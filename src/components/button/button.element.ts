@@ -30,8 +30,8 @@ export type UUIButtonType = 'submit' | 'button' | 'reset';
  *  @slot - for default content
  *  @slot label - for label content
  *  @slot extra - for extra
- *  @property {string} label - label to be used for aria-label and potentially as visual label for some components
- *  @attribute label - label to be used for aria-label and potentially as visual label for some components
+ *  @property {string} label - text of the button, shown unless content is slotted. Also used as the button's aria-label unless an aria-label attribute is set.
+ *  @attribute label - text of the button, shown unless content is slotted. Also used as the button's aria-label unless an aria-label attribute is set.
  *  @description - All-around button
  *  @cssprop --uui-button-height - overwrite the button height
  *  @cssprop --uui-button-border-width - overwrite the border width

@@ -5,6 +5,8 @@ import '../icon/icon.js';
 
 /**
  * @element uui-symbol-drag-handle
+ * @property {string} label - accessible name of the drag handle, used as the icon's aria-label. Not rendered visually.
+ * @attribute label - accessible name of the drag handle, used as the icon's aria-label. Not rendered visually.
  */
 export class UUISymbolDragHandleElement extends LabelMixin('', LitElement) {
   render() {

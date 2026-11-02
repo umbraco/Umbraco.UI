@@ -36,6 +36,8 @@ export type InputMode =
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
+ * @property {string} label - accessible name of the input, used as the native input's aria-label unless an aria-label attribute is set. Not rendered visually.
+ * @attribute label - accessible name of the input, used as the native input's aria-label unless an aria-label attribute is set. Not rendered visually.
  * @slot prepend - for components to render to the left of the input.
  * @slot append - for components to render to the right of the input.
  * @property {boolean} spellcheck - get/set native spellcheck attribute
