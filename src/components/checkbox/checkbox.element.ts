@@ -13,7 +13,6 @@ import {
  *  Umbraco checkbox, toggles between checked and uncheck
  *  @element uui-checkbox
  *  @property {string} label - text shown next to the checkbox, unless content is slotted. Also used as the native input's aria-label unless an aria-label attribute is set.
- *  @attribute label - text shown next to the checkbox, unless content is slotted. Also used as the native input's aria-label unless an aria-label attribute is set.
  *  @fires UUIBooleanInputEvent#change - fires when the element is begin checked by a user action
  *  @cssprop --uui-checkbox-size - To set the size of the checkbox.
  *  @extends UUIBooleanInputElement

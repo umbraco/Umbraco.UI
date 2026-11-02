@@ -20,7 +20,6 @@ export type UUIColorSliderType = 'hue' | 'opacity' | 'saturation' | 'lightness';
 /**
  *  @element uui-color-slider
  *  @property {string} label - accessible name of the slider, used as its aria-label unless an aria-label attribute is set. Not rendered visually.
- *  @attribute label - accessible name of the slider, used as its aria-label unless an aria-label attribute is set. Not rendered visually.
  *  @description A slider that is a part of uui-color-picker
  * @fires {UUIColorSliderEvent} change - Fires when the value of the slider changes.
  * @cssprop --uui-slider-height - The height of the slider.

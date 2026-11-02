@@ -15,7 +15,6 @@ import { iconCheck } from '../icon-registry-essential/svgs/iconCheck.js';
  *
  * @element uui-color-swatch
  * @property {string} label - name of the color, used as the swatch's aria-label and tooltip. Only shown visually when `show-label` is set, unless content is slotted into the `label` slot.
- * @attribute label - name of the color, used as the swatch's aria-label and tooltip. Only shown visually when `show-label` is set, unless content is slotted into the `label` slot.
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
  * @cssprop --uui-swatch-color - The color of the swatch.

@@ -60,7 +60,6 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
 /**
  * @element uui-color-picker
  * @property {string} label - accessible name of the button that opens the color picker, used as its aria-label (falls back to "Open Color picker"). Not rendered visually, and not used when `inline` is set.
- * @attribute label - accessible name of the button that opens the color picker, used as its aria-label (falls back to "Open Color picker"). Not rendered visually, and not used when `inline` is set.
  * @cssprop --uui-color-picker-width - The width of the color picker
  * @description
  * @fires {UUIColorPickerChangeEvent} change - Fired when the color changes

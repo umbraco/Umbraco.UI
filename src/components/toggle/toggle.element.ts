@@ -13,7 +13,6 @@ import { css, html } from 'lit';
  *  Umbraco Toggle-switch, toggles between off/on. Technically a checkbox.
  *  @element uui-toggle
  *  @property {string} label - text shown next to the toggle, unless content is slotted. Also used as the native input's aria-label unless an aria-label attribute is set.
- *  @attribute label - text shown next to the toggle, unless content is slotted. Also used as the native input's aria-label unless an aria-label attribute is set.
  *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
  *  @cssprop --uui-toggle-size - Define the toggle size.
  *  @cssprop --uui-toggle-switch-width - Define the slider width.

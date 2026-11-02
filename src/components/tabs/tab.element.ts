@@ -7,7 +7,6 @@ import { ifDefined } from 'lit/directives/if-defined.js';
  * A single tab. Should be put into `<uui-tab-group>`,
  * @element uui-tab
  * @property {string} label - text of the tab, shown unless content is slotted into the default slot. Not used as aria-label; the tab is named by its visible text.
- * @attribute label - text of the tab, shown unless content is slotted into the default slot. Not used as aria-label; the tab is named by its visible text.
  * @slot - for label
  * @slot icon - for icon
  * @slot extra - for extra
