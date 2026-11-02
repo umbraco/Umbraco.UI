@@ -47,3 +47,8 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: 'eslint-plugin-storybook'
         update-types: ['version-update:semver-major']
+      # TypeScript 7 drops the JS compiler API that typescript-eslint,
+      # web-component-analyzer and tsc-files rely on. Upgrade by hand once
+      # they support it.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
