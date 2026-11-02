@@ -30,11 +30,21 @@ export default defineConfig({
         preserveModules: true,
         preserveModulesRoot: 'src',
         // Vite 8 (Rolldown) keeps import queries (e.g. uui-text.css?inline) in
-        // preserved module file names, producing files with '?' that are invalid
-        // on Windows and resolve as query strings over HTTP. Strip the query like
-        // Rollup did, and the \0 prefix of virtual module ids (not allowed on disk).
-        entryFileNames: (chunk: { name: string }) =>
-          `${chunk.name.split('?')[0].replace(/\0/g, '_')}.js`,
+        // preserved module file names, either raw ('?inline', invalid on Windows
+        // and resolved as a query string over HTTP) or sanitized ('_inline' since
+        // Rolldown 1.2.14). Strip the query like Rollup did, using the facade
+        // module id to know its length, and the \0 prefix of virtual module ids
+        // (not allowed on disk).
+        entryFileNames: (chunk: {
+          name: string;
+          facadeModuleId: string | null;
+        }) => {
+          const query = chunk.facadeModuleId?.split('?')[1];
+          const name = query
+            ? chunk.name.slice(0, -(query.length + 1))
+            : chunk.name;
+          return `${name.replace(/\0/g, '_')}.js`;
+        },
         assetFileNames: assetInfo => {
           if (assetInfo.names?.[0]?.endsWith('.css')) return '[name].[ext]';
           return 'assets/fonts/[name].[ext]';
