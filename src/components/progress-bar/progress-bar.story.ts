@@ -22,6 +22,7 @@ type Story = StoryObj;
 export const Default: Story = {
   args: {
     progress: 50,
+    label: 'Progress',
   },
 };
 
@@ -63,7 +64,6 @@ export const Percentage: Story = {
 export const Indeterminate: Story = {
   args: {
     label: 'Loading content',
-    status: 'error',
     indeterminate: true,
   },
   render: args => html`<uui-progress-bar ${spread(args)}></uui-progress-bar>`,

@@ -12,7 +12,6 @@ export type UUIProgressBarStatus = 'in-progress' | 'finished' | 'error';
  */
 export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   private _progress = 0;
-  private _hasProgressValue = false;
   private _max = 100;
 
   /**
@@ -25,7 +24,8 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   indeterminate = false;
 
   /**
-   * Status of the tracked operation.
+   * Status of the tracked operation. Only changes the colour of the bar,
+   * so pair `finished` and `error` with a visible message for assistive technologies.
    * @type {UUIProgressBarStatus}
    * @attr
    * @default 'in-progress'
@@ -34,7 +34,8 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
   status: UUIProgressBarStatus = 'in-progress';
 
   /**
-   * Maximum value of the progress bar.
+   * Maximum value of the progress bar. Must be greater than `0`.
+   * Invalid or omitted values fall back to `100`.
    * @type {number}
    * @attr max
    * @default 100
@@ -46,11 +47,7 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
 
   set max(newVal) {
     const oldVal = this._max;
-    const next = Number.isFinite(newVal) ? newVal : 1;
-    this._max = Math.max(next, 1);
-    if (this._hasProgressValue) {
-      this._progress = clamp(this._progress, 0, this._max);
-    }
+    this._max = Number.isFinite(newVal) && newVal > 0 ? newVal : 100;
     this.requestUpdate('max', oldVal);
   }
 
@@ -62,31 +59,25 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
    * @default 0
    */
   @property({ type: Number })
-  get progress() {
-    return this._progress;
+  get progress(): number {
+    // Clamp on read so the result doesn't depend on whether `max` is set before or after `progress`.
+    return clamp(this._progress, 0, this._max);
   }
 
   set progress(newVal: number | undefined) {
-    const oldVal = this._progress;
-    if (typeof newVal === 'number' && Number.isFinite(newVal)) {
-      this._hasProgressValue = true;
-      this._progress = clamp(newVal, 0, this._max);
-    } else {
-      this._hasProgressValue = false;
-      this._progress = 0;
-    }
+    const oldVal = this.progress;
+    this._progress =
+      typeof newVal === 'number' && Number.isFinite(newVal) ? newVal : 0;
     this.requestUpdate('progress', oldVal);
   }
 
   private _getProgressStyle(indeterminate: boolean) {
     return {
-      width: indeterminate ? '100%' : `${(this._progress / this._max) * 100}%`,
+      width: indeterminate ? '100%' : `${(this.progress / this._max) * 100}%`,
     };
   }
 
   render() {
-    const isFinished = this.status === 'finished';
-    const isError = this.status === 'error';
     const indeterminate = this.indeterminate;
 
     return html`
@@ -99,12 +90,10 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
         aria-labelledby=${ifDefined(
           this.getAttribute('aria-labelledby') || undefined,
         )}
-        aria-busy=${!isFinished}
-        aria-invalid=${isError}
         aria-valuemin=${ifDefined(indeterminate ? undefined : '0')}
         aria-valuemax=${ifDefined(indeterminate ? undefined : `${this._max}`)}
         aria-valuenow=${ifDefined(
-          indeterminate ? undefined : `${this._progress}`,
+          indeterminate ? undefined : `${this.progress}`,
         )}
         style=${styleMap(this._getProgressStyle(indeterminate))}></div>
     `;
@@ -157,6 +146,13 @@ export class UUIProgressBarElement extends LabelMixin('label', LitElement) {
 
       :host([status='error']:not([indeterminate])) #bar {
         background: var(--uui-color-invalid);
+      }
+
+      @media (prefers-reduced-motion) {
+        :host([indeterminate]) #bar::before {
+          animation: none;
+          transform: none;
+        }
       }
 
       @keyframes progress-bar-loading {
