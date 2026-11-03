@@ -78,6 +78,12 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
     if (_changedProperties.has('label')) {
       this.setAttribute('aria-label', this.label);
     }
+    if (
+      _changedProperties.has('value') &&
+      this._selectedElement?.value !== this.value
+    ) {
+      this._selectSwatchByValue();
+    }
   }
 
   private _handleSlotChange() {
@@ -96,14 +102,28 @@ export class UUIColorSwatchesElement extends LabelMixin('label', LitElement) {
       if (this.readonly) {
         swatch.setAttribute('readonly', '');
       }
-
-      if (this.value !== '' && swatch.value === this.value) {
-        swatch.selected = true;
-        swatch.setAttribute('aria-checked', 'true');
-        this._selectedElement = swatch;
-        this._activeElement = this._selectedElement;
-      }
     });
+    this._selectSwatchByValue();
+  }
+
+  private _selectSwatchByValue() {
+    const swatch =
+      this.value === ''
+        ? undefined
+        : this._swatches?.find(el => el.value === this.value);
+
+    if (this._selectedElement && this._selectedElement !== swatch) {
+      this._selectedElement.selected = false;
+      this._selectedElement.setAttribute('aria-checked', 'false');
+      this._activeElement = undefined;
+      this._selectedElement = undefined;
+    }
+    if (!swatch) return;
+
+    swatch.selected = true;
+    swatch.setAttribute('aria-checked', 'true');
+    this._selectedElement = swatch;
+    this._activeElement = this._selectedElement;
   }
 
   private readonly _onSelected = (event: Event) => {
