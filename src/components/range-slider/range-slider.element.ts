@@ -36,7 +36,7 @@ export class UUIRangeSliderElement extends UUIFormControlWithBasicsMixin(
   static readonly formAssociated = true;
 
   /**
-   * Label to be used for aria-label and eventually as visual label. Adds "low-end value" and "high-end value" endings for the two values.
+   * Accessible name of the range slider, used as the aria-label of its two native range inputs with "low-end value" and "high-end value" appended. Not rendered visually.
    * @type {string}
    * @attr
    */

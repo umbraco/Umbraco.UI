@@ -33,5 +33,28 @@ import '@umbraco-ui/uui';
 ## Usage
 
 ```html
-<uui-progress-bar progress="25"></uui-progress-bar>
+<uui-progress-bar label="Upload progress" progress="25"></uui-progress-bar>
 ```
+
+Use `max` to track progress on a different scale, for example steps:
+
+```html
+<uui-progress-bar
+  label="Steps completed"
+  progress="3"
+  max="10"></uui-progress-bar>
+```
+
+Use `indeterminate` when the progress can't be measured, and `status` to show that the operation has `finished` or ended in an `error`:
+
+```html
+<uui-progress-bar label="Loading content" indeterminate></uui-progress-bar>
+<uui-progress-bar
+  label="Upload progress"
+  progress="100"
+  status="finished"></uui-progress-bar>
+```
+
+A `label` (or `aria-label`) is required so assistive technologies can name the progress bar.
+
+`status` only changes the colour of the bar. Show a visible message next to it when an operation finishes or fails, and set `aria-busy="true"` on the region that is loading rather than on the progress bar.

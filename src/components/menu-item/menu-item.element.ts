@@ -17,6 +17,7 @@ import '../symbol-expand/symbol-expand.js';
 
 /**
  *  @element uui-menu-item
+ *  @property {string} label - text of the menu item, shown unless content is slotted into the `label` slot. Also used as the item's aria-label.
  *  @cssprop --uui-menu-item-indent - set indentation of the menu items
  *  @cssprop --uui-menu-item-flat-structure - set to 1 to remove the indentation of the chevron. Use this when you have a flat menu structure
  *  @cssprop --uui-menu-item-background-color-hover - background color when hovering

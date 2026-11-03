@@ -143,7 +143,7 @@ export class UUISliderElement extends UUIFormControlWithBasicsMixin(
   readonly = false;
 
   /**
-   * Label to be used for aria-label and eventually as visual label
+   * Accessible name of the slider, used as the native range input's aria-label. Not rendered visually.
    * @type {string}
    * @attr
    */

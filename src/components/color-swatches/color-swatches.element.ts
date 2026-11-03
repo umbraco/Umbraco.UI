@@ -10,6 +10,7 @@ import { UUIColorSwatchesEvent } from './UUIColorSwatchesEvent.js';
 /**
  *  Put uui-color-swatch elements inside this element to create a color swatch selector.
  *  @element uui-color-swatches
+ *  @property {string} label - accessible name of the swatch group, set as the element's aria-label. Not rendered visually.
  *  @slot - Default slot for content.
  *  @fires {UUIColorSwatchesEvent} change - Fires when a color swatch is selected.
  */

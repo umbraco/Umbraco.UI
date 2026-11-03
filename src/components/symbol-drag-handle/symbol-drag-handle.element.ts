@@ -5,12 +5,13 @@ import '../icon/icon.js';
 
 /**
  * @element uui-symbol-drag-handle
+ * @property {string} label - accessible name of the drag handle, used as the label of the inner icon. Not rendered visually.
  */
 export class UUISymbolDragHandleElement extends LabelMixin('', LitElement) {
   render() {
     return html`<uui-icon
       name="drag"
-      aria-label=${ifDefined(this.label)}></uui-icon>`;
+      label=${ifDefined(this.label)}></uui-icon>`;
   }
 
   static override readonly styles = [
