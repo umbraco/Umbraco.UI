@@ -121,4 +121,36 @@ describe('UUIModalSidebarElement', () => {
     expect(element.isClosing).toBe(false);
     expect(element.isOpen).toBe(true);
   });
+
+  describe('text direction', () => {
+    for (const dir of ['ltr', 'rtl']) {
+      it(`slides in from and docks to the inline end in ${dir}`, async () => {
+        const sidebar = render(html`
+          <div dir=${dir}>
+            <uui-modal-sidebar
+              size="small"
+              .transitionDuration=${0}></uui-modal-sidebar>
+          </div>
+        `).container.querySelector('uui-modal-sidebar')!;
+        await sidebar.updateComplete;
+        const dialog = sidebar.shadowRoot!.querySelector('dialog')!;
+
+        await expect
+          .poll(() => {
+            const rect = dialog.getBoundingClientRect();
+            return dir === 'rtl' ? rect.right : window.innerWidth - rect.left;
+          })
+          .toBeLessThanOrEqual(0);
+
+        // What the modal container does once the sidebar is in front.
+        sidebar.style.setProperty('--uui-modal-offset', '0px');
+        await expect
+          .poll(() => {
+            const rect = dialog.getBoundingClientRect();
+            return dir === 'rtl' ? rect.left : window.innerWidth - rect.right;
+          })
+          .toBeCloseTo(0, 0);
+      });
+    }
+  });
 });
