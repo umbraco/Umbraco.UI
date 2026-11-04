@@ -430,6 +430,8 @@ export class UUIPopoverContainerElement extends LitElement {
     css`
       :host {
         margin: 0;
+        /* The position is a translate() from the viewport's top-left corner, so keep the origin there in right-to-left documents too. */
+        inset: 0 auto auto 0;
         width: fit-content;
         height: fit-content;
         border: none;
