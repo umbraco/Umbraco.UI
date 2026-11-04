@@ -63,7 +63,9 @@ export class UUIBreadcrumbItemElement extends LitElement {
     css`
       :host {
         font-size: var(--uui-type-small-size);
-        color: currentColor;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        max-width: 20em;
       }
 
       a,
@@ -76,10 +78,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
       a:hover,
       span#link:hover {
         color: var(--uui-color-interactive-emphasis);
-      }
-      a:focus,
-      span#link:focus {
-        color: var(--uui-color-focus);
       }
 
       a:focus-visible,
