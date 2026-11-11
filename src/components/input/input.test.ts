@@ -169,6 +169,21 @@ describe('UuiInputElement', () => {
       expect(computedStyle.textOverflow).toBe('ellipsis');
     });
   });
+
+  describe('min-width', () => {
+    it('lets the input shrink below 60px by default', async () => {
+      element.style.width = '40px';
+      await element.updateComplete;
+      expect(getComputedStyle(input).minWidth).toBe('0px');
+      expect(element.getBoundingClientRect().width).toBe(40);
+      expect(input.getBoundingClientRect().width).toBeLessThanOrEqual(40);
+    });
+
+    it('can be set with --uui-input-min-width', () => {
+      element.style.setProperty('--uui-input-min-width', '20px');
+      expect(getComputedStyle(input).minWidth).toBe('20px');
+    });
+  });
 });
 
 describe('UuiInput with native label element', () => {
