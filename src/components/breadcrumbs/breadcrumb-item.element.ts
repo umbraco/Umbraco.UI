@@ -64,7 +64,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
       :host {
         display: inline-flex;
         font-size: var(--uui-type-small-size);
-        max-width: 20em;
       }
 
       a,
@@ -98,7 +97,7 @@ export class UUIBreadcrumbItemElement extends LitElement {
       #link,
       #last-item {
         padding: 0 4px;
-        max-width: 150px;
+        max-width: 16em;
         white-space: nowrap;
         overflow-x: hidden;
         text-overflow: ellipsis;
