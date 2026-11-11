@@ -83,6 +83,19 @@ describe('UUIFormControlMixin', () => {
       expect(element.validationMessage).toBe('This field is invalid');
     });
 
+    for (const emptyMessage of ['', undefined]) {
+      it(`stays invalid with a fallback message when a validator's message is ${JSON.stringify(emptyMessage) ?? 'undefined'}`, async () => {
+        element.required = true;
+        element.requiredMessage = emptyMessage;
+        await element.updateComplete;
+
+        expect(() => element.checkValidity()).not.toThrow();
+        expect(element.validity.valueMissing).toBe(true);
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validationMessage).not.toBe('');
+      });
+    }
+
     it('does not re-dispatch invalid for an unchanged message, but does when it changes', async () => {
       element.error = true;
       await element.updateComplete;
@@ -124,6 +137,11 @@ const pristineTagName = defineCE(
     LitElement,
     '',
   ) {
+    static override properties = {
+      readonly: { type: Boolean, reflect: true },
+    };
+    declare readonly: boolean;
+
     protected getFormElement() {
       return undefined;
     }
@@ -265,6 +283,90 @@ describe('UUIFormControlBaseMixin validation events', () => {
     await setPristine(false);
 
     expect(child.pristine).toBe(false);
+  });
+
+  it('ignores the validity of a native form control that is barred from constraint validation', async () => {
+    const input = document.createElement('input');
+    input.pattern = '^[a-z]+$';
+    input.value = 'notMatching';
+    element.appendChild(input);
+    element.addChildControl(input);
+    await setPristine(false);
+    expect(element.validity.patternMismatch).toBe(true);
+
+    input.readOnly = true;
+    expect(input.willValidate).toBe(false);
+    expect(input.validity.patternMismatch).toBe(true);
+
+    expect(() => element.checkValidity()).not.toThrow();
+    expect(element.validity.valid).toBe(true);
+  });
+
+  for (const attribute of ['readonly', 'disabled']) {
+    it(`exposes willValidate, which is false while ${attribute}`, async () => {
+      expect(element.willValidate).toBe(true);
+
+      element.setAttribute(attribute, '');
+      expect(element.willValidate).toBe(false);
+
+      element.removeAttribute(attribute);
+      expect(element.willValidate).toBe(true);
+    });
+
+    it(`reports no validation errors while ${attribute}, like a native input`, async () => {
+      element.failCustomValidation('Required');
+      await setPristine(false);
+      expect(element.validity.valid).toBe(false);
+      resetCounts();
+
+      element.setAttribute(attribute, '');
+      await element.updateComplete;
+
+      expect(element.validity.valid).toBe(true);
+      expect(element.validity.customError).toBeFalsy();
+      expect(element.validationMessage).toBe('');
+      expect(validEvents).toBe(1);
+
+      element.removeAttribute(attribute);
+      await element.updateComplete;
+
+      expect(element.validity.valid).toBe(false);
+      expect(element.validationMessage).toBe('Required');
+      expect(invalidEvents).toBe(1);
+    });
+
+    it(`is not made invalid by a nested form control that is ${attribute}`, async () => {
+      const child = await renderControl();
+      element.append(child);
+      element.addChildControl(child);
+      child.failCustomValidation('Required');
+      await setPristine(false);
+      expect(element.validity.valid).toBe(false);
+
+      child.setAttribute(attribute, '');
+      await child.updateComplete;
+      element.checkValidity();
+
+      expect(element.validity.valid).toBe(true);
+    });
+  }
+
+  it('revalidates when an ancestor fieldset is disabled or enabled', async () => {
+    const fieldset = document.createElement('fieldset');
+    element.before(fieldset);
+    fieldset.append(element);
+    element.failCustomValidation('Required');
+    await setPristine(false);
+    expect(element.validity.valid).toBe(false);
+
+    fieldset.disabled = true;
+    await element.updateComplete;
+    expect(element.willValidate).toBe(false);
+    expect(element.validity.valid).toBe(true);
+
+    fieldset.disabled = false;
+    await element.updateComplete;
+    expect(element.validity.valid).toBe(false);
   });
 
   it('does not cascade pristine=true onto nested form control elements', async () => {

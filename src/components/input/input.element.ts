@@ -36,6 +36,7 @@ export type InputMode =
 /**
  * Custom element wrapping the native input element.This is a formAssociated element, meaning it can participate in a native HTMLForm. A name:value pair will be submitted.
  * @element uui-input
+ * @property {string} label - accessible name of the input, used as the native input's aria-label unless an aria-label attribute is set. Not rendered visually.
  * @slot prepend - for components to render to the left of the input.
  * @slot append - for components to render to the right of the input.
  * @property {boolean} spellcheck - get/set native spellcheck attribute
@@ -58,6 +59,7 @@ export type InputMode =
  * @cssprop --uui-input-border-color-focus - Border color on focus
  * @cssprop --uui-input-border-color-disabled - Border color when disabled
  * @cssprop --uui-input-border-color-readonly - Border color when readonly
+ * @cssprop --uui-input-min-width - Minimum width of the inner input field
  */
 export class UUIInputElement extends UUIFormControlWithBasicsMixin(
   LabelMixin('', LitElement),
@@ -381,7 +383,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         display: inline-flex;
         align-items: stretch;
         height: var(--uui-input-height, var(--uui-size-11));
-        text-align: left;
+        text-align: start;
         color: var(--uui-color-text);
         color-scheme: var(--uui-color-scheme, normal);
         box-sizing: border-box;
@@ -491,7 +493,6 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         box-sizing: border-box;
         border: none;
         background: none;
-        min-width: 0;
         flex-grow: 1;
         flex-shrink: 1;
         height: inherit;
@@ -500,7 +501,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         text-overflow: ellipsis;
         line-height: 1;
         flex: 1 1 auto;
-        min-width: 60px;
+        min-width: var(--uui-input-min-width, 0);
       }
 
       input[type='password']::-ms-reveal {
@@ -524,11 +525,11 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
       }
 
       slot[name='prepend']::slotted(div) {
-        margin-left: var(--uui-size-2, 6px);
+        margin-inline-start: var(--uui-size-2, 6px);
       }
 
       slot[name='append']::slotted(div) {
-        margin-right: var(--uui-size-2, 6px);
+        margin-inline-end: var(--uui-size-2, 6px);
       }
 
       uui-input,

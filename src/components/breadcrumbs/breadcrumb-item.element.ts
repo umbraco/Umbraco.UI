@@ -62,8 +62,8 @@ export class UUIBreadcrumbItemElement extends LitElement {
   static override readonly styles = [
     css`
       :host {
+        display: inline-flex;
         font-size: var(--uui-type-small-size);
-        color: currentColor;
       }
 
       a,
@@ -76,10 +76,6 @@ export class UUIBreadcrumbItemElement extends LitElement {
       a:hover,
       span#link:hover {
         color: var(--uui-color-interactive-emphasis);
-      }
-      a:focus,
-      span#link:focus {
-        color: var(--uui-color-focus);
       }
 
       a:focus-visible,
@@ -101,10 +97,11 @@ export class UUIBreadcrumbItemElement extends LitElement {
       #link,
       #last-item {
         padding: 0 4px;
-        max-width: 150px;
+        max-width: 16em;
         white-space: nowrap;
-        overflow: hidden;
+        overflow-x: hidden;
         text-overflow: ellipsis;
+        outline-offset: -2px;
       }
     `,
   ];

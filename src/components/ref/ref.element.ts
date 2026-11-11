@@ -200,11 +200,11 @@ export class UUIRefElement extends SelectOnlyMixin(
         display: flex;
         align-items: center;
       }
-      #tag-container::slotted(*:first-child) {
-        margin: calc(var(--uui-size-2));
+      #tag-container::slotted(*) {
+        margin-left: calc(var(--uui-size-1));
       }
       #actions-container::slotted(*:first-child) {
-        margin: calc(var(--uui-size-2));
+        margin-left: calc(var(--uui-size-2));
       }
       #actions-container {
         opacity: 0;

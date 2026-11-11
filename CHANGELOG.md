@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/umbraco/Umbraco.UI/compare/v2.1.1...v2.2.0) (2026-11-11)
+
+### Bug Fixes
+
+- **breadcrumb:** limit with, remove unnesecary focus color ([#1481](https://github.com/umbraco/Umbraco.UI/issues/1481)) ([430a506](https://github.com/umbraco/Umbraco.UI/commit/430a50656673ab51f4936ced7084a6ddc5f7a182))
+- **color-swatches:** update the selected swatch when value is set programmatically ([cc5ba14](https://github.com/umbraco/Umbraco.UI/commit/cc5ba143236ec74f78f63d1b51b5d82c31d76077))
+- **input:** drop hardcoded 60px min-width on the inner input (closes [#1525](https://github.com/umbraco/Umbraco.UI/issues/1525)) ([#1550](https://github.com/umbraco/Umbraco.UI/issues/1550)) ([331a35b](https://github.com/umbraco/Umbraco.UI/commit/331a35b7bc02ae92aaa5c2f42dd081795441ccb7))
+- mirror menu items, inputs, sidebars and toasts in right-to-left layouts ([#1534](https://github.com/umbraco/Umbraco.UI/issues/1534)) ([e386886](https://github.com/umbraco/Umbraco.UI/commit/e3868860bab0c6ff139c227b4c27381396f79c27))
+- **modal:** stack modal container backdrop above z-indexed content (closes [#1547](https://github.com/umbraco/Umbraco.UI/issues/1547)) ([#1549](https://github.com/umbraco/Umbraco.UI/issues/1549)) ([112e3b7](https://github.com/umbraco/Umbraco.UI/commit/112e3b7ea0883ee7b74a94fa1c32f28ad0644387))
+- **popover-container:** keep the popover next to its target in right-to-left documents ([#1533](https://github.com/umbraco/Umbraco.UI/issues/1533)) ([bf41eea](https://github.com/umbraco/Umbraco.UI/commit/bf41eea2fcc81c89193a31ae5156693af894dcd3))
+- **symbol-drag-handle:** expose label as accessible name of the drag icon ([0e0511a](https://github.com/umbraco/Umbraco.UI/commit/0e0511a7ac5bd04b812d2210bc67db0fc4d439c8))
+
+### Features
+
+- Add aria attributes to progress bar ([#1462](https://github.com/umbraco/Umbraco.UI/issues/1462)) ([884d6bd](https://github.com/umbraco/Umbraco.UI/commit/884d6bdd757b57cd08434d0be20db3149b970227))
+- **sidebar:** prepare modal sidebar element for is reference bar ([e018553](https://github.com/umbraco/Umbraco.UI/commit/e018553409b93dc421a4ce800ed9dd0848c6d4a7))
+
+## [2.1.1](https://github.com/umbraco/Umbraco.UI/compare/v2.1.0...v2.1.1) (2026-10-09)
+
+### Bug Fixes
+
+- **form-control:** don't throw from setValidity for readonly inputs or empty messages ([#1520](https://github.com/umbraco/Umbraco.UI/issues/1520)) ([7e4bc6e](https://github.com/umbraco/Umbraco.UI/commit/7e4bc6eb34aece42768797d388ba4598293bcfb3)), closes [#1519](https://github.com/umbraco/Umbraco.UI/issues/1519)
+- **form-control:** report no validation errors while readonly or disabled ([#1521](https://github.com/umbraco/Umbraco.UI/issues/1521)) ([87b499a](https://github.com/umbraco/Umbraco.UI/commit/87b499aa524fa66039eac975f82a7485c7c865bf))
+- **slider:** show selected values and range limits without hovering ([#1515](https://github.com/umbraco/Umbraco.UI/issues/1515)) ([6e593e3](https://github.com/umbraco/Umbraco.UI/commit/6e593e3c76936aea4675ea282030a4035a424e1a)), closes [#1343](https://github.com/umbraco/Umbraco.UI/issues/1343)
+
 # [2.1.0](https://github.com/umbraco/Umbraco.UI/compare/v2.0.2...v2.1.0) (2026-10-06)
 
 ### Bug Fixes

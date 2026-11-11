@@ -9,6 +9,16 @@ import { oneEvent } from '../../internal/test/index.js';
 import { UUIRangeSliderElement } from './range-slider.element';
 import { UUIRangeSliderEvent } from './UUIRangeSliderEvent';
 
+async function renderElement<
+  T extends HTMLElement & { updateComplete: Promise<boolean> },
+>(template: ReturnType<typeof html>): Promise<T> {
+  const el = render(template).container.querySelector(
+    'uui-range-slider',
+  ) as unknown as T;
+  await el.updateComplete;
+  return el;
+}
+
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
 };
@@ -38,6 +48,214 @@ describe('UUIRangeSliderElement', () => {
 
   it('passes the a11y audit', async () => {
     expect(await axeRun(element)).toHaveNoViolations();
+  });
+
+  describe('selected value labels', () => {
+    let labels: HTMLElement;
+    let combined: HTMLElement;
+
+    beforeEach(async () => {
+      element = await renderElement(html`
+        <uui-range-slider
+          label="Range"
+          min="0"
+          max="50"
+          step="0.1"
+          value="10,40"
+          style="display: block; width: 300px"></uui-range-slider>
+      `);
+      await element.updateComplete;
+      labels = element.shadowRoot!.querySelector<HTMLElement>('.thumb-values')!;
+      combined = labels.querySelector<HTMLElement>('.combined-value')!;
+      labels.style.transition = 'none';
+    });
+
+    it('shows separate values without hovering when there is room', () => {
+      expect(getComputedStyle(labels).opacity).toBe('1');
+      expect(getComputedStyle(combined).display).toBe('none');
+      for (const label of labels.querySelectorAll('span > span')) {
+        expect(getComputedStyle(label).visibility).toBe('visible');
+      }
+    });
+
+    it('keeps the values visible when step values are hidden', async () => {
+      element.hideStepValues = true;
+      await element.updateComplete;
+      expect(getComputedStyle(labels).display).not.toBe('none');
+      expect(getComputedStyle(labels).opacity).toBe('1');
+    });
+
+    it('hides the values when hideValueLabel is set', async () => {
+      element.hideValueLabel = true;
+      await element.updateComplete;
+      expect(getComputedStyle(labels).display).toBe('none');
+    });
+
+    it('keeps readonly values visible even when step values are hidden', async () => {
+      element.hideStepValues = true;
+      element.readonly = true;
+      await element.updateComplete;
+      expect(getComputedStyle(labels).opacity).toBe('1');
+    });
+
+    it('combines close decimal values and separates them again as handles move apart', async () => {
+      element.value = '20.1,20.2';
+      await element.updateComplete;
+      expect(getComputedStyle(combined).display).toBe('block');
+      expect(combined.textContent!.trim().replace(/\s+/g, ' ')).toBe(
+        '20.1 - 20.2',
+      );
+      for (const label of labels.querySelectorAll('span > span')) {
+        expect(getComputedStyle(label).visibility).toBe('hidden');
+      }
+
+      element.value = '10,40';
+      await element.updateComplete;
+      expect(getComputedStyle(combined).display).toBe('none');
+    });
+
+    it('recalculates overlap when the container resizes without a window resize', async () => {
+      element.value = '20,30';
+      await element.updateComplete;
+      expect(getComputedStyle(combined).display).toBe('none');
+
+      element.style.width = '100px';
+      await vi.waitFor(() =>
+        expect(getComputedStyle(combined).display === 'block').toBe(true),
+      );
+
+      element.style.width = '300px';
+      await vi.waitFor(() =>
+        expect(getComputedStyle(combined).display === 'none').toBe(true),
+      );
+    });
+
+    it('resumes observing size changes after reconnecting', async () => {
+      const parent = element.parentElement!;
+      element.remove();
+      parent.append(element);
+      await element.updateComplete;
+      element.value = '20,30';
+      await element.updateComplete;
+      element.style.width = '100px';
+      await vi.waitFor(() =>
+        expect(getComputedStyle(combined).display === 'block').toBe(true),
+      );
+    });
+  });
+
+  describe('step marker alignment', () => {
+    for (const lineHeight of [21, 22, 32]) {
+      it(`centers markers on the track with a ${lineHeight}px line-height`, async () => {
+        element = await renderElement(html`
+          <uui-range-slider
+            min="0"
+            max="10"
+            value="2,8"
+            style="display: block; width: 300px; line-height: ${lineHeight}px">
+          </uui-range-slider>
+        `);
+        await element.updateComplete;
+
+        const track = element.shadowRoot!.querySelector('#inner-track')!;
+        const markers = element.shadowRoot!.querySelectorAll('.track-step');
+        const trackBounds = track.getBoundingClientRect();
+        const trackCenter = trackBounds.top + trackBounds.height / 2;
+
+        expect(markers.length).toBe(11);
+        for (const marker of markers) {
+          const bounds = marker.getBoundingClientRect();
+          expect(
+            Math.abs(bounds.top + bounds.height / 2 - trackCenter),
+          ).toBeLessThanOrEqual(0.1);
+        }
+      });
+    }
+  });
+
+  describe('step value visibility', () => {
+    const stepValues = () =>
+      Array.from(
+        element.shadowRoot!.querySelectorAll('.step-values > span > span'),
+        label => label.textContent!.trim(),
+      );
+
+    beforeEach(async () => {
+      element = await renderElement(html`
+        <uui-range-slider
+          label="Range"
+          min="0"
+          max="10"
+          step="1"
+          style="display: block; width: 600px"></uui-range-slider>
+      `);
+      await element.updateComplete;
+    });
+
+    it('shows steps when there is room and preserves dots when labels are hidden', async () => {
+      expect(stepValues()).toHaveLength(11);
+      element.hideStepValues = true;
+      await element.updateComplete;
+      expect(stepValues()).toEqual(['0', '10']);
+      const endpoints = element.shadowRoot!.querySelector('.step-values')!;
+      expect(getComputedStyle(endpoints).visibility).toBe('hidden');
+      await element.focus();
+      expect(getComputedStyle(endpoints).visibility).toBe('visible');
+      expect(stepValues()).toEqual(['0', '10']);
+      await element.blur();
+      expect(getComputedStyle(endpoints).visibility).toBe('hidden');
+      expect(element.shadowRoot!.querySelectorAll('.track-step')).toHaveLength(
+        11,
+      );
+      element.hideStepValues = false;
+      await element.updateComplete;
+      expect(stepValues()).toHaveLength(11);
+    });
+
+    it('shows only endpoints for decimal steps and hides them when requested', async () => {
+      element.step = 0.1;
+      element.max = 50;
+      await element.updateComplete;
+      expect(stepValues()).toEqual(['0.0', '50.0']);
+      element.hideStepValues = true;
+      await element.updateComplete;
+      expect(stepValues()).toEqual(['0.0', '50.0']);
+      const endpoints = element.shadowRoot!.querySelector('.step-values')!;
+      expect(getComputedStyle(endpoints).visibility).toBe('hidden');
+      await element.focus();
+      expect(getComputedStyle(endpoints).visibility).toBe('visible');
+      await element.blur();
+      expect(getComputedStyle(endpoints).visibility).toBe('hidden');
+      element.hideStepValues = false;
+      await element.updateComplete;
+      expect(stepValues()).toEqual(['0.0', '50.0']);
+    });
+
+    it('updates label density on container resize', async () => {
+      element.style.width = '100px';
+      await vi.waitFor(() => expect(stepValues().length === 2).toBe(true));
+      expect(stepValues()).toEqual(['0', '10']);
+      element.style.width = '600px';
+      await vi.waitFor(() => expect(stepValues().length === 11).toBe(true));
+    });
+
+    it('shows all labels for 20 intervals when there is room', async () => {
+      element.max = 20;
+      await element.updateComplete;
+      expect(stepValues()).toHaveLength(21);
+    });
+
+    it('shows only endpoints above 20 intervals even when dots fit', async () => {
+      element.style.width = '1000px';
+      element.max = 21;
+      await element.updateComplete;
+      await vi.waitFor(() =>
+        expect(
+          element.shadowRoot!.querySelectorAll('.track-step').length === 22,
+        ).toBe(true),
+      );
+      expect(stepValues()).toEqual(['0', '21']);
+    });
   });
 
   describe('properties', () => {
@@ -71,6 +289,9 @@ describe('UUIRangeSliderElement', () => {
     });
     it('has a maxGap property', () => {
       expect(element).toHaveProperty('maxGap');
+    });
+    it('has a hideValueLabel property', () => {
+      expect(element).toHaveProperty('hideValueLabel');
     });
     it('has a hideStepValues property', () => {
       expect(element).toHaveProperty('hideStepValues');

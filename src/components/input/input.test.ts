@@ -7,6 +7,49 @@ import { oneEvent } from '../../internal/test/index.js';
 import { UUIInputElement } from './input.element.js';
 import { UUIInputEvent } from './UUIInputEvent.js';
 
+describe('UuiInput text direction', () => {
+  for (const dir of ['ltr', 'rtl']) {
+    it(`aligns its text to the inline start in ${dir}`, async () => {
+      const element = render(html`
+        <div dir=${dir}><uui-input label="Input" value="Text"></uui-input></div>
+      `).container.querySelector('uui-input')!;
+      await element.updateComplete;
+
+      const input = element.shadowRoot!.querySelector('input')!;
+      expect(['start', dir === 'rtl' ? 'right' : 'left']).toContain(
+        getComputedStyle(input).textAlign,
+      );
+    });
+
+    it(`spaces prepended and appended content from its outer edges in ${dir}`, async () => {
+      const element = render(html`
+        <div dir=${dir}>
+          <uui-input label="Input">
+            <div slot="prepend">Before</div>
+            <div slot="append">After</div>
+          </uui-input>
+        </div>
+      `).container.querySelector('uui-input')!;
+      await element.updateComplete;
+
+      const host = element.getBoundingClientRect();
+      const prepend = element
+        .querySelector('[slot="prepend"]')!
+        .getBoundingClientRect();
+      const append = element
+        .querySelector('[slot="append"]')!
+        .getBoundingClientRect();
+      const border = parseFloat(getComputedStyle(element).borderLeftWidth);
+      const startGap =
+        dir === 'rtl' ? host.right - prepend.right : prepend.left - host.left;
+      const endGap =
+        dir === 'rtl' ? append.left - host.left : host.right - append.right;
+      expect(startGap).toBeGreaterThan(border);
+      expect(endGap).toBeGreaterThan(border);
+    });
+  }
+});
+
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
 };
@@ -169,6 +212,21 @@ describe('UuiInputElement', () => {
       expect(computedStyle.textOverflow).toBe('ellipsis');
     });
   });
+
+  describe('min-width', () => {
+    it('lets the input shrink below 60px by default', async () => {
+      element.style.width = '40px';
+      await element.updateComplete;
+      expect(getComputedStyle(input).minWidth).toBe('0px');
+      expect(element.getBoundingClientRect().width).toBe(40);
+      expect(input.getBoundingClientRect().width).toBeLessThanOrEqual(40);
+    });
+
+    it('can be set with --uui-input-min-width', () => {
+      element.style.setProperty('--uui-input-min-width', '20px');
+      expect(getComputedStyle(input).minWidth).toBe('20px');
+    });
+  });
 });
 
 describe('UuiInput with native label element', () => {
@@ -269,6 +327,31 @@ describe('UuiInput in Form', () => {
         element.value = 'new value';
         await element.updateComplete;
         expect(formElement.checkValidity()).toBe(true);
+      });
+
+      for (const attribute of ['readonly', 'disabled'] as const) {
+        it(`sets element to valid when ${attribute}, as required does not apply`, async () => {
+          element[attribute] = true;
+          await element.updateComplete;
+          expect(element.checkValidity()).toBe(true);
+          expect(element.validity.valueMissing).toBeFalsy();
+          expect(element.validationMessage).toBe('');
+        });
+      }
+    });
+
+    describe('maxlength with a message function returning an empty string', () => {
+      beforeEach(async () => {
+        element.maxlength = 3;
+        element.maxlengthMessage = () => '';
+        element.value = 'too long';
+        await element.updateComplete;
+      });
+
+      it('sets element and form to invalid without throwing', () => {
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validity.tooLong).toBe(true);
+        expect(formElement.checkValidity()).toBe(false);
       });
     });
 
@@ -372,6 +455,34 @@ describe('UuiInput in Form', () => {
         element.value = 'http://umbraco.com';
         await element.updateComplete;
         expect(element.checkValidity()).toBe(true);
+      });
+    });
+
+    describe('pattern', () => {
+      beforeEach(async () => {
+        element.pattern = '^[a-z0-9\\-]+$';
+        element.value = 'notMatching';
+        await element.updateComplete;
+      });
+
+      it('sets element to invalid when the value does not match', () => {
+        expect(element.checkValidity()).toBe(false);
+        expect(element.validity.patternMismatch).toBe(true);
+      });
+
+      it('is valid when readonly, as the input is barred from constraint validation', async () => {
+        element.readonly = true;
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
+        expect(element.validity.patternMismatch).toBeFalsy();
+        expect(formElement.checkValidity()).toBe(true);
+      });
+
+      it('is valid when disabled, as the input is barred from constraint validation', async () => {
+        element.disabled = true;
+        await element.updateComplete;
+        expect(element.checkValidity()).toBe(true);
+        expect(formElement.checkValidity()).toBe(true);
       });
     });
   });
