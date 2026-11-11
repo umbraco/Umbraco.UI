@@ -48,7 +48,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
 
       - name: Publish package
-        run: npm run build:prod && lerna publish from-package --yes
+        run: npm run build:prod && npx lerna publish from-package --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.UMBRACO_PUBLISH_NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
