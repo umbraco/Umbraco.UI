@@ -30,6 +30,12 @@ describe('UUIModalContainerElement', () => {
   it('passes the a11y audit', async () => {
     expect(await axeRun(element)).toHaveNoViolations();
   });
+
+  // The backdrop is not in the top layer, so it must out-stack z-indexed page content (#1547).
+  it('stacks above z-indexed page content', () => {
+    const zIndex = Number(getComputedStyle(element).zIndex);
+    expect(zIndex).toBeGreaterThan(10);
+  });
 });
 
 describe('UUIModalDialogElement', () => {
