@@ -92,6 +92,21 @@ describe('UUIComboboxElement', () => {
       )!;
       expect(getComputedStyle(wrapper).marginRight).toBe('0px');
     });
+
+    const innerInput = () =>
+      element
+        .shadowRoot!.querySelector('#combobox-input')!
+        .shadowRoot!.querySelector('input')!;
+
+    it('does not force a min-width on the input in single mode', () => {
+      expect(getComputedStyle(innerInput()).minWidth).toBe('0px');
+    });
+
+    it('keeps 60px of typing room next to tags in multiple mode', async () => {
+      element.multiple = true;
+      await element.updateComplete;
+      expect(getComputedStyle(innerInput()).minWidth).toBe('60px');
+    });
   });
 
   describe('events', () => {

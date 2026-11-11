@@ -59,6 +59,7 @@ export type InputMode =
  * @cssprop --uui-input-border-color-focus - Border color on focus
  * @cssprop --uui-input-border-color-disabled - Border color when disabled
  * @cssprop --uui-input-border-color-readonly - Border color when readonly
+ * @cssprop --uui-input-min-width - Minimum width of the inner input field
  */
 export class UUIInputElement extends UUIFormControlWithBasicsMixin(
   LabelMixin('', LitElement),
@@ -492,7 +493,6 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         box-sizing: border-box;
         border: none;
         background: none;
-        min-width: 0;
         flex-grow: 1;
         flex-shrink: 1;
         height: inherit;
@@ -501,7 +501,7 @@ export class UUIInputElement extends UUIFormControlWithBasicsMixin(
         text-overflow: ellipsis;
         line-height: 1;
         flex: 1 1 auto;
-        min-width: 60px;
+        min-width: var(--uui-input-min-width, 0);
       }
 
       input[type='password']::-ms-reveal {
