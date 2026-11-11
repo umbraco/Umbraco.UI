@@ -7,6 +7,49 @@ import { oneEvent } from '../../internal/test/index.js';
 import { UUIInputElement } from './input.element.js';
 import { UUIInputEvent } from './UUIInputEvent.js';
 
+describe('UuiInput text direction', () => {
+  for (const dir of ['ltr', 'rtl']) {
+    it(`aligns its text to the inline start in ${dir}`, async () => {
+      const element = render(html`
+        <div dir=${dir}><uui-input label="Input" value="Text"></uui-input></div>
+      `).container.querySelector('uui-input')!;
+      await element.updateComplete;
+
+      const input = element.shadowRoot!.querySelector('input')!;
+      expect(['start', dir === 'rtl' ? 'right' : 'left']).toContain(
+        getComputedStyle(input).textAlign,
+      );
+    });
+
+    it(`spaces prepended and appended content from its outer edges in ${dir}`, async () => {
+      const element = render(html`
+        <div dir=${dir}>
+          <uui-input label="Input">
+            <div slot="prepend">Before</div>
+            <div slot="append">After</div>
+          </uui-input>
+        </div>
+      `).container.querySelector('uui-input')!;
+      await element.updateComplete;
+
+      const host = element.getBoundingClientRect();
+      const prepend = element
+        .querySelector('[slot="prepend"]')!
+        .getBoundingClientRect();
+      const append = element
+        .querySelector('[slot="append"]')!
+        .getBoundingClientRect();
+      const border = parseFloat(getComputedStyle(element).borderLeftWidth);
+      const startGap =
+        dir === 'rtl' ? host.right - prepend.right : prepend.left - host.left;
+      const endGap =
+        dir === 'rtl' ? append.left - host.left : host.right - append.right;
+      expect(startGap).toBeGreaterThan(border);
+      expect(endGap).toBeGreaterThan(border);
+    });
+  }
+});
+
 const preventSubmit = (e: SubmitEvent) => {
   e.preventDefault();
 };

@@ -71,9 +71,9 @@ export class UUIModalSidebarElement extends UUIModalElement {
         width: 100%;
         box-sizing: border-box;
         max-width: calc(100% - var(--uui-modal-sidebar-left-gap));
-        margin-left: auto;
-        right: var(--uui-modal-offset);
-        transition: right var(--uui-modal-transition-duration, 250ms);
+        margin-inline-start: auto;
+        inset-inline-end: var(--uui-modal-offset);
+        transition: inset-inline-end var(--uui-modal-transition-duration, 250ms);
         background: var(
           --uui-modal-sidebar-background,
           var(--uui-color-surface)
