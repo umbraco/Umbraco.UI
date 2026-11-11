@@ -62,9 +62,8 @@ export class UUIBreadcrumbItemElement extends LitElement {
   static override readonly styles = [
     css`
       :host {
+        display: inline-flex;
         font-size: var(--uui-type-small-size);
-        text-overflow: ellipsis;
-        overflow-x: hidden;
         max-width: 20em;
       }
 
@@ -101,8 +100,9 @@ export class UUIBreadcrumbItemElement extends LitElement {
         padding: 0 4px;
         max-width: 150px;
         white-space: nowrap;
-        overflow: hidden;
+        overflow-x: hidden;
         text-overflow: ellipsis;
+        outline-offset: -2px;
       }
     `,
   ];
