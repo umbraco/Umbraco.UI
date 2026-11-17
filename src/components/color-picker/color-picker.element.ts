@@ -61,7 +61,7 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  * @element uui-color-picker
  * @property {string} label - accessible name of the button that opens the color picker, used as its aria-label (falls back to "Open Color picker"). Not rendered visually, and not used when `inline` is set.
  * @cssprop --uui-color-picker-width - The width of the color picker
- * @description
+ * @description Changes apply as you pick. Pressing Escape in the popover restores the value it opened with.
  * @fires {UUIColorPickerChangeEvent} change - Fired when the color changes
  */
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
@@ -71,6 +71,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @query('#swatches') private readonly _swatches!: UUIColorSwatchesElement;
 
   private _value: string = '';
+  private _valueOnOpen = '';
+  private _formatOnOpen: UUIColorPickerFormat = 'hex';
 
   @state() private inputValue = '';
   @state() private hue = 0;
@@ -193,6 +195,30 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     '#ccc',
     '#fff',
   ];
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('keydown', this._onEscapeKeyDown, true);
+  }
+
+  private readonly _onPopoverToggle = (event: ToggleEvent) => {
+    if (event.newState === 'open') {
+      this._valueOnOpen = this.value;
+      this._formatOnOpen = this.format;
+      // Window capture: focus may be outside the popover, and the input stops keydown propagation.
+      window.addEventListener('keydown', this._onEscapeKeyDown, true);
+    } else {
+      window.removeEventListener('keydown', this._onEscapeKeyDown, true);
+    }
+  };
+
+  private readonly _onEscapeKeyDown = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape') return;
+    this.format = this._formatOnOpen;
+    this.setColor(this._valueOnOpen);
+    // Reset uncommitted text, so the input's change on blur doesn't apply it.
+    this._input.value = this.inputValue;
+  };
 
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
@@ -535,7 +561,10 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         aria-haspopup="true"
         aria-expanded="false"
         popovertarget="color-picker-popover"></button>
-      <uui-popover-container id="color-picker-popover" no-scroll>
+      <uui-popover-container
+        id="color-picker-popover"
+        no-scroll
+        @beforetoggle=${this._onPopoverToggle}>
         ${this._renderColorPicker()}
       </uui-popover-container>`;
   }

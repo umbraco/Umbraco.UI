@@ -1,6 +1,7 @@
 import './color-picker.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+import { userEvent } from 'vitest/browser';
 import { axeRun } from '../../internal/test/a11y.js';
 import { UUIColorPickerElement } from './color-picker.element';
 
@@ -102,6 +103,78 @@ describe('UUIColorPickerElement', () => {
       element.value = 'not-a-color';
       await element.updateComplete;
       expect(element.value).toBe('#ff0000');
+    });
+  });
+
+  describe('popover', () => {
+    let popover: HTMLElement;
+
+    const pickSwatch = async (color: string) => {
+      await userEvent.click(
+        element.shadowRoot!.querySelector(
+          `uui-color-swatch[label="${color}"]`,
+        )!,
+      );
+      await element.updateComplete;
+    };
+
+    beforeEach(async () => {
+      element.value = '#4a90e2';
+      await element.updateComplete;
+      popover = element.shadowRoot!.querySelector('#color-picker-popover')!;
+      await userEvent.click(
+        element.shadowRoot!.querySelector<HTMLElement>('[part="trigger"]')!,
+      );
+    });
+
+    it('restores the value it opened with when Escape is pressed', async () => {
+      const changes: string[] = [];
+      element.addEventListener('change', () => changes.push(element.value));
+
+      await pickSwatch('#d0021b');
+      expect(element.value).toBe('#d0021b');
+
+      await userEvent.keyboard('{Escape}');
+      await element.updateComplete;
+
+      expect(popover.matches(':popover-open')).toBe(false);
+      expect(element.value).toBe('#4a90e2');
+      expect(changes).toEqual(['#d0021b', '#4a90e2']);
+    });
+
+    it('keeps the picked value when closed without Escape', async () => {
+      await pickSwatch('#d0021b');
+
+      popover.hidePopover();
+      await element.updateComplete;
+
+      expect(element.value).toBe('#d0021b');
+    });
+
+    it('discards text typed into the input when Escape is pressed', async () => {
+      const input = element
+        .shadowRoot!.querySelector('[part="input"]')!
+        .shadowRoot!.querySelector('input')!;
+
+      await userEvent.fill(input, 'red');
+      await userEvent.keyboard('{Escape}');
+      await element.updateComplete;
+
+      expect(element.value).toBe('#4a90e2');
+      expect(input.value).toBe('#4a90e2');
+    });
+
+    it('restores the format it opened with when Escape is pressed', async () => {
+      await userEvent.click(
+        element.shadowRoot!.querySelector('.color-picker__toggle-format')!,
+      );
+      expect(element.format).toBe('rgb');
+
+      await userEvent.keyboard('{Escape}');
+      await element.updateComplete;
+
+      expect(element.format).toBe('hex');
+      expect(element.value).toBe('#4a90e2');
     });
   });
 });
