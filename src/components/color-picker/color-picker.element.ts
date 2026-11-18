@@ -61,7 +61,7 @@ type UUIColorPickerSize = 'small' | 'medium' | 'large';
  * @element uui-color-picker
  * @property {string} label - accessible name of the button that opens the color picker, used as its aria-label (falls back to "Open Color picker"). Not rendered visually, and not used when `inline` is set.
  * @cssprop --uui-color-picker-width - The width of the color picker
- * @description Changes apply as you pick. Pressing Escape in the popover restores the value it opened with.
+ * @description
  * @fires {UUIColorPickerChangeEvent} change - Fired when the color changes
  */
 export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
@@ -69,6 +69,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @query('.color-picker__preview')
   private readonly _previewButton!: HTMLButtonElement;
   @query('#swatches') private readonly _swatches!: UUIColorSwatchesElement;
+  @query('#color-picker-popover') private readonly _popover!: HTMLElement;
 
   private _value: string = '';
   private _valueOnOpen = '';
@@ -220,6 +221,18 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this._input.value = this.inputValue;
   };
 
+  private _closeOnEnter(event: KeyboardEvent) {
+    if (this.inline || event.key !== 'Enter') return;
+    // Deferred: closing during keydown returns focus to the trigger, which then gets this Enter and reopens.
+    setTimeout(() => this._popover?.hidePopover());
+  }
+
+  private _onPopoverFocusOut(event: FocusEvent) {
+    const next = event.relatedTarget as Node | null;
+    // No relatedTarget means a window blur or a click on nothing focusable: stay open.
+    if (next && !this._popover.contains(next)) this._popover.hidePopover();
+  }
+
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;
@@ -314,13 +327,15 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   handleInputKeyDown(event: KeyboardEvent) {
     event.stopImmediatePropagation();
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.isComposing) {
       this._swatches?.resetSelection();
 
       this.inputValue = this._input.value as string;
       this.setColor(this.inputValue);
 
       setTimeout(() => this._input.select());
+      // Not for Enter on the format and eyedropper buttons slotted into the input.
+      if (event.target === this._input) this._closeOnEnter(event);
     }
   }
 
@@ -437,7 +452,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           .hue="${Math.round(this.hue)}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
-          @change=${this.handleGridChange}>
+          @change=${this.handleGridChange}
+          @keydown=${this._closeOnEnter}>
         </uui-color-area>
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
@@ -448,7 +464,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               .value=${Math.round(this.hue)}
               ?disabled=${this.disabled}
               ?readonly=${this.readonly}
-              @change=${this.handleHueChange}>
+              @change=${this.handleHueChange}
+              @keydown=${this._closeOnEnter}>
             </uui-color-slider>
             ${this.opacity
               ? html`
@@ -465,7 +482,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     )}
                     ?disabled=${this.disabled}
                     ?readonly=${this.readonly}
-                    @change=${this.handleAlphaChange}>
+                    @change=${this.handleAlphaChange}
+                    @keydown=${this._closeOnEnter}>
                   </uui-color-slider>
                 `
               : ''}
@@ -531,7 +549,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       label="Swatches"
       ?disabled=${this.disabled}
       ?readonly=${this.readonly}
-      @change=${this.handleColorSwatchChange}>
+      @change=${this.handleColorSwatchChange}
+      @keydown=${this._closeOnEnter}>
       ${this.swatches.map(
         swatch =>
           html`<uui-color-swatch label="${swatch}" .value=${swatch}>
@@ -564,7 +583,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       <uui-popover-container
         id="color-picker-popover"
         no-scroll
-        @beforetoggle=${this._onPopoverToggle}>
+        @beforetoggle=${this._onPopoverToggle}
+        @focusout=${this._onPopoverFocusOut}>
         ${this._renderColorPicker()}
       </uui-popover-container>`;
   }

@@ -118,6 +118,24 @@ describe('UUIColorPickerElement', () => {
       await element.updateComplete;
     };
 
+    const nativeInput = () =>
+      element
+        .shadowRoot!.querySelector('[part="input"]')!
+        .shadowRoot!.querySelector('input')!;
+
+    const hueSliderHandle = () =>
+      element
+        .shadowRoot!.querySelector('.hue-slider')!
+        .shadowRoot!.querySelector<HTMLElement>('[tabindex]')!;
+
+    const swatchButton = (color: string) =>
+      element
+        .shadowRoot!.querySelector(`uui-color-swatch[label="${color}"]`)!
+        .shadowRoot!.querySelector('button')!;
+
+    // Lets the deferred close run, and is long enough to catch a reopen.
+    const settle = () => new Promise(resolve => setTimeout(resolve, 50));
+
     beforeEach(async () => {
       element.value = '#4a90e2';
       await element.updateComplete;
@@ -175,6 +193,105 @@ describe('UUIColorPickerElement', () => {
 
       expect(element.format).toBe('hex');
       expect(element.value).toBe('#4a90e2');
+    });
+
+    it('applies typed text and closes when Enter is pressed in the input', async () => {
+      await userEvent.fill(nativeInput(), 'red');
+      await userEvent.keyboard('{Enter}');
+      await settle();
+
+      expect(element.value).toBe('#ff0000');
+      expect(popover.matches(':popover-open')).toBe(false);
+    });
+
+    it('selects a swatch and closes when Enter is pressed on it', async () => {
+      swatchButton('#d0021b').focus();
+      await userEvent.keyboard('{Enter}');
+      await settle();
+
+      expect(element.value).toBe('#d0021b');
+      expect(popover.matches(':popover-open')).toBe(false);
+    });
+
+    it('keeps the change and closes when Enter is pressed on a slider', async () => {
+      hueSliderHandle().focus();
+      await userEvent.keyboard('{ArrowRight}{Enter}');
+      await settle();
+
+      expect(element.value).not.toBe('#4a90e2');
+      expect(popover.matches(':popover-open')).toBe(false);
+    });
+
+    it('stays closed after Enter when opened from the keyboard', async () => {
+      popover.hidePopover();
+      element
+        .shadowRoot!.querySelector<HTMLElement>('[part="trigger"]')!
+        .focus();
+      await userEvent.keyboard('{Enter}');
+      expect(popover.matches(':popover-open')).toBe(true);
+
+      nativeInput().focus();
+      await userEvent.keyboard('{Enter}');
+      await settle();
+
+      expect(popover.matches(':popover-open')).toBe(false);
+    });
+
+    it('stays open when Enter is pressed on the format toggle', async () => {
+      element
+        .shadowRoot!.querySelector('.color-picker__toggle-format')!
+        .shadowRoot!.querySelector('button')!
+        .focus();
+      await userEvent.keyboard('{Enter}');
+      await settle();
+
+      expect(element.format).toBe('rgb');
+      expect(popover.matches(':popover-open')).toBe(true);
+    });
+
+    it('stays open when Enter confirms an IME composition', async () => {
+      nativeInput().dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Enter',
+          isComposing: true,
+          bubbles: true,
+          composed: true,
+        }),
+      );
+      await settle();
+
+      expect(popover.matches(':popover-open')).toBe(true);
+    });
+
+    it('keeps the change and closes when focus moves out of the popover', async () => {
+      const after = document.createElement('input');
+      element.after(after);
+      await pickSwatch('#d0021b');
+
+      swatchButton('#fff').focus();
+      await userEvent.tab();
+      await settle();
+
+      expect(popover.matches(':popover-open')).toBe(false);
+      expect(element.value).toBe('#d0021b');
+      expect(document.activeElement).toBe(after);
+    });
+
+    it('stays open when a swatch is clicked while the input has focus', async () => {
+      nativeInput().focus();
+      await pickSwatch('#d0021b');
+      await settle();
+
+      expect(element.value).toBe('#d0021b');
+      expect(popover.matches(':popover-open')).toBe(true);
+    });
+
+    it('stays open when focus moves between its controls', async () => {
+      nativeInput().focus();
+      hueSliderHandle().focus();
+      await settle();
+
+      expect(popover.matches(':popover-open')).toBe(true);
     });
   });
 });
