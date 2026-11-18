@@ -70,6 +70,7 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   private readonly _previewButton!: HTMLButtonElement;
   @query('#swatches') private readonly _swatches!: UUIColorSwatchesElement;
   @query('#color-picker-popover') private readonly _popover!: HTMLElement;
+  @query('[part="trigger"]') private readonly _trigger!: HTMLButtonElement;
 
   private _value: string = '';
   private _valueOnOpen = '';
@@ -219,12 +220,29 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     this.setColor(this._valueOnOpen);
     // Reset uncommitted text, so the input's change on blur doesn't apply it.
     this._input.value = this.inputValue;
+    setTimeout(() => this._returnFocusToTrigger());
   };
 
   private _closeOnEnter(event: KeyboardEvent) {
     if (this.inline || event.key !== 'Enter') return;
     // Deferred: closing during keydown returns focus to the trigger, which then gets this Enter and reopens.
-    setTimeout(() => this._popover?.hidePopover());
+    setTimeout(() => {
+      this._popover?.hidePopover();
+      this._returnFocusToTrigger();
+    });
+  }
+
+  // Chromium skips the native focus return for a popover in a shadow root, and WebKit has nothing to return to after a click.
+  private _returnFocusToTrigger() {
+    if (this._popover.matches(':popover-open')) return;
+    const focused = this.shadowRoot!.activeElement;
+    // Focus lingers on the hidden control until the browser moves it to body.
+    if (
+      document.activeElement === document.body ||
+      this._popover.contains(focused)
+    ) {
+      this._trigger?.focus();
+    }
   }
 
   private _onPopoverFocusOut(event: FocusEvent) {

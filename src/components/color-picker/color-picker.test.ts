@@ -133,6 +133,9 @@ describe('UUIColorPickerElement', () => {
         .shadowRoot!.querySelector(`uui-color-swatch[label="${color}"]`)!
         .shadowRoot!.querySelector('button')!;
 
+    const trigger = () =>
+      element.shadowRoot!.querySelector<HTMLElement>('[part="trigger"]')!;
+
     // Lets the deferred close run, and is long enough to catch a reopen.
     const settle = () => new Promise(resolve => setTimeout(resolve, 50));
 
@@ -284,6 +287,22 @@ describe('UUIColorPickerElement', () => {
 
       expect(element.value).toBe('#d0021b');
       expect(popover.matches(':popover-open')).toBe(true);
+    });
+
+    it('returns focus to the trigger when Escape closes it', async () => {
+      swatchButton('#d0021b').focus();
+      await userEvent.keyboard('{Escape}');
+      await settle();
+
+      expect(element.shadowRoot!.activeElement).toBe(trigger());
+    });
+
+    it('returns focus to the trigger when Enter closes it', async () => {
+      nativeInput().focus();
+      await userEvent.keyboard('{Enter}');
+      await settle();
+
+      expect(element.shadowRoot!.activeElement).toBe(trigger());
     });
 
     it('stays open when focus moves between its controls', async () => {
