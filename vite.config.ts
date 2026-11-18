@@ -5,7 +5,15 @@ const isCI = process.env.CI === 'true';
 const browserInstances = isCI
   ? [
       { browser: 'chromium' as const },
-      { browser: 'firefox' as const },
+      {
+        browser: 'firefox' as const,
+        // Vitest 5.1 turns this pref on to probe for late import maps; with it on, Firefox 153 crashes the test page on start.
+        provider: playwright({
+          launchOptions: {
+            firefoxUserPrefs: { 'dom.multiple_import_maps.enabled': false },
+          },
+        }),
+      },
       { browser: 'webkit' as const },
     ]
   : [{ browser: 'chromium' as const }];
