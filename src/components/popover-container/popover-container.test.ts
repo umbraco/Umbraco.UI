@@ -1,6 +1,7 @@
 import './popover-container.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+import { userEvent } from 'vitest/browser';
 import { axeRun } from '../../internal/test/a11y.js';
 import { UUIPopoverContainerElement } from './popover-container.element';
 import '../button/button.js';
@@ -19,6 +20,36 @@ class DummyElementWithShadowDom extends HTMLElement {
   }
 }
 customElements.define('dummy-shadow-dom', DummyElementWithShadowDom);
+
+// A trigger, an auto popover with a nested popover, and a button outside both.
+const popoverMarkup = (tag = 'uui-popover-container') =>
+  `<button id="trigger" popovertarget="popover">Open</button>
+  <button id="outside">Outside</button>
+  <p id="blank">Nothing to focus</p>
+  <${tag} id="popover" popover>
+    <button id="inside">Inside</button>
+    <button id="nested-trigger" popovertarget="nested">Open nested</button>
+    <${tag} id="nested" popover>
+      <button id="nested-inside">Nested inside</button>
+    </${tag}>
+  </${tag}>`;
+
+class PopoverInShadowDom extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' }).innerHTML = popoverMarkup();
+  }
+}
+customElements.define('popover-in-shadow-dom', PopoverInShadowDom);
+
+/** The focused element, looking through shadow roots. */
+function deepActiveElement() {
+  let active = document.activeElement;
+  while (active?.shadowRoot?.activeElement) {
+    active = active.shadowRoot.activeElement;
+  }
+  return active;
+}
 
 describe('UUIPopoverContainerElement', () => {
   let element: UUIPopoverContainerElement;
@@ -348,6 +379,129 @@ describe('UUIPopoverContainerElement', () => {
             : '';
         }, positioned)
         .toMatch(/px$/);
+    });
+  });
+
+  describe('focus restoration', () => {
+    const roots = {
+      'the light DOM': (tag?: string) => {
+        const host = render(html`<div></div>`).container
+          .firstElementChild as HTMLElement;
+        host.innerHTML = popoverMarkup(tag);
+        return host;
+      },
+      'a shadow root': () =>
+        render(
+          html`<popover-in-shadow-dom></popover-in-shadow-dom>`,
+        ).container.querySelector('popover-in-shadow-dom')!.shadowRoot!,
+    };
+
+    const nextToggle = (popover: Element) =>
+      new Promise(resolve =>
+        popover.addEventListener('toggle', resolve, { once: true }),
+      );
+
+    // Opens the popover by keyboard and moves focus into it.
+    async function openAndFocusInside(root: ParentNode) {
+      const trigger = root.querySelector<HTMLElement>('#trigger')!;
+      trigger.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect
+        .poll(() => root.querySelector('#popover')!.matches(':popover-open'))
+        .toBe(true);
+      root.querySelector<HTMLElement>('#inside')!.focus();
+      return trigger;
+    }
+
+    for (const [where, mount] of Object.entries(roots)) {
+      it(`returns focus to the trigger on Escape in ${where}`, async () => {
+        const root = mount();
+        const trigger = await openAndFocusInside(root);
+
+        await userEvent.keyboard('{Escape}');
+
+        await expect.poll(deepActiveElement).toBe(trigger);
+      });
+
+      it(`returns focus to the trigger on hidePopover() in ${where}`, async () => {
+        const root = mount();
+        const trigger = await openAndFocusInside(root);
+
+        root.querySelector<HTMLElement>('#popover')!.hidePopover();
+
+        await expect.poll(deepActiveElement).toBe(trigger);
+      });
+    }
+
+    it('leaves focus alone when it was outside the popover at close', async () => {
+      const root = roots['a shadow root']();
+      await openAndFocusInside(root);
+      const outside = root.querySelector<HTMLElement>('#outside')!;
+      outside.focus();
+      const popover = root.querySelector<HTMLElement>('#popover')!;
+
+      const toggled = nextToggle(popover);
+      popover.hidePopover();
+      await toggled;
+
+      expect(deepActiveElement()).toBe(outside);
+    });
+
+    it('does not restore focus for a manual popover', async () => {
+      // Only auto popovers restore focus, per the spec.
+      const root = roots['a shadow root']();
+      const popover = root.querySelector<HTMLElement>('#popover')!;
+      popover.popover = 'manual';
+      const trigger = await openAndFocusInside(root);
+
+      const toggled = nextToggle(popover);
+      popover.hidePopover();
+      await toggled;
+
+      expect(deepActiveElement()).not.toBe(trigger);
+    });
+
+    it('does not restore focus after a click outside closes the popover', async () => {
+      // Light dismiss never restores focus, per the spec.
+      const root = roots['a shadow root']();
+      await openAndFocusInside(root);
+      const popover = root.querySelector<HTMLElement>('#popover')!;
+
+      const toggled = nextToggle(popover);
+      await userEvent.click(root.querySelector('#blank')!);
+      await toggled;
+
+      expect(deepActiveElement()).toBe(document.body);
+    });
+
+    it('restores focus from a nested popover only as a native popover would', async () => {
+      // The platform only restores focus for the first popover in a stack.
+      const focusAfterNestedEscape = async (root: ParentNode) => {
+        await openAndFocusInside(root);
+        root.querySelector<HTMLElement>('#nested-trigger')!.focus();
+        await userEvent.keyboard('{Enter}');
+        const nested = root.querySelector<HTMLElement>('#nested')!;
+        await expect.poll(() => nested.matches(':popover-open')).toBe(true);
+        root.querySelector<HTMLElement>('#nested-inside')!.focus();
+
+        const toggled = nextToggle(nested);
+        await userEvent.keyboard('{Escape}');
+        await toggled;
+        await new Promise(requestAnimationFrame);
+
+        const active = deepActiveElement();
+        root.querySelector<HTMLElement>('#popover')!.hidePopover();
+        return active?.id || active?.localName;
+      };
+
+      const native = await focusAfterNestedEscape(
+        roots['the light DOM']('div'),
+      );
+      const inShadowRoot = await focusAfterNestedEscape(
+        roots['a shadow root'](),
+      );
+
+      expect(inShadowRoot).toBe(native);
     });
   });
 });
