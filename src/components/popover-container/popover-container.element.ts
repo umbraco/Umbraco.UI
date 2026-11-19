@@ -133,6 +133,8 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#stopScrollListener();
     this.#sizeObserver?.disconnect();
     this.#sizeObserver = null;
+    // Removal hides the popover without firing toggle, so drop the reference here.
+    this.#previouslyFocusedElement = null;
   }
 
   readonly #onBeforeToggle = (event: any) => {
