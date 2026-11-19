@@ -69,8 +69,12 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
   @query('.color-picker__preview')
   private readonly _previewButton!: HTMLButtonElement;
   @query('#swatches') private readonly _swatches!: UUIColorSwatchesElement;
+  @query('#color-picker-popover') private readonly _popover!: HTMLElement;
+  @query('[part="trigger"]') private readonly _trigger!: HTMLButtonElement;
 
   private _value: string = '';
+  private _valueOnOpen = '';
+  private _formatOnOpen: UUIColorPickerFormat = 'hex';
 
   @state() private inputValue = '';
   @state() private hue = 0;
@@ -194,6 +198,59 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
     '#fff',
   ];
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('keydown', this._onEscapeKeyDown, true);
+  }
+
+  private readonly _onPopoverToggle = (event: ToggleEvent) => {
+    if (event.newState === 'open') {
+      this._valueOnOpen = this.value;
+      this._formatOnOpen = this.format;
+      // Window capture: focus may be outside the popover, and the input stops keydown propagation.
+      window.addEventListener('keydown', this._onEscapeKeyDown, true);
+    } else {
+      window.removeEventListener('keydown', this._onEscapeKeyDown, true);
+    }
+  };
+
+  private readonly _onEscapeKeyDown = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape') return;
+    this.format = this._formatOnOpen;
+    this.setColor(this._valueOnOpen);
+    // Reset uncommitted text, so the input's change on blur doesn't apply it.
+    this._input.value = this.inputValue;
+    setTimeout(() => this._returnFocusToTrigger());
+  };
+
+  private _closeOnEnter(event: KeyboardEvent) {
+    if (this.inline || event.key !== 'Enter') return;
+    // Deferred: closing during keydown returns focus to the trigger, which then gets this Enter and reopens.
+    setTimeout(() => {
+      this._popover?.hidePopover();
+      this._returnFocusToTrigger();
+    });
+  }
+
+  // Chromium skips the native focus return for a popover in a shadow root, and WebKit has nothing to return to after a click.
+  private _returnFocusToTrigger() {
+    if (this._popover.matches(':popover-open')) return;
+    const focused = this.shadowRoot!.activeElement;
+    // Focus lingers on the hidden control until the browser moves it to body.
+    if (
+      document.activeElement === document.body ||
+      this._popover.contains(focused)
+    ) {
+      this._trigger?.focus();
+    }
+  }
+
+  private _onPopoverFocusOut(event: FocusEvent) {
+    const next = event.relatedTarget as Node | null;
+    // No relatedTarget means a window blur or a click on nothing focusable: stay open.
+    if (next && !this._popover.contains(next)) this._popover.hidePopover();
+  }
+
   /** Returns the current value as a string in the specified format. */
   getFormattedValue(format: UUIColorPickerFormat) {
     const formatToUse = this.opacity ? `${format}a` : format;
@@ -288,13 +345,15 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
 
   handleInputKeyDown(event: KeyboardEvent) {
     event.stopImmediatePropagation();
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.isComposing) {
       this._swatches?.resetSelection();
 
       this.inputValue = this._input.value as string;
       this.setColor(this.inputValue);
 
       setTimeout(() => this._input.select());
+      // Not for Enter on the format and eyedropper buttons slotted into the input.
+      if (event.target === this._input) this._closeOnEnter(event);
     }
   }
 
@@ -411,7 +470,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
           .hue="${Math.round(this.hue)}"
           ?disabled=${this.disabled}
           ?readonly=${this.readonly}
-          @change=${this.handleGridChange}>
+          @change=${this.handleGridChange}
+          @keydown=${this._closeOnEnter}>
         </uui-color-area>
         <div class="color-picker__controls">
           <div class="color-picker__sliders">
@@ -422,7 +482,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
               .value=${Math.round(this.hue)}
               ?disabled=${this.disabled}
               ?readonly=${this.readonly}
-              @change=${this.handleHueChange}>
+              @change=${this.handleHueChange}
+              @keydown=${this._closeOnEnter}>
             </uui-color-slider>
             ${this.opacity
               ? html`
@@ -439,7 +500,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
                     )}
                     ?disabled=${this.disabled}
                     ?readonly=${this.readonly}
-                    @change=${this.handleAlphaChange}>
+                    @change=${this.handleAlphaChange}
+                    @keydown=${this._closeOnEnter}>
                   </uui-color-slider>
                 `
               : ''}
@@ -505,7 +567,8 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
       label="Swatches"
       ?disabled=${this.disabled}
       ?readonly=${this.readonly}
-      @change=${this.handleColorSwatchChange}>
+      @change=${this.handleColorSwatchChange}
+      @keydown=${this._closeOnEnter}>
       ${this.swatches.map(
         swatch =>
           html`<uui-color-swatch label="${swatch}" .value=${swatch}>
@@ -535,7 +598,11 @@ export class UUIColorPickerElement extends LabelMixin('label', LitElement) {
         aria-haspopup="true"
         aria-expanded="false"
         popovertarget="color-picker-popover"></button>
-      <uui-popover-container id="color-picker-popover" no-scroll>
+      <uui-popover-container
+        id="color-picker-popover"
+        no-scroll
+        @beforetoggle=${this._onPopoverToggle}
+        @focusout=${this._onPopoverFocusOut}>
         ${this._renderColorPicker()}
       </uui-popover-container>`;
   }

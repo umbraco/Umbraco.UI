@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import './responsive-container.element';
+import './responsive-container.js';
 import type { UUIResponsiveContainerElement } from './responsive-container.element';
 import readme from './README.md?raw';
 

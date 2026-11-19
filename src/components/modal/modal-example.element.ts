@@ -25,6 +25,15 @@ export class UUIModalExampleElement extends LitElement {
           <p>Dialog content goes here</p>
           ${this.#renderButtons()}
           <uui-button
+            @click=${() => {
+              modalRef.value?.close();
+              this.#addDialog();
+            }}
+            slot="actions"
+            look="secondary">
+            replace
+          </uui-button>
+          <uui-button
             @click=${() => modalRef.value?.close()}
             slot="actions"
             look="primary">
@@ -49,6 +58,14 @@ export class UUIModalExampleElement extends LitElement {
             ${this.#renderButtons()}
           </uui-box>
           <div class="sidebar-buttons">
+            <uui-button
+              @click=${() => {
+                modalRef.value?.close();
+                this.#addSidebar(size);
+              }}
+              look="secondary">
+              replace
+            </uui-button>
             <uui-button
               @click=${() => modalRef.value?.close()}
               slot="actions"
