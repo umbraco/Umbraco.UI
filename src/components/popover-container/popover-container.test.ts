@@ -491,7 +491,10 @@ describe('UUIPopoverContainerElement', () => {
 
         const active = deepActiveElement();
         root.querySelector<HTMLElement>('#popover')!.hidePopover();
-        return active?.id || active?.localName;
+        // WebKit can leave focus on the hidden element for a while before moving it to body: both mean nothing restored it.
+        const notRestored =
+          !active || active === document.body || nested.contains(active);
+        return notRestored ? 'not restored' : active.id;
       };
 
       const native = await focusAfterNestedEscape(
