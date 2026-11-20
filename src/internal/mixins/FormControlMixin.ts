@@ -501,8 +501,10 @@ export function UUIFormControlBaseMixin<
       this.#hadFocus = false;
       this.value = this.getInitialValue() ?? this.getDefaultValue();
       this.#valueOnFocus = undefined;
-      this.#lastEventType = undefined;
+      // A reset control shows no validation state, so report Valid to let listeners clear any message, even while invalid.
+      this.#lastEventType = UUIFormControlEvent.VALID;
       this.#lastMessage = undefined;
+      this.dispatchEvent(new UUIFormControlEvent(UUIFormControlEvent.VALID));
     }
     /**
      * Called by the browser when the control is disabled or enabled, including through an ancestor fieldset. Revalidates, as a disabled control reports no validation errors.

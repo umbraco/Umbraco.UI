@@ -12,7 +12,9 @@ describe('UUIFormValidationMessageElement', () => {
   let element: UUIFormValidationMessageElement;
 
   beforeEach(async () => {
-    element = render(html` <uui-form-validation-message></uui-form-validation-message>`).container.querySelector('uui-form-validation-message')!;
+    element = render(
+      html` <uui-form-validation-message></uui-form-validation-message>`,
+    ).container.querySelector('uui-form-validation-message')!;
 
     await element.updateComplete;
   });
@@ -78,6 +80,23 @@ describe('UUIFormValidationMessageElement', () => {
       const regex = /MyRequiredMessage/;
       expect(regex.test(messagesCon.innerHTML)).toBe(true);
     });
+
+    it('clears the validation message when the form is reset', async () => {
+      input.pristine = false;
+      input.checkValidity();
+      await input.updateComplete;
+      await validationEl.updateComplete;
+
+      const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
+      expect(/MyRequiredMessage/.test(messagesCon.innerHTML)).toBe(true);
+
+      element.reset();
+      await input.updateComplete;
+      await validationEl.updateComplete;
+
+      expect(input.pristine).toBe(true);
+      expect(/MyRequiredMessage/.test(messagesCon.innerHTML)).toBe(false);
+    });
   });
 
   describe('Using for property', () => {
@@ -112,8 +131,7 @@ describe('UUIFormValidationMessageElement', () => {
       await input.updateComplete;
       await validationEl.updateComplete;
 
-      const messagesCon =
-        validationEl.shadowRoot!.querySelector('#messages')!;
+      const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
       const regex = /MyRequiredMessage/;
 
       expect(regex.test(messagesCon.innerHTML)).toBe(true);

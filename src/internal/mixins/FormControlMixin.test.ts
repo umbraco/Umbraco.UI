@@ -379,4 +379,30 @@ describe('UUIFormControlBaseMixin validation events', () => {
 
     expect(child.pristine).toBe(false);
   });
+
+  it('reports Valid when the form is reset, even while still invalid', async () => {
+    element.failCustomValidation('Required');
+    await setPristine(false);
+    expect(invalidEvents).toBe(1);
+    resetCounts();
+
+    element.formResetCallback();
+    await element.updateComplete;
+
+    expect(element.pristine).toBe(true);
+    expect(element.validity.valid).toBe(false);
+    expect(validEvents).toBe(1);
+  });
+
+  it('reports Invalid again when touched after a reset', async () => {
+    element.failCustomValidation('Required');
+    await setPristine(false);
+    element.formResetCallback();
+    await element.updateComplete;
+    resetCounts();
+
+    await setPristine(false);
+
+    expect(invalidEvents).toBe(1);
+  });
 });
