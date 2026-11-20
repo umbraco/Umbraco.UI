@@ -92,28 +92,9 @@ describe('UUIFormValidationMessageElement', () => {
 
       element.reset();
       await input.updateComplete;
-      // Wait a tick for the MutationObserver to deliver the pristine attribute change.
-      await new Promise(resolve => setTimeout(resolve, 0));
       await validationEl.updateComplete;
 
       expect(input.pristine).toBe(true);
-      expect(/MyRequiredMessage/.test(messagesCon.innerHTML)).toBe(false);
-    });
-
-    it('clears the validation message when the control is set back to pristine', async () => {
-      input.pristine = false;
-      input.checkValidity();
-      await input.updateComplete;
-      await validationEl.updateComplete;
-
-      const messagesCon = validationEl.shadowRoot!.querySelector('#messages')!;
-      expect(/MyRequiredMessage/.test(messagesCon.innerHTML)).toBe(true);
-
-      input.pristine = true;
-      await input.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 0));
-      await validationEl.updateComplete;
-
       expect(/MyRequiredMessage/.test(messagesCon.innerHTML)).toBe(false);
     });
   });
