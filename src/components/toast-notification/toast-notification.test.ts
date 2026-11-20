@@ -367,4 +367,29 @@ describe('UUIToastNotificationElement', () => {
       });
     });
   });
+
+  describe('text direction', () => {
+    for (const dir of ['ltr', 'rtl']) {
+      it(`places the close button at the inline end in ${dir}`, async () => {
+        const toast = render(html`
+          <div dir=${dir}>
+            <uui-toast-notification>Message</uui-toast-notification>
+          </div>
+        `).container.querySelector('uui-toast-notification')!;
+        await toast.updateComplete;
+
+        const box = toast
+          .shadowRoot!.querySelector('#toast > div')!
+          .getBoundingClientRect();
+        const close = toast
+          .shadowRoot!.querySelector('#close')!
+          .getBoundingClientRect();
+        const toEnd =
+          dir === 'rtl' ? close.left - box.left : box.right - close.right;
+        const toStart =
+          dir === 'rtl' ? box.right - close.right : close.left - box.left;
+        expect(toEnd).toBeLessThan(toStart);
+      });
+    }
+  });
 });

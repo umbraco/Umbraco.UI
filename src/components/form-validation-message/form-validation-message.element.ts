@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
  * @element uui-form-validation-message
  * @description - Component for displaying one or more validation messages from UUI Form Control within the given scope.
  * Notice: Only supports components that is build on the FormControlMixing.
+ * Messages are rendered as HTML: sanitise any message that includes content you don't control. Browser messages for native constraints can quote the field's value.
  * @slot - for button contents
  * @slot message - for extras in the messages container
  * @see FormControlMixin

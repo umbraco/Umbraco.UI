@@ -1,6 +1,7 @@
 import './toast-notification-container.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+import { userEvent } from 'vitest/browser';
 
 import { axeRun } from '../../internal/test/a11y.js';
 import { oneEvent } from '../../internal/test/index.js';
@@ -17,6 +18,22 @@ import { UUIToastNotificationContainerElement } from './toast-notification-conta
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * Moves the pointer to the bottom-right corner of the viewport, away from where the toasts render.
+ * Chromium dispatches `mouseenter` when an element appears under a resting pointer, which pauses autoClose,
+ * so a pointer left over from an earlier test would otherwise keep the toasts open.
+ */
+async function parkPointer() {
+  const target = document.createElement('div');
+  target.style.cssText = 'position: fixed; inset: 0;';
+  document.body.appendChild(target);
+  await userEvent.hover(target, {
+    position: { x: window.innerWidth - 1, y: window.innerHeight - 1 },
+  });
+  target.remove();
+}
+
 const ANIMATION_DURATION = 25;
 
 describe('UUIToastNotificationContainerElement', () => {
@@ -24,6 +41,8 @@ describe('UUIToastNotificationContainerElement', () => {
   let toastElement: UUIToastNotificationElement;
 
   beforeEach(async () => {
+    await parkPointer();
+
     element = render(html`
       <uui-toast-notification-container></uui-toast-notification-container>
     `).container.querySelector('uui-toast-notification-container')!;

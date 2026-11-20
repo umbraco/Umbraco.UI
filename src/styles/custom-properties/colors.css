@@ -20,6 +20,7 @@
   --uui-color-header-contrast-emphasis: #fff;
 
   --uui-color-focus: var(--uui-palette-malibu);
+  --uui-color-focus-contrast: #fff;
 
   /* ----- SURFACE -----  */
   --uui-color-surface: #fff;

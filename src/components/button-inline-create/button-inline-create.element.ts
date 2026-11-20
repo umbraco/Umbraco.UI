@@ -21,7 +21,7 @@ export class UUIButtonInlineCreateElement extends LitElement {
   private _position = 0;
 
   /**
-   * Label to be used for aria-label and eventually as visual label
+   * Accessible name of the button, used as its aria-label (falls back to "create new element"). Not rendered visually.
    * @type {string}
    * @attr
    */

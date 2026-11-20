@@ -116,6 +116,7 @@ export class UUIRefNodeElement extends UUIRefElement {
           <div id="name">${this.name}<slot name="name"></slot></div>
           ${this.renderDetail()}
         </div>
+        <slot name="tag" id="tag-container"></slot>
       </span>
     `;
   }
@@ -157,7 +158,7 @@ export class UUIRefNodeElement extends UUIRefElement {
       <div id="select-border"></div>
 
       <slot></slot>
-      <slot name="tag" id="tag-container"></slot>
+
       <slot name="actions" id="actions-container"></slot>
     `;
   }
@@ -188,6 +189,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         align-items: center;
         line-height: 1.2em;
         padding: calc(var(--uui-size-3));
+        padding-right: 0;
         width: calc(100% - 2 * var(--uui-size-3));
       }
 
@@ -198,7 +200,6 @@ export class UUIRefNodeElement extends UUIRefElement {
         display: flex;
         flex-grow: 1;
         min-width: 0;
-        margin: 0 0 1px 0;
       }
 
       #icon {
@@ -217,6 +218,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         height: 100%;
         min-width: 0;
         padding-left: var(--uui-size-2);
+        padding-right: var(--uui-size-2);
         max-width: calc(100% - 2 * var(--uui-size-3) - var(--uui-size-2));
         margin-top: 1px;
       }

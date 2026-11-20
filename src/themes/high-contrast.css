@@ -19,6 +19,7 @@
   --uui-color-header-contrast-emphasis: #fff;
 
   --uui-color-focus: var(--uui-palette-malibu);
+  --uui-color-focus-contrast: #fff;
 
   --uui-color-disabled: var(--uui-palette-sand);
   --uui-color-disabled-standalone: var(--uui-palette-sand-dark);

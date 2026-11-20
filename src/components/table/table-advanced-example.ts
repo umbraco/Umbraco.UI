@@ -234,7 +234,10 @@ export class UUITableWithSelectionExampleElement extends LitElement {
       <uui-table-cell>
         <uui-progress-bar
           style="margin-top: 12px; display: block;"
-          progress="${item.progress * 25}">
+          label="Steps completed"
+          max="4"
+          progress="${item.progress}"
+          status="${item.progress === 4 ? 'finished' : 'in-progress'}">
         </uui-progress-bar>
         <small
           style="margin-top: 1px; text-align: right; display:block; margin-bottom:0;">

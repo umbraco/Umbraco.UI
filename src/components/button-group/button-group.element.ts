@@ -37,6 +37,9 @@ export class UUIButtonGroupElement extends LitElement {
         --uui-button-border-radius: 0 var(--uui-border-radius-3)
           var(--uui-border-radius-3) 0;
       }
+      ::slotted(*:first-child:last-child) {
+        --uui-button-border-radius: var(--uui-border-radius-3);
+      }
 
       ::slotted(*:hover) {
         z-index: 1;

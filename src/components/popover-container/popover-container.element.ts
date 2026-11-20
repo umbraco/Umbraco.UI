@@ -18,6 +18,22 @@ export type PopoverContainerPlacement =
   | 'left-start'
   | 'left-end';
 
+function getDeepActiveElement(): Element | null {
+  let active = document.activeElement;
+  while (active?.shadowRoot?.activeElement) {
+    active = active.shadowRoot.activeElement;
+  }
+  return active;
+}
+
+function getShadowIncludingAncestors(node: Node | null): Node[] {
+  const ancestors: Node[] = [];
+  for (; node; node = node.parentNode ?? (node as ShadowRoot).host ?? null) {
+    ancestors.push(node);
+  }
+  return ancestors;
+}
+
 /**
  * @element uui-popover-container
  * @attr popover - Indicates that the element is a popover container
@@ -75,6 +91,8 @@ export class UUIPopoverContainerElement extends LitElement {
   #scrollParents: Element[] = [];
   #sizeObserver: ResizeObserver | null = null;
   #size: { width: number; height: number } = { width: 0, height: 0 };
+  #previouslyFocusedElement: HTMLElement | null = null;
+  #focusWasInside = false;
 
   constructor() {
     super();
@@ -82,6 +100,7 @@ export class UUIPopoverContainerElement extends LitElement {
     this.addEventListener('beforetoggle', this.#onBeforeToggle, {
       passive: true,
     });
+    this.addEventListener('toggle', this.#onToggle, { passive: true });
   }
 
   connectedCallback(): void {
@@ -114,6 +133,8 @@ export class UUIPopoverContainerElement extends LitElement {
     this.#stopScrollListener();
     this.#sizeObserver?.disconnect();
     this.#sizeObserver = null;
+    // Removal hides the popover without firing toggle, so drop the reference here.
+    this.#previouslyFocusedElement = null;
   }
 
   readonly #onBeforeToggle = (event: any) => {
@@ -136,6 +157,8 @@ export class UUIPopoverContainerElement extends LitElement {
     );
 
     if (this._open) {
+      this.#previouslyFocusedElement = this.#getFocusToRestore();
+
       this.#calculateScrollParents();
 
       this.#startScrollListener();
@@ -144,10 +167,52 @@ export class UUIPopoverContainerElement extends LitElement {
         this.#initUpdate();
       });
     } else {
+      this.#focusWasInside = getShadowIncludingAncestors(
+        getDeepActiveElement(),
+      ).includes(this);
+
       this.#stopScrollListener();
       this.style.removeProperty('--_available-height');
     }
   };
+
+  // Chromium skips the spec's focus restore for popovers in a shadow root (plain contains() on retargeted focus), so restore it when the browser did not.
+  readonly #onToggle = (event: ToggleEvent) => {
+    if (event.newState !== 'closed') return;
+
+    const previous = this.#previouslyFocusedElement;
+    const focusWasInside = this.#focusWasInside;
+    this.#previouslyFocusedElement = null;
+    this.#focusWasInside = false;
+    if (!previous || !focusWasInside) return;
+
+    const active = getDeepActiveElement();
+    if (
+      !active ||
+      active === document.body ||
+      getShadowIncludingAncestors(active).includes(this)
+    ) {
+      previous.focus({ preventScroll: true });
+    }
+  };
+
+  // Mirrors the spec's shouldRestoreFocus: only the first auto popover in a stack restores focus.
+  #getFocusToRestore(): HTMLElement | null {
+    if (this.popover === 'manual') return null;
+
+    const active = getDeepActiveElement();
+    if (!(active instanceof HTMLElement) || active === document.body) {
+      return null;
+    }
+
+    const isInOpenPopover = getShadowIncludingAncestors(active).some(
+      node =>
+        node instanceof HTMLElement &&
+        node.popover !== 'manual' &&
+        node.matches(':popover-open'),
+    );
+    return isInOpenPopover ? null : active;
+  }
 
   readonly #initUpdate = () => {
     if (!this._open) return;
@@ -430,6 +495,8 @@ export class UUIPopoverContainerElement extends LitElement {
     css`
       :host {
         margin: 0;
+        /* The position is a translate() from the viewport's top-left corner, so keep the origin there in right-to-left documents too. */
+        inset: 0 auto auto 0;
         width: fit-content;
         height: fit-content;
         border: none;

@@ -23,6 +23,7 @@ export class UUITableElement extends LitElement {
     css`
       :host {
         display: block;
+        box-sizing: border-box;
         width: 100%;
         background-color: var(--uui-color-surface);
 

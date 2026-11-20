@@ -1,6 +1,7 @@
 import './popover-container.js';
 import { html } from 'lit';
 import { render } from 'vitest-browser-lit';
+import { userEvent } from 'vitest/browser';
 import { axeRun } from '../../internal/test/a11y.js';
 import { UUIPopoverContainerElement } from './popover-container.element';
 import '../button/button.js';
@@ -19,6 +20,36 @@ class DummyElementWithShadowDom extends HTMLElement {
   }
 }
 customElements.define('dummy-shadow-dom', DummyElementWithShadowDom);
+
+// A trigger, an auto popover with a nested popover, and a button outside both.
+const popoverMarkup = (tag = 'uui-popover-container') =>
+  `<button id="trigger" popovertarget="popover">Open</button>
+  <button id="outside">Outside</button>
+  <p id="blank">Nothing to focus</p>
+  <${tag} id="popover" popover>
+    <button id="inside">Inside</button>
+    <button id="nested-trigger" popovertarget="nested">Open nested</button>
+    <${tag} id="nested" popover>
+      <button id="nested-inside">Nested inside</button>
+    </${tag}>
+  </${tag}>`;
+
+class PopoverInShadowDom extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' }).innerHTML = popoverMarkup();
+  }
+}
+customElements.define('popover-in-shadow-dom', PopoverInShadowDom);
+
+/** The focused element, looking through shadow roots. */
+function deepActiveElement() {
+  let active = document.activeElement;
+  while (active?.shadowRoot?.activeElement) {
+    active = active.shadowRoot.activeElement;
+  }
+  return active;
+}
 
 describe('UUIPopoverContainerElement', () => {
   let element: UUIPopoverContainerElement;
@@ -167,7 +198,56 @@ describe('UUIPopoverContainerElement', () => {
     });
   });
 
+  describe('positioning', () => {
+    afterEach(() => {
+      document.documentElement.removeAttribute('dir');
+    });
+
+    for (const dir of ['ltr', 'rtl']) {
+      it(`anchors the popover to its target in a ${dir} document`, async () => {
+        // The popover is positioned against the viewport, which takes its direction from the root element.
+        document.documentElement.dir = dir;
+        const container = render(html`
+          <main>
+            <uui-button
+              id="trigger-button"
+              popovertarget="test-popover"
+              label="Open"
+              style="position:fixed; top:50px; left:200px;"></uui-button>
+            <uui-popover-container
+              id="test-popover"
+              popover
+              placement="bottom-start">
+              <div style="width:100px; height:50px;">Content</div>
+            </uui-popover-container>
+          </main>
+        `).container.querySelector('main')!;
+
+        const popover = container.querySelector(
+          '#test-popover',
+        ) as UUIPopoverContainerElement;
+        const button = container.querySelector(
+          '#trigger-button',
+        ) as HTMLElement;
+
+        button.click();
+        await expect
+          .poll(() => popover.style.opacity, { timeout: 5000 })
+          .toBe('1');
+
+        const target = button.getBoundingClientRect();
+        const rect = popover.getBoundingClientRect();
+        expect(rect.top).toBeCloseTo(target.bottom, 0);
+        expect(rect.left).toBeLessThanOrEqual(target.right);
+        expect(rect.right).toBeGreaterThanOrEqual(target.left);
+      });
+    }
+  });
+
   describe('available height CSS custom property', () => {
+    // Headless WebKit on Linux CI can take close to 2 s to position a popover, past the default 1 s poll.
+    const positioned = { timeout: 5000 };
+
     it('should set --_available-height when opened', async () => {
       const testContainer = render(html`
         <main>
@@ -195,7 +275,10 @@ describe('UUIPopoverContainerElement', () => {
 
       button?.click();
       await expect
-        .poll(() => popover.style.getPropertyValue('--_available-height'))
+        .poll(
+          () => popover.style.getPropertyValue('--_available-height'),
+          positioned,
+        )
         .toMatch(/^\d+(\.\d+)?px$/);
 
       const numericValue = parseFloat(
@@ -241,7 +324,10 @@ describe('UUIPopoverContainerElement', () => {
 
       (container.querySelector('#btn1') as HTMLElement).click();
       await expect
-        .poll(() => p1.style.getPropertyValue('--_available-height'))
+        .poll(
+          () => p1.style.getPropertyValue('--_available-height'),
+          positioned,
+        )
         .toMatch(/px$/);
       const withoutMargin = parseFloat(
         p1.style.getPropertyValue('--_available-height'),
@@ -249,7 +335,10 @@ describe('UUIPopoverContainerElement', () => {
 
       (container.querySelector('#btn2') as HTMLElement).click();
       await expect
-        .poll(() => p2.style.getPropertyValue('--_available-height'))
+        .poll(
+          () => p2.style.getPropertyValue('--_available-height'),
+          positioned,
+        )
         .toMatch(/px$/);
       const withMargin = parseFloat(
         p2.style.getPropertyValue('--_available-height'),
@@ -288,8 +377,134 @@ describe('UUIPopoverContainerElement', () => {
           return scrollContainer
             ? getComputedStyle(scrollContainer).maxHeight
             : '';
-        })
+        }, positioned)
         .toMatch(/px$/);
+    });
+  });
+
+  describe('focus restoration', () => {
+    const roots = {
+      'the light DOM': (tag?: string) => {
+        const host = render(html`<div></div>`).container
+          .firstElementChild as HTMLElement;
+        host.innerHTML = popoverMarkup(tag);
+        return host;
+      },
+      'a shadow root': () =>
+        render(
+          html`<popover-in-shadow-dom></popover-in-shadow-dom>`,
+        ).container.querySelector('popover-in-shadow-dom')!.shadowRoot!,
+    };
+
+    const nextToggle = (popover: Element) =>
+      new Promise(resolve =>
+        popover.addEventListener('toggle', resolve, { once: true }),
+      );
+
+    // Opens the popover by keyboard and moves focus into it.
+    async function openAndFocusInside(root: ParentNode) {
+      const trigger = root.querySelector<HTMLElement>('#trigger')!;
+      trigger.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect
+        .poll(() => root.querySelector('#popover')!.matches(':popover-open'))
+        .toBe(true);
+      root.querySelector<HTMLElement>('#inside')!.focus();
+      return trigger;
+    }
+
+    for (const [where, mount] of Object.entries(roots)) {
+      it(`returns focus to the trigger on Escape in ${where}`, async () => {
+        const root = mount();
+        const trigger = await openAndFocusInside(root);
+
+        await userEvent.keyboard('{Escape}');
+
+        await expect.poll(deepActiveElement).toBe(trigger);
+      });
+
+      it(`returns focus to the trigger on hidePopover() in ${where}`, async () => {
+        const root = mount();
+        const trigger = await openAndFocusInside(root);
+
+        root.querySelector<HTMLElement>('#popover')!.hidePopover();
+
+        await expect.poll(deepActiveElement).toBe(trigger);
+      });
+    }
+
+    it('leaves focus alone when it was outside the popover at close', async () => {
+      const root = roots['a shadow root']();
+      await openAndFocusInside(root);
+      const outside = root.querySelector<HTMLElement>('#outside')!;
+      outside.focus();
+      const popover = root.querySelector<HTMLElement>('#popover')!;
+
+      const toggled = nextToggle(popover);
+      popover.hidePopover();
+      await toggled;
+
+      expect(deepActiveElement()).toBe(outside);
+    });
+
+    it('does not restore focus for a manual popover', async () => {
+      // Only auto popovers restore focus, per the spec.
+      const root = roots['a shadow root']();
+      const popover = root.querySelector<HTMLElement>('#popover')!;
+      popover.popover = 'manual';
+      const trigger = await openAndFocusInside(root);
+
+      const toggled = nextToggle(popover);
+      popover.hidePopover();
+      await toggled;
+
+      expect(deepActiveElement()).not.toBe(trigger);
+    });
+
+    it('does not restore focus after a click outside closes the popover', async () => {
+      // Light dismiss never restores focus, per the spec.
+      const root = roots['a shadow root']();
+      await openAndFocusInside(root);
+      const popover = root.querySelector<HTMLElement>('#popover')!;
+
+      const toggled = nextToggle(popover);
+      await userEvent.click(root.querySelector('#blank')!);
+      await toggled;
+
+      expect(deepActiveElement()).toBe(document.body);
+    });
+
+    it('restores focus from a nested popover only as a native popover would', async () => {
+      // The platform only restores focus for the first popover in a stack.
+      const focusAfterNestedEscape = async (root: ParentNode) => {
+        await openAndFocusInside(root);
+        root.querySelector<HTMLElement>('#nested-trigger')!.focus();
+        await userEvent.keyboard('{Enter}');
+        const nested = root.querySelector<HTMLElement>('#nested')!;
+        await expect.poll(() => nested.matches(':popover-open')).toBe(true);
+        root.querySelector<HTMLElement>('#nested-inside')!.focus();
+
+        const toggled = nextToggle(nested);
+        await userEvent.keyboard('{Escape}');
+        await toggled;
+        await new Promise(requestAnimationFrame);
+
+        const active = deepActiveElement();
+        root.querySelector<HTMLElement>('#popover')!.hidePopover();
+        // WebKit can leave focus on the hidden element for a while before moving it to body: both mean nothing restored it.
+        const notRestored =
+          !active || active === document.body || nested.contains(active);
+        return notRestored ? 'not restored' : active.id;
+      };
+
+      const native = await focusAfterNestedEscape(
+        roots['the light DOM']('div'),
+      );
+      const inShadowRoot = await focusAfterNestedEscape(
+        roots['a shadow root'](),
+      );
+
+      expect(inShadowRoot).toBe(native);
     });
   });
 });

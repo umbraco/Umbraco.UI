@@ -44,6 +44,10 @@ export class UUISymbolExpandElement extends LitElement {
         height: 100%;
       }
 
+      :host(:dir(rtl)) svg {
+        transform: rotate(90deg);
+      }
+
       :host([open]) svg {
         transform: rotate(0deg);
       }

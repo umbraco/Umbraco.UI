@@ -105,7 +105,7 @@ export class UUITextareaElement extends UUIFormControlWithBasicsMixin(
   autoHeight = false;
 
   /**
-   * Label to be used for aria-label and eventually as visual label
+   * Accessible name of the textarea, used as the native textarea's aria-label. Not rendered visually.
    * @type {string}
    * @attr
    */

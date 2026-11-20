@@ -14,10 +14,11 @@ import { iconCheck } from '../icon-registry-essential/svgs/iconCheck.js';
  * Color swatch, can have label and be selectable, disabled or readonly.
  *
  * @element uui-color-swatch
+ * @property {string} label - name of the color, used as the swatch's aria-label and tooltip. Only shown visually when `show-label` is set, where content in the `label` slot replaces it.
  * @cssprop --uui-swatch-size - The size of the swatch.
  * @cssprop --uui-swatch-border-width - The width of the border.
  * @cssprop --uui-swatch-color - The color of the swatch.
- * @slot label - Default slot for the label.
+ * @slot label - for label content, shown instead of the `label` text when `show-label` is set.
  */
 export class UUIColorSwatchElement extends LabelMixin(
   'label',

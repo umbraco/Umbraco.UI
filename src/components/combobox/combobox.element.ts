@@ -515,6 +515,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
       }
       #expand-symbol-wrapper {
         height: 100%;
+        margin-right: 0;
         padding-right: var(--uui-size-space-3);
         display: flex;
         justify-content: center;
@@ -577,6 +578,7 @@ export class UUIComboboxElement extends UUIFormControlWithBasicsMixin(
 
       :host([multiple]) #combobox-input {
         --uui-input-height: auto;
+        --uui-input-min-width: 60px;
         min-height: var(--uui-size-11);
       }
       :host([multiple]) uui-tag {

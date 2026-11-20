@@ -12,6 +12,7 @@ import { css, html } from 'lit';
 /**
  *  Umbraco Toggle-switch, toggles between off/on. Technically a checkbox.
  *  @element uui-toggle
+ *  @property {string} label - text shown next to the toggle, unless content is slotted. Also used as the native input's aria-label unless an aria-label attribute is set.
  *  @fires UUIBooleanInputEvent#change- fires when the element is begin checked by a user action
  *  @cssprop --uui-toggle-size - Define the toggle size.
  *  @cssprop --uui-toggle-switch-width - Define the slider width.
@@ -21,6 +22,7 @@ import { css, html } from 'lit';
  *  @cssprop --uui-toggle-background-color-hover - Set the toggle background color when hovered
  *  @cssprop --uui-toggle-border-color-focus - Set the toggle background color when focused
  *  @cssprop --uui-toggle-background-color-focus - Set the toggle background color when focused
+ *  @slot - for label content, shown instead of the `label` text
  *  @extends UUIBooleanInputElement
  */
 export class UUIToggleElement extends UUIBooleanInputElement {

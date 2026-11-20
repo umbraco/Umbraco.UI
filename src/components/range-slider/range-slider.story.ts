@@ -34,6 +34,21 @@ export const HiddenValues: Story = {
   },
 };
 
+export const HiddenValueLabel: Story = {
+  args: {
+    hideValueLabel: true,
+  },
+};
+
+export const CloseValues: Story = {
+  args: {
+    step: 0.1,
+    min: 0,
+    max: 50,
+    value: '20.1,20.2',
+  },
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,

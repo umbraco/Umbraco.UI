@@ -10,6 +10,7 @@ import { UUIMenuItemElement } from './menu-item.element';
 import { UUIMenuItemEvent } from './UUIMenuItemEvent';
 import { UUISelectableEvent } from '../../internal/events';
 import { UUITestMouse } from '../../internal/test/index';
+import '../../styles/custom-properties/sizes.css';
 
 describe('UUIMenuItemElement', () => {
   describe('element', () => {
@@ -311,6 +312,37 @@ describe('UUIMenuItemElement', () => {
         expect(element.selected).toBe(false);
       });
 
+      it('exposes aria-pressed as false when selectable and unselected', async () => {
+        await element.updateComplete;
+        expect(labelElement?.getAttribute('aria-pressed')).toBe('false');
+      });
+
+      it('sets aria-pressed to true once selected', async () => {
+        await element.updateComplete;
+        await mouse.leftClick(element);
+        await element.updateComplete;
+        expect(labelElement?.getAttribute('aria-pressed')).toBe('true');
+      });
+
+      it('sets aria-pressed back to false once deselected', async () => {
+        element.selected = true;
+        await element.updateComplete;
+        await mouse.leftClick(element);
+        await element.updateComplete;
+        expect(labelElement?.getAttribute('aria-pressed')).toBe('false');
+      });
+
+      it('does not expose aria-pressed when not selectable', async () => {
+        element.selectable = false;
+        await element.updateComplete;
+        expect(labelElement?.hasAttribute('aria-pressed')).toBe(false);
+      });
+
+      it('passes the a11y audit when selectable', async () => {
+        await element.updateComplete;
+        expect(await axeRun(element)).toHaveNoViolations();
+      });
+
       it('can expand', async () => {
         element.setAttribute('has-children', 'true');
         await element.updateComplete;
@@ -518,5 +550,61 @@ describe('UUIMenuItemElement', () => {
         expect(element.hasAttribute('show-children')).toBe(true);
       });
     });
+  });
+
+  describe('text direction', () => {
+    for (const dir of ['ltr', 'rtl']) {
+      it(`keeps a gap between the icon and the label in ${dir}`, async () => {
+        const element = render(html`
+          <div dir=${dir}>
+            <uui-menu-item label="Item">
+              <span
+                slot="icon"
+                style="display: inline-block; width: 16px; height: 16px;"></span>
+            </uui-menu-item>
+          </div>
+        `).container.querySelector('uui-menu-item')!;
+        await element.updateComplete;
+        const icon = element.shadowRoot!.querySelector('#icon') as HTMLElement;
+        await expect
+          .poll(() => getComputedStyle(icon).display)
+          .not.toBe('none');
+
+        const iconRect = icon.getBoundingClientRect();
+        const labelRect = element
+          .shadowRoot!.querySelector('span.label')!
+          .getBoundingClientRect();
+        const gap =
+          dir === 'rtl'
+            ? iconRect.left - labelRect.right
+            : labelRect.left - iconRect.right;
+        expect(gap).toBeGreaterThan(0);
+      });
+
+      it(`indents nested items from the inline start in ${dir}`, async () => {
+        const parent = render(html`
+          <div dir=${dir}>
+            <uui-menu-item label="Parent" has-children show-children>
+              <uui-menu-item label="Child"></uui-menu-item>
+            </uui-menu-item>
+          </div>
+        `).container.querySelector('uui-menu-item')!;
+        const child = parent.querySelector('uui-menu-item')!;
+        await parent.updateComplete;
+        await child.updateComplete;
+
+        const parentRect = parent
+          .shadowRoot!.querySelector('#label-button')!
+          .getBoundingClientRect();
+        const childRect = child
+          .shadowRoot!.querySelector('#label-button')!
+          .getBoundingClientRect();
+        const indent =
+          dir === 'rtl'
+            ? parentRect.right - childRect.right
+            : childRect.left - parentRect.left;
+        expect(indent).toBeGreaterThan(0);
+      });
+    }
   });
 });
