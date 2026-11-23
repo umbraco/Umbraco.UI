@@ -90,6 +90,22 @@ export const Disabled: Story = { args: { disabled: true } };
 
 export const Readonly: Story = { args: { readonly: true } };
 
+export const ReadonlyLongName: Story = {
+  args: {
+    readonly: true,
+    standalone: true,
+    name: 'Rabbit Suit Product Page with a name long enough to be truncated next to the actions',
+    'actions slot': html`<uui-action-bar slot="actions"
+      ><uui-button label="remove" look="secondary"
+        >Remove</uui-button
+      ></uui-action-bar
+    >`,
+  },
+  decorators: [
+    (Story: any) => html`<div style="max-width: 420px;">${Story()}</div>`,
+  ],
+};
+
 export const Focus: Story = {
   args: { id: 'refNode' },
   decorators: [

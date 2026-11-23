@@ -62,6 +62,29 @@ describe('UUIRefNodeElement', () => {
     });
   });
 
+  describe('layout', () => {
+    const longName =
+      'A name that is far too long to fit next to the actions of a narrow ref node';
+
+    for (const readonly of [false, true]) {
+      it(`keeps the actions inside a ${readonly ? 'readonly' : 'clickable'} ref node with a long name`, async () => {
+        const refNode = render(
+          html`<div style="width: 340px">
+            <uui-ref-node standalone ?readonly=${readonly} name=${longName}>
+              <button slot="actions">Remove</button>
+            </uui-ref-node>
+          </div>`,
+        ).container.querySelector('uui-ref-node')!;
+        await refNode.updateComplete;
+
+        const action = refNode.querySelector('button')!;
+        expect(action.getBoundingClientRect().right).toBeLessThanOrEqual(
+          refNode.getBoundingClientRect().right,
+        );
+      });
+    }
+  });
+
   describe('events', () => {
     describe('open', () => {
       it('emits a open event when info is clicked', async () => {

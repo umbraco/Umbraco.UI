@@ -191,6 +191,7 @@ export class UUIRefNodeElement extends UUIRefElement {
         padding: calc(var(--uui-size-3));
         padding-right: 0;
         width: calc(100% - 2 * var(--uui-size-3));
+        min-width: 0;
       }
 
       #open-part {
