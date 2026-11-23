@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/umbraco/Umbraco.UI/compare/v2.2.0...v2.2.1) (2026-11-20)
+
+### Bug Fixes
+
+- **color-picker:** restore the opening value when Escape closes the popover (closes [#1554](https://github.com/umbraco/Umbraco.UI/issues/1554)) ([#1555](https://github.com/umbraco/Umbraco.UI/issues/1555)) ([d129761](https://github.com/umbraco/Umbraco.UI/commit/d1297617f2db16fb2cd162e5f05f937489d244b7))
+- **popover-container:** return focus to the trigger when a popover in a shadow root closes ([#1558](https://github.com/umbraco/Umbraco.UI/issues/1558)) ([0a1e3e2](https://github.com/umbraco/Umbraco.UI/commit/0a1e3e2737dd9526b04b4037826bd1042219f252))
+
 # [2.2.0](https://github.com/umbraco/Umbraco.UI/compare/v2.1.1...v2.2.0) (2026-11-11)
 
 ### Bug Fixes
